@@ -14,8 +14,17 @@ export default function HomePage() {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Link to="/" className="text-2xl font-bold text-blue-600">
-                Centro Dentário Colombo
+              <Link to="/" className="flex items-center gap-3 group">
+                {/* Logo Image */}
+                <img 
+                  src="/logo-colombo-nav.png" 
+                  alt="Centro Dentário Colombo Logo" 
+                  className="h-12 w-auto md:h-14 transition-transform group-hover:scale-105"
+                />
+                {/* Text - Hidden on mobile, visible on tablet+ */}
+                <span className="hidden sm:block text-xl md:text-2xl font-bold bg-gradient-to-r from-[#14489c] to-[#006bb3] bg-clip-text text-transparent transition-all ">
+  Centro Dentário Colombo
+</span>
               </Link>
             </div>
 
@@ -175,7 +184,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="rounded-3xl overflow-hidden shadow-2xl h-96">
                 <img
-                  src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=600&fit=crop"
+                  src="/hero-colombo.jpg"
                   alt="Dentista profissional"
                   className="w-full h-full object-cover"
                 />
@@ -186,32 +195,32 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-5xl font-bold mb-2">7</div>
-              <div className="text-xl">Dias por Semana</div>
-              <div className="text-sm opacity-80 mt-1">10h - 22h</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">100%</div>
-              <div className="text-xl">Licenciado ERS</div>
-              <div className="text-sm opacity-80 mt-1">Qualidade Garantida</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">✓</div>
-              <div className="text-xl">Equipamento Moderno</div>
-              <div className="text-sm opacity-80 mt-1">Última Geração</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">★★★★★</div>
-              <div className="text-xl">Atendimento</div>
-              <div className="text-sm opacity-80 mt-1">Personalizado</div>
-            </div>
-          </div>
-        </div>
-      </section>
+<section className="py-10 bg-blue-600 text-white">
+  <div className="max-w-7xl mx-auto px-4">
+    <div className="grid md:grid-cols-4 gap-8 text-center">
+      <div>
+        <div className="text-4xl font-bold mb-2">7</div>
+        <div className="text-lg">Dias por Semana</div>
+        <div className="text-sm opacity-80 mt-1">10h - 22h</div>
+      </div>
+      <div>
+        <div className="text-4xl font-bold mb-2">100%</div>
+        <div className="text-lg">Licenciado ERS</div>
+        <div className="text-sm opacity-80 mt-1">Qualidade Garantida</div>
+      </div>
+      <div>
+        <div className="text-4xl font-bold mb-2">✓</div>
+        <div className="text-lg">Equipamento Moderno</div>
+        <div className="text-sm opacity-80 mt-1">Última Geração</div>
+      </div>
+      <div>
+        <div className="text-4xl font-bold mb-2">★★★★★</div>
+        <div className="text-lg">Atendimento</div>
+        <div className="text-sm opacity-80 mt-1">Personalizado</div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Sobre Section */}
       <section id="sobre" className="py-20 px-4">
