@@ -182,11 +182,11 @@ export default function HomePage() {
               </div>
             </div>
             <div className="relative">
-              <div className="rounded-3xl overflow-hidden shadow-2xl h-96">
+              <div className="rounded-3xl overflow-hidden shadow-2xl">
                 <img
                   src="/hero-colombo.jpg"
-                  alt="Dentista profissional"
-                  className="w-full h-full object-cover"
+                  alt="Centro Dentário Colombo"
+                  className="w-full h-full object-cover aspect-square"
                 />
               </div>
             </div>
@@ -194,33 +194,33 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stats Section */}
-<section className="py-10 bg-blue-600 text-white">
-  <div className="max-w-7xl mx-auto px-4">
-    <div className="grid md:grid-cols-4 gap-8 text-center">
-      <div>
-        <div className="text-4xl font-bold mb-2">7</div>
-        <div className="text-lg">Dias por Semana</div>
-        <div className="text-sm opacity-80 mt-1">10h - 22h</div>
-      </div>
-      <div>
-        <div className="text-4xl font-bold mb-2">100%</div>
-        <div className="text-lg">Licenciado ERS</div>
-        <div className="text-sm opacity-80 mt-1">Qualidade Garantida</div>
-      </div>
-      <div>
-        <div className="text-4xl font-bold mb-2">✓</div>
-        <div className="text-lg">Equipamento Moderno</div>
-        <div className="text-sm opacity-80 mt-1">Última Geração</div>
-      </div>
-      <div>
-        <div className="text-4xl font-bold mb-2">★★★★★</div>
-        <div className="text-lg">Atendimento</div>
-        <div className="text-sm opacity-80 mt-1">Personalizado</div>
-      </div>
-    </div>
-  </div>
-</section>
+      {/* Stats Section - Altura Reduzida */}
+      <section className="py-6 bg-blue-600 text-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8 text-center">
+            <div>
+              <div className="text-3xl font-bold mb-1">7</div>
+              <div className="text-base">Dias por Semana</div>
+              <div className="text-xs opacity-80">10h - 22h</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold mb-1">100%</div>
+              <div className="text-base">Licenciado ERS</div>
+              <div className="text-xs opacity-80">Qualidade Garantida</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold mb-1">✓</div>
+              <div className="text-base">Equipamento Moderno</div>
+              <div className="text-xs opacity-80">Última Geração</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold mb-1">★★★★★</div>
+              <div className="text-base">Atendimento</div>
+              <div className="text-xs opacity-80">Personalizado</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Sobre Section */}
       <section id="sobre" className="py-20 px-4">
@@ -302,54 +302,181 @@ export default function HomePage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Nossos Serviços</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Oferecemos uma gama completa de tratamentos dentários com a mais alta qualidade
+              Oferecemos uma gama completa de tratamentos dentários com a mais alta qualidade e tecnologia de ponta
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Primeira Fileira - 4 serviços */}
             {[
               {
                 title: 'Implantes Dentários',
-                description: 'Soluções permanentes e duradouras com materiais de última geração para substituir dentes perdidos.',
-                icon: '🦷',
+                subtitle: 'Sorriso completo',
+                description: 'Soluções permanentes com materiais de última geração.',
+                image: '/servico-implantes.png',
               },
               {
-                title: 'Branqueamento Dentário',
-                description: 'Tratamento cosmético para um sorriso mais branco e radiante com técnicas modernas e seguras.',
-                icon: '✨',
+                title: 'Branqueamento',
+                subtitle: 'Sorriso radiante',
+                description: 'Técnicas modernas para dentes mais brancos.',
+                image: '/servico-branqueamento.png',
               },
               {
-                title: 'Coroas Dentárias',
-                description: 'Restauração de dentes danificados com coroas de alta qualidade e aparência natural.',
-                icon: '👑',
+                title: 'Limpeza Dentária',
+                subtitle: 'Sorriso brilhante',
+                description: 'Higiene profissional para saúde oral completa.',
+                image: '/servico-limpeza.png',
               },
               {
-                title: 'Tratamentos Cosméticos',
-                description: 'Melhore a estética do seu sorriso com facetas, lentes de contacto dentárias e mais.',
-                icon: '😁',
+                title: 'Alinhamento Invisível',
+                subtitle: 'Correção discreta',
+                description: 'Correção e nivelamento com aparelhos invisíveis.',
+                image: '/servico-alinhamento.png',
               },
               {
-                title: 'Dentisteria Geral',
-                description: 'Tratamentos preventivos e curativos para manter a saúde oral de toda a família.',
-                icon: '🏥',
+                title: 'Check-up Dentário',
+                subtitle: 'Prevenção',
+                description: 'Avaliação completa e diagnóstico preventivo.',
+                image: '/servico-checkup.png',
               },
               {
-                title: 'Urgências Dentárias',
-                description: 'Atendimento rápido para situações urgentes. Aberto 7 dias por semana.',
-                icon: '⚕️',
+                title: 'Periodontia',
+                subtitle: 'Saúde gengival',
+                description: 'Tratamento de gengivas e estruturas de suporte.',
+                image: '/servico-periodontia.png',
+              },
+              {
+                title: 'Odontopediatria',
+                subtitle: 'Cuidado infantil',
+                description: 'Atendimento especializado para crianças.',
+                image: '/servico-odontopediatria.png',
+              },
+              {
+                title: 'Próteses Dentárias',
+                subtitle: 'Reabilitação oral',
+                description: 'Soluções personalizadas para restauração.',
+                image: '/servico-proteses.png',
               },
             ].map((service, index) => (
               <div
                 key={index}
-                className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition"
+                className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer"
               >
-                <div className="text-5xl mb-4">{service.icon}</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600">{service.description}</p>
+                {/* Imagem do Serviço */}
+              <div className="aspect-square overflow-hidden bg-gradient-to-br from-blue-50 to-white relative">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  {/* Overlay gradient on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                
+                {/* Conteúdo */}
+                <div className="p-5">
+                  <h3 className="text-xl font-bold text-gray-900 mb-1">
+                    {service.title}
+                  </h3>
+                  <p className="text-blue-600 font-semibold text-sm mb-2">
+                    {service.subtitle}
+                  </p>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {service.description}
+                  </p>
+                  
+                  {/* Link Saber Mais */}
+                  <a
+                    href="#contacto"
+                    className="inline-flex items-center mt-4 text-blue-600 text-sm font-semibold hover:text-blue-700 transition group/link"
+                  >
+                    Saber mais
+                    <svg
+                      className="w-3 h-3 ml-1 group-hover/link:translate-x-1 transition-transform"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </a>
+                </div>
               </div>
             ))}
+          </div>
+
+          {/* Estatísticas dos Serviços */}
+          <div className="mt-16 bg-white rounded-2xl shadow-xl p-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              <div>
+                <div className="text-3xl font-bold text-blue-600 mb-2">8+</div>
+                <div className="text-gray-600">Especialidades</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-blue-600 mb-2">100%</div>
+                <div className="text-gray-600">Satisfação</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-blue-600 mb-2">7</div>
+                <div className="text-gray-600">Dias/Semana</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-blue-600 mb-2">ERS</div>
+                <div className="text-gray-600">Certificado</div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className="text-center mt-12">
+            <p className="text-lg text-gray-600 mb-6">
+              Precisa de um tratamento específico? Temos a solução ideal para si!
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <a
+                href="#contacto"
+                className="bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition text-lg font-semibold inline-flex items-center shadow-lg hover:shadow-xl"
+              >
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                Marcar Consulta
+              </a>
+              <a
+                href="tel:+351216041355"
+                className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-full hover:bg-blue-50 transition text-lg font-semibold inline-flex items-center"
+              >
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
+                </svg>
+                Ligar Agora
+              </a>
+            </div>
           </div>
         </div>
       </section>
