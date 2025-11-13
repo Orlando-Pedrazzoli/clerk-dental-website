@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { UserButton, useUser } from '@clerk/react-router';
 import { Link } from 'react-router';
+import WhatsAppButton from '../components/WhatsAppButton';
 
 export default function HomePage() {
   const { isSignedIn } = useUser();
@@ -8,6 +9,9 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Botão WhatsApp Flutuante */}
+      <WhatsAppButton />
+
       {/* Navbar */}
       <nav className="bg-white shadow-md fixed w-full top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
