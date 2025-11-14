@@ -51,19 +51,25 @@ export default function HomePage() {
               </a>
               
               {/* Área do Cliente */}
-              {isSignedIn ? (
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-600">Área do Cliente</span>
-                  <UserButton />
-                </div>
-              ) : (
-                <Link
-                  to="/sign-in"
-                  className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
-                >
-                  Área do Cliente
-                </Link>
-              )}
+             
+{isSignedIn ? (
+  <div className="flex items-center gap-3">
+    <Link
+      to="/redirect"
+      className="text-gray-700 hover:text-blue-600 transition font-medium"
+    >
+      Minha Área
+    </Link>
+    <UserButton />
+  </div>
+) : (
+  <Link
+    to="/sign-in"
+    className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
+  >
+    Área do Cliente
+  </Link>
+)}
             </div>
 
             {/* Mobile menu button */}
@@ -138,19 +144,25 @@ export default function HomePage() {
                   Contacto
                 </a>
                 {isSignedIn ? (
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm text-gray-600">Área do Cliente</span>
-                    <UserButton />
-                  </div>
-                ) : (
-                  <Link
-                    to="/sign-in"
-                    className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition text-center"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Área do Cliente
-                  </Link>
-                )}
+  <div className="flex items-center gap-3">
+    <Link
+      to="/redirect"
+      className="text-gray-700 hover:text-blue-600 transition font-medium"
+      onClick={() => setMobileMenuOpen(false)}
+    >
+      Minha Área
+    </Link>
+    <UserButton />
+  </div>
+) : (
+  <Link
+    to="/sign-in"
+    className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition text-center"
+    onClick={() => setMobileMenuOpen(false)}
+  >
+    Área do Cliente
+  </Link>
+)}
               </div>
             </div>
           )}
