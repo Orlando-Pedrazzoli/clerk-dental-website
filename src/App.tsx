@@ -4,11 +4,13 @@ import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
 
 // Admin Pages
+import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import PatientsPage from './pages/admin/PatientsPage';
 import DoctorsPage from './pages/admin/DoctorsPage';
 import TreatmentsPage from './pages/admin/TreatmentsPage';
 import PatientDetail from './pages/admin/PatientDetail';
+import UsersManagement from './pages/admin/UsersManagement';
 
 // Patient Pages
 import PatientPortal from './pages/patient/PatientPortal';
@@ -16,37 +18,32 @@ import MyExams from './pages/patient/MyExams';
 import MyTreatments from './pages/patient/MyTreatments';
 import MyInvoices from './pages/patient/MyInvoices';
 
-// Componente para proteger rotas de Admin
-const AdminRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isLoaded, isSignedIn, isAdmin } = useAuth();
+// Redirect Pages
+import RedirectPage from './pages/RedirectPage';
 
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Carregando...</div>
-      </div>
-    );
-  }
+// ============================================
+// COMPONENTE PARA PROTEGER ROTAS ADMIN
+// ============================================
+const ProtectedAdminRoute = ({ children }: { children: React.ReactNode }) => {
+  const token = localStorage.getItem('adminToken');
 
-  if (!isSignedIn) {
-    return <Navigate to="/sign-in" replace />;
-  }
-
-  if (!isAdmin) {
-    return <Navigate to="/patient/portal" replace />;
+  if (!token) {
+    return <Navigate to="/admin/login" replace />;
   }
 
   return <>{children}</>;
 };
 
-// Componente para proteger rotas de Patient
+// ============================================
+// COMPONENTE PARA PROTEGER ROTAS PATIENT
+// ============================================
 const PatientRoute = ({ children }: { children: React.ReactNode }) => {
   const { isLoaded, isSignedIn, isPatient } = useAuth();
 
   if (!isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Carregando...</div>
+        <div className="text-xl text-gray-600">Carregando...</div>
       </div>
     );
   }
@@ -56,76 +53,76 @@ const PatientRoute = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (!isPatient) {
-    return <Navigate to="/admin/dashboard" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;
 };
 
-// Rota para redirecionar após login
-const DashboardRedirect = () => {
-  const { isAdmin } = useAuth();
-  
-  if (isAdmin) {
-    return <Navigate to="/admin/dashboard" replace />;
-  }
-  
-  return <Navigate to="/patient/portal" replace />;
-};
-
 export default function App() {
   return (
     <Routes>
-      {/* Rotas Públicas */}
+      {/* ==================== ROTAS PÚBLICAS ==================== */}
       <Route path="/" element={<HomePage />} />
       <Route path="/sign-in" element={<SignInPage />} />
       
-      {/* Redirect após login */}
-      <Route path="/dashboard" element={<DashboardRedirect />} />
+      {/* ==================== ADMIN LOGIN ==================== */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+      
+      {/* ==================== REDIRECT (PARA PATIENTS CLERK) ==================== */}
+      <Route path="/redirect" element={<RedirectPage />} />
 
-      {/* Rotas Admin */}
+      {/* ==================== ROTAS ADMIN (PROTEGIDAS) ==================== */}
       <Route
         path="/admin/dashboard"
         element={
-          <AdminRoute>
+          <ProtectedAdminRoute>
             <AdminDashboard />
-          </AdminRoute>
+          </ProtectedAdminRoute>
         }
       />
       <Route
         path="/admin/patients"
         element={
-          <AdminRoute>
+          <ProtectedAdminRoute>
             <PatientsPage />
-          </AdminRoute>
+          </ProtectedAdminRoute>
         }
       />
       <Route
         path="/admin/patients/:id"
         element={
-          <AdminRoute>
+          <ProtectedAdminRoute>
             <PatientDetail />
-          </AdminRoute>
+          </ProtectedAdminRoute>
         }
       />
       <Route
         path="/admin/doctors"
         element={
-          <AdminRoute>
+          <ProtectedAdminRoute>
             <DoctorsPage />
-          </AdminRoute>
+          </ProtectedAdminRoute>
         }
       />
       <Route
         path="/admin/treatments"
         element={
-          <AdminRoute>
+          <ProtectedAdminRoute>
             <TreatmentsPage />
-          </AdminRoute>
+          </ProtectedAdminRoute>
+        }
+      />
+      <Route
+        path="/admin/users"
+        element={
+          <ProtectedAdminRoute>
+            <UsersManagement />
+          </ProtectedAdminRoute>
         }
       />
 
-      {/* Rotas Patient */}
+      {/* ==================== ROTAS PATIENT (PROTEGIDAS) ==================== */}
       <Route
         path="/patient/portal"
         element={
@@ -159,7 +156,7 @@ export default function App() {
         }
       />
 
-      {/* 404 */}
+      {/* ==================== 404 ==================== */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

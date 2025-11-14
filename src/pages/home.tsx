@@ -49,6 +49,32 @@ export default function HomePage() {
               <a href="#contacto" className="text-gray-700 hover:text-blue-600 transition">
                 Contacto
               </a>
+              <a href="#contacto" className="text-gray-700 hover:text-blue-600 transition">
+  Contacto
+</a>
+
+{/* Ícone Admin Discreto */}
+<Link
+  to="/admin/login"
+  className="text-gray-400 hover:text-blue-600 transition p-2"
+  title="Acesso Administrativo"
+>
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+    />
+  </svg>
+</Link>
+
+{/* Área do Cliente */}
               
               {/* Área do Cliente */}
              
@@ -137,13 +163,26 @@ export default function HomePage() {
                   Testemunhos
                 </a>
                 <a
-                  href="#contacto"
-                  className="text-gray-700 hover:text-blue-600 transition"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Contacto
-                </a>
-                {isSignedIn ? (
+                 href="#contacto"
+  className="text-gray-700 hover:text-blue-600 transition"
+  onClick={() => setMobileMenuOpen(false)}
+>
+  Contacto
+</a>
+
+{/* Ícone Admin Mobile */}
+<Link
+  to="/admin/login"
+  className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition"
+  onClick={() => setMobileMenuOpen(false)}
+>
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+  </svg>
+  Acesso Admin
+</Link>
+
+{isSignedIn ? (
   <div className="flex items-center gap-3">
     <Link
       to="/redirect"

@@ -10,7 +10,8 @@ import treatmentRoutes from './routes/treatments';
 import examRoutes from './routes/exams';
 import invoiceRoutes from './routes/invoices';
 import uploadRoutes from './routes/upload';
-import webhookRoutes from './routes/webhooks.js';
+import webhookRoutes from './routes/webhooks.ts';
+import authRoutes from './routes/auth.ts';
 
 // Carregar variáveis de ambiente
 dotenv.config();
@@ -38,6 +39,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 
 // Rotas da API
 app.use('/api/webhooks', webhookRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/treatments', treatmentRoutes);
