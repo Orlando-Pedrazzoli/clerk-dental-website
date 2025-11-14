@@ -1,10 +1,56 @@
+import { useState } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
+import TreatmentForm from '../../components/admin/TreatmentForm';
+import ExamUpload from '../../components/admin/ExamUpload';
+import InvoiceForm from '../../components/admin/InvoiceForm';
 import { useAdminData } from '../../hooks/useAdminData';
-import { ClipboardList, Plus, Search } from 'lucide-react';
+import { treatmentService } from '../../services/treatmentService';
+import { examService } from '../../services/examService';
+import { invoiceService } from '../../services/invoiceService';
+import { ClipboardList, Plus, Search, Microscope, FileText } from 'lucide-react';
 import { formatDate } from '../../utils/formatDate';
+import type { CreateTreatmentData } from '../../types/treatment';
+import type { CreateExamData } from '../../types/exam';
+import type { CreateInvoiceData } from '../../types/invoice';
 
 export default function TreatmentsPage() {
-  const { treatments, isLoading } = useAdminData();
+  const { treatments, patients, doctors, isLoading, refetch } = useAdminData();
+  const [showTreatmentForm, setShowTreatmentForm] = useState(false);
+  const [showExamUpload, setShowExamUpload] = useState(false);
+  const [showInvoiceForm, setShowInvoiceForm] = useState(false);
+
+  const handleCreateTreatment = async (data: CreateTreatmentData) => {
+    try {
+      await treatmentService.create(data);
+      alert('Tratamento criado com sucesso!');
+      setShowTreatmentForm(false);
+      refetch.treatments();
+    } catch (error) {
+      alert('Erro ao criar tratamento: ' + error);
+    }
+  };
+
+  const handleCreateExam = async (data: CreateExamData) => {
+    try {
+      await examService.create(data);
+      alert('Exame criado com sucesso!');
+      setShowExamUpload(false);
+      refetch.exams();
+    } catch (error) {
+      alert('Erro ao criar exame: ' + error);
+    }
+  };
+
+  const handleCreateInvoice = async (data: CreateInvoiceData) => {
+    try {
+      await invoiceService.create(data);
+      alert('Fatura criada com sucesso!');
+      setShowInvoiceForm(false);
+      refetch.invoices();
+    } catch (error) {
+      alert('Erro ao criar fatura: ' + error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -19,7 +65,6 @@ export default function TreatmentsPage() {
   return (
     <AdminLayout>
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
@@ -30,13 +75,31 @@ export default function TreatmentsPage() {
               Total de {treatments.length} tratamentos registrados
             </p>
           </div>
-          <button className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition flex items-center gap-2 shadow-md">
-            <Plus size={20} />
-            Novo Tratamento
-          </button>
+          <div className="flex gap-3">
+            <button 
+              onClick={() => setShowTreatmentForm(true)}
+              className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition flex items-center gap-2 shadow-md"
+            >
+              <Plus size={20} />
+              Novo Tratamento
+            </button>
+            <button 
+              onClick={() => setShowExamUpload(true)}
+              className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition flex items-center gap-2 shadow-md"
+            >
+              <Microscope size={20} />
+              Adicionar Exame
+            </button>
+            <button 
+              onClick={() => setShowInvoiceForm(true)}
+              className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition flex items-center gap-2 shadow-md"
+            >
+              <FileText size={20} />
+              Nova Fatura
+            </button>
+          </div>
         </div>
 
-        {/* Search Bar */}
         <div className="bg-white rounded-xl shadow-md p-4 mb-6">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -48,13 +111,15 @@ export default function TreatmentsPage() {
           </div>
         </div>
 
-        {/* Treatments List */}
         <div className="bg-white rounded-xl shadow-md overflow-hidden">
           {treatments.length === 0 ? (
             <div className="text-center py-12">
               <ClipboardList className="mx-auto text-gray-400 mb-4" size={48} />
               <p className="text-gray-500 text-lg">Nenhum tratamento registrado ainda</p>
-              <button className="mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">
+              <button 
+                onClick={() => setShowTreatmentForm(true)}
+                className="mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition"
+              >
                 Cadastrar Primeiro Tratamento
               </button>
             </div>
@@ -145,6 +210,33 @@ export default function TreatmentsPage() {
           )}
         </div>
       </div>
+
+      {showTreatmentForm && (
+        <TreatmentForm
+          patients={patients}
+          doctors={doctors}
+          onClose={() => setShowTreatmentForm(false)}
+          onSave={handleCreateTreatment}
+        />
+      )}
+
+      {showExamUpload && (
+        <ExamUpload
+          patients={patients}
+          doctors={doctors}
+          onClose={() => setShowExamUpload(false)}
+          onSave={handleCreateExam}
+        />
+      )}
+
+      {showInvoiceForm && (
+        <InvoiceForm
+          patients={patients}
+          treatments={treatments}
+          onClose={() => setShowInvoiceForm(false)}
+          onSave={handleCreateInvoice}
+        />
+      )}
     </AdminLayout>
   );
 }
