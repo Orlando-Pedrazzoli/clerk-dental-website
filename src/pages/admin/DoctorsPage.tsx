@@ -1,9 +1,25 @@
+import { useState } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
+import DoctorForm from '../../components/admin/DoctorForm';
 import { useAdminData } from '../../hooks/useAdminData';
+import { doctorService } from '../../services/doctorService';
 import { Stethoscope, Plus, Search } from 'lucide-react';
+import type { CreateDoctorData } from '../../types/doctor';
 
 export default function DoctorsPage() {
-  const { doctors, isLoading } = useAdminData();
+  const { doctors, isLoading, refetch } = useAdminData();
+  const [showForm, setShowForm] = useState(false);
+
+  const handleCreateDoctor = async (data: CreateDoctorData) => {
+    try {
+      await doctorService.create(data);
+      alert('Médico criado com sucesso!');
+      setShowForm(false);
+      refetch.doctors();
+    } catch (error) {
+      alert('Erro ao criar médico: ' + error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -18,7 +34,6 @@ export default function DoctorsPage() {
   return (
     <AdminLayout>
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
@@ -29,13 +44,15 @@ export default function DoctorsPage() {
               Total de {doctors.length} médicos cadastrados
             </p>
           </div>
-          <button className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition flex items-center gap-2 shadow-md">
+          <button 
+            onClick={() => setShowForm(true)}
+            className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition flex items-center gap-2 shadow-md"
+          >
             <Plus size={20} />
             Novo Médico
           </button>
         </div>
 
-        {/* Search Bar */}
         <div className="bg-white rounded-xl shadow-md p-4 mb-6">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -47,12 +64,14 @@ export default function DoctorsPage() {
           </div>
         </div>
 
-        {/* Doctors Grid */}
         {doctors.length === 0 ? (
           <div className="bg-white rounded-xl shadow-md p-12 text-center">
             <Stethoscope className="mx-auto text-gray-400 mb-4" size={48} />
             <p className="text-gray-500 text-lg">Nenhum médico cadastrado ainda</p>
-            <button className="mt-4 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+            <button 
+              onClick={() => setShowForm(true)}
+              className="mt-4 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
+            >
               Cadastrar Primeiro Médico
             </button>
           </div>
@@ -63,7 +82,6 @@ export default function DoctorsPage() {
                 key={doctor._id}
                 className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition"
               >
-                {/* Doctor Photo */}
                 <div className="flex items-center gap-4 mb-4">
                   {doctor.photoUrl ? (
                     <img
@@ -82,7 +100,6 @@ export default function DoctorsPage() {
                   </div>
                 </div>
 
-                {/* Doctor Info */}
                 <div className="space-y-2 mb-4">
                   {doctor.licenseNumber && (
                     <p className="text-sm text-gray-600">
@@ -101,7 +118,6 @@ export default function DoctorsPage() {
                   )}
                 </div>
 
-                {/* Status Badge */}
                 <div className="flex items-center justify-between">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-semibold ${
@@ -121,6 +137,13 @@ export default function DoctorsPage() {
           </div>
         )}
       </div>
+
+      {showForm && (
+        <DoctorForm
+          onClose={() => setShowForm(false)}
+          onSave={handleCreateDoctor}
+        />
+      )}
     </AdminLayout>
   );
 }
