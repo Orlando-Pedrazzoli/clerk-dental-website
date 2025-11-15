@@ -11,6 +11,7 @@ import DoctorsPage from './pages/admin/DoctorsPage';
 import TreatmentsPage from './pages/admin/TreatmentsPage';
 import PatientDetail from './pages/admin/PatientDetail';
 import UsersManagement from './pages/admin/UsersManagement';
+import PatientIDVerification from './pages/PatientIDVerification';
 
 // Patient Pages
 import PatientPortal from './pages/patient/PatientPortal';
@@ -71,6 +72,8 @@ export default function App() {
       
       {/* ==================== REDIRECT (PARA PATIENTS CLERK) ==================== */}
       <Route path="/redirect" element={<RedirectPage />} />
+
+      <Route path="/verify-patient-id" element={<PatientIDVerification />} />
 
       {/* ==================== ROTAS ADMIN (PROTEGIDAS) ==================== */}
       <Route

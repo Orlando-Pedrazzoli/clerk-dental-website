@@ -6,6 +6,7 @@ export interface IUser extends Document {
   firstName: string;
   lastName: string;
   role: 'admin' | 'patient';
+  patientId?: string; // ← ADICIONAR ESTE CAMPO
   phone?: string;
   address?: string;
   dateOfBirth?: Date;
@@ -53,6 +54,13 @@ const UserSchema = new Schema<IUser>(
       default: 'patient',
       required: true,
     },
+    patientId: {  // ← ADICIONAR ESTE CAMPO
+      type: String,
+      unique: true,
+      sparse: true, // permite que apenas pacientes tenham este campo
+      uppercase: true,
+      trim: true,
+    },
     phone: {
       type: String,
       trim: true,
@@ -95,5 +103,6 @@ const UserSchema = new Schema<IUser>(
 UserSchema.index({ email: 1 });
 UserSchema.index({ role: 1 });
 UserSchema.index({ clerkUserId: 1 });
+UserSchema.index({ patientId: 1 }); // ← ADICIONAR ESTE ÍNDICE
 
 export default mongoose.model<IUser>('User', UserSchema);

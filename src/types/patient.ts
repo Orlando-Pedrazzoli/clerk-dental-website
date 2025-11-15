@@ -1,11 +1,11 @@
 export interface Patient {
   _id: string;
-  clerkUserId: string;
+  clerkUserId?: string; // ← Opcional agora
+  patientId: string; // ← ADICIONAR
   email: string;
   firstName: string;
   lastName: string;
-  role: 'patient' | 'admin';
-  phone?: string;
+  phone: string;
   address?: string;
   dateOfBirth?: string;
   nif?: string;
@@ -17,16 +17,17 @@ export interface Patient {
     phone: string;
     relationship: string;
   };
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface CreatePatientData {
-  clerkUserId: string;
+  patientId: string; // ← ADICIONAR
+  clerkUserId?: string; // ← Opcional agora
   email: string;
   firstName: string;
   lastName: string;
-  phone?: string;
+  phone: string;
   address?: string;
   dateOfBirth?: string;
   nif?: string;
@@ -39,5 +40,3 @@ export interface CreatePatientData {
     relationship: string;
   };
 }
-
-export interface UpdatePatientData extends Partial<CreatePatientData> {}
