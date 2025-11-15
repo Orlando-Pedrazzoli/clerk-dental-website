@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { Link } from 'react-router';
 import AdminLayout from '../../components/admin/AdminLayout';
 import PatientForm from '../../components/admin/PatientForm';
 import { useAdminData } from '../../hooks/useAdminData';
 import { patientService } from '../../services/patientService';
-import { Users, Plus, Search } from 'lucide-react';
+import { Users, Plus, Search, Copy } from 'lucide-react';
 import type { CreatePatientData } from '../../types/patient';
 
 export default function PatientsPage() {
@@ -19,6 +20,11 @@ export default function PatientsPage() {
     } catch (error) {
       alert('Erro ao criar paciente: ' + error);
     }
+  };
+
+  const copyPatientId = (patientId: string) => {
+    navigator.clipboard.writeText(patientId);
+    alert('ID copiado!');
   };
 
   if (isLoading) {
@@ -85,6 +91,9 @@ export default function PatientsPage() {
                       Nome
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Patient ID
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Email
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -106,6 +115,22 @@ export default function PatientsPage() {
                           {patient.firstName} {patient.lastName}
                         </div>
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">
+                            {patient.patientId || 'N/A'}
+                          </span>
+                          {patient.patientId && (
+                            <button
+                              onClick={() => copyPatientId(patient.patientId!)}
+                              className="text-gray-400 hover:text-blue-600 transition"
+                              title="Copiar ID"
+                            >
+                              <Copy size={16} />
+                            </button>
+                          )}
+                        </div>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-600">
                         {patient.email}
                       </td>
@@ -116,9 +141,12 @@ export default function PatientsPage() {
                         {patient.nif || '-'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="text-blue-600 hover:text-blue-800 font-medium">
+                        <Link
+                          to={`/admin/patients/${patient._id}`}
+                          className="text-blue-600 hover:text-blue-800 font-medium"
+                        >
                           Ver Detalhes
-                        </button>
+                        </Link>
                       </td>
                     </tr>
                   ))}

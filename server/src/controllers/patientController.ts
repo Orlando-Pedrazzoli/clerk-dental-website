@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import User from '../models/User';
 import mongoose from 'mongoose';
+import { generateUniquePatientId } from '../utils/generatePatientId';
 
 // Criar novo paciente
 export const createPatient = async (req: Request, res: Response): Promise<void> => {
   try {
     const {
-      clerkUserId,
       email,
       firstName,
       lastName,
@@ -20,16 +20,19 @@ export const createPatient = async (req: Request, res: Response): Promise<void> 
       emergencyContact,
     } = req.body;
 
-    // Verificar se paciente já existe
-    const existingPatient = await User.findOne({ clerkUserId });
+    // Verificar se email já existe
+    const existingPatient = await User.findOne({ email, role: 'patient' });
     if (existingPatient) {
-      res.status(400).json({ error: 'Paciente já cadastrado' });
+      res.status(400).json({ error: 'Paciente com este email já cadastrado' });
       return;
     }
 
+    // Gerar Patient ID único e sequencial
+    const patientId = await generateUniquePatientId();
+
     // Criar novo paciente
     const patient = new User({
-      clerkUserId,
+      patientId,
       email,
       firstName,
       lastName,
@@ -57,7 +60,7 @@ export const createPatient = async (req: Request, res: Response): Promise<void> 
 };
 
 // Listar todos os pacientes
-export const getAllPatients = async (req: Request, res: Response): Promise<void> => {
+export const getAllPatients = async (_req: Request, res: Response): Promise<void> => {
   try {
     const patients = await User.find({ role: 'patient' }).sort({ createdAt: -1 });
 

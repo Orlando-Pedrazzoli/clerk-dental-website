@@ -8,16 +8,8 @@ interface PatientFormProps {
   onSave: (data: CreatePatientData) => void;
 }
 
-// Função para gerar Patient ID
-const generatePatientId = () => {
-  const year = new Date().getFullYear();
-  const random = Math.floor(Math.random() * 9000) + 1000;
-  return `CDC-${year}-${random}`;
-};
-
 export default function PatientForm({ patient, onClose, onSave }: PatientFormProps) {
   const [formData, setFormData] = useState<CreatePatientData>({
-    patientId: patient?.patientId || generatePatientId(),
     email: patient?.email || '',
     firstName: patient?.firstName || '',
     lastName: patient?.lastName || '',
@@ -75,23 +67,6 @@ export default function PatientForm({ patient, onClose, onSave }: PatientFormPro
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Patient ID - Gerado Automaticamente */}
-          <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              ID do Paciente (gerado automaticamente)
-            </label>
-            <input
-              type="text"
-              name="patientId"
-              value={formData.patientId}
-              disabled
-              className="w-full px-4 py-3 border-2 border-blue-300 rounded-lg bg-white text-blue-900 font-mono text-xl tracking-wider font-bold text-center"
-            />
-            <p className="text-sm text-blue-800 mt-2 font-semibold">
-              ⚠️ Forneça este ID ao paciente para que ele possa acessar o portal do paciente
-            </p>
-          </div>
-
           {/* Informações Básicas */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>

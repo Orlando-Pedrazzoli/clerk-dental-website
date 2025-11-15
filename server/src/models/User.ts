@@ -1,12 +1,12 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IUser extends Document {
-  clerkUserId: string;
+  clerkUserId?: string; // ← Opcional agora
   email: string;
   firstName: string;
   lastName: string;
   role: 'admin' | 'patient';
-  patientId?: string; // ← ADICIONAR ESTE CAMPO
+  patientId?: string;
   phone?: string;
   address?: string;
   dateOfBirth?: Date;
@@ -27,8 +27,9 @@ const UserSchema = new Schema<IUser>(
   {
     clerkUserId: {
       type: String,
-      required: true,
+      required: false, // ← MUDOU AQUI (era true)
       unique: true,
+      sparse: true, // permite null/undefined
       index: true,
     },
     email: {
@@ -54,10 +55,10 @@ const UserSchema = new Schema<IUser>(
       default: 'patient',
       required: true,
     },
-    patientId: {  // ← ADICIONAR ESTE CAMPO
+    patientId: {
       type: String,
       unique: true,
-      sparse: true, // permite que apenas pacientes tenham este campo
+      sparse: true,
       uppercase: true,
       trim: true,
     },
@@ -103,6 +104,6 @@ const UserSchema = new Schema<IUser>(
 UserSchema.index({ email: 1 });
 UserSchema.index({ role: 1 });
 UserSchema.index({ clerkUserId: 1 });
-UserSchema.index({ patientId: 1 }); // ← ADICIONAR ESTE ÍNDICE
+UserSchema.index({ patientId: 1 });
 
 export default mongoose.model<IUser>('User', UserSchema);

@@ -14,6 +14,12 @@ export const patientService = {
     return response.data.patients;
   },
 
+  // Buscar paciente por Patient ID
+  getByPatientId: async (patientId: string): Promise<Patient> => {
+    const response = await api.get(`/patients/by-patient-id/${patientId}`);
+    return response.data;
+  },
+
   // Buscar paciente por ID
   getById: async (id: string): Promise<Patient> => {
     const response = await api.get(`/patients/${id}`);

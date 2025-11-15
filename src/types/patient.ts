@@ -1,7 +1,7 @@
 export interface Patient {
   _id: string;
-  clerkUserId?: string; // ← Opcional agora
-  patientId: string; // ← ADICIONAR
+  clerkUserId?: string;
+  patientId: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -22,12 +22,32 @@ export interface Patient {
 }
 
 export interface CreatePatientData {
-  patientId: string; // ← ADICIONAR
-  clerkUserId?: string; // ← Opcional agora
+  clerkUserId?: string;
   email: string;
   firstName: string;
   lastName: string;
   phone: string;
+  address?: string;
+  dateOfBirth?: string;
+  nif?: string;
+  medicalHistory?: string;
+  allergies?: string;
+  medications?: string;
+  emergencyContact?: {
+    name: string;
+    phone: string;
+    relationship: string;
+  };
+}
+
+// ✅ ADICIONAR ESTE TIPO
+export interface UpdatePatientData {
+  clerkUserId?: string;
+  patientId?: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
   address?: string;
   dateOfBirth?: string;
   nif?: string;

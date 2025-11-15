@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useUser } from '@clerk/clerk-react';
 import { Shield, X, AlertCircle } from 'lucide-react';
 import api from '../services/api';
 
@@ -9,6 +10,7 @@ interface PatientIDModalProps {
 
 export default function PatientIDModal({ onClose }: PatientIDModalProps) {
   const navigate = useNavigate();
+  const { user } = useUser();
   const [patientId, setPatientId] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -19,16 +21,38 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
     setLoading(true);
 
     try {
-      const response = await api.post('/patients/validate-id', {
-        patientId: patientId.trim(),
+      // 1. Validar Patient ID
+      const validateResponse = await api.post('/patients/validate-id', {
+        patientId: patientId.trim().toUpperCase(),
       });
 
-      if (response.data.valid) {
-        localStorage.setItem('validatedPatientId', patientId.trim());
-        navigate('/patient/portal');
-      } else {
+      if (!validateResponse.data.valid) {
         setError('ID de paciente inválido. Verifique com a clínica.');
+        setLoading(false);
+        return;
       }
+
+      // 2. Vincular Clerk User ID ao paciente (se ainda não estiver vinculado)
+      if (user?.id) {
+        try {
+          await api.post('/patients/link-clerk', {
+            patientId: patientId.trim().toUpperCase(),
+            clerkUserId: user.id,
+            email: user.primaryEmailAddress?.emailAddress,
+          });
+        } catch (linkError: any) {
+          // Se já estiver vinculado, ignora o erro
+          if (!linkError.response?.data?.error?.includes('já está vinculado')) {
+            console.error('Erro ao vincular conta:', linkError);
+          }
+        }
+      }
+
+      // 3. Salvar Patient ID validado no localStorage
+      localStorage.setItem('validatedPatientId', patientId.trim().toUpperCase());
+
+      // 4. Redirecionar para portal do paciente
+      navigate('/patient/portal');
     } catch (err: any) {
       setError(err.response?.data?.error || 'Erro ao validar ID. Tente novamente.');
     } finally {
@@ -76,7 +100,7 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
               value={patientId}
               onChange={(e) => setPatientId(e.target.value.toUpperCase())}
               required
-              placeholder="Ex: CDC-2024-001"
+              placeholder="Ex: CDC-2025-0001"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-lg font-mono tracking-wider"
             />
           </div>
@@ -90,17 +114,17 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
           </button>
         </form>
 
-       <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-  <p className="text-sm text-blue-800 mb-2">
-    <strong>Não tem um ID?</strong> Entre em contacto com a clínica para obter o seu ID de paciente.
-  </p>
-  
-    href="tel:+351216041355"
-    className="text-blue-600 hover:text-blue-800 font-semibold text-sm inline-block"
-  
-    📞 +351 21 604 13 55
-  
-</div>
+        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <p className="text-sm text-blue-800 mb-2">
+            <strong>Não tem um ID?</strong> Entre em contacto com a clínica para obter o seu ID de paciente.
+          </p>
+          <a
+            href="tel:+351216041355"
+            className="text-blue-600 hover:text-blue-800 font-semibold text-sm inline-block"
+          >
+            📞 +351 21 604 13 55
+          </a>
+        </div>
       </div>
     </div>
   );
