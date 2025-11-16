@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router';
 import { useAuth } from './hooks/useAuth';
 import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
+import TreatmentPage from './pages/TreatmentPage';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -66,6 +67,9 @@ export default function App() {
       {/* ==================== ROTAS PÚBLICAS ==================== */}
       <Route path="/" element={<HomePage />} />
       <Route path="/sign-in" element={<SignInPage />} />
+      
+      {/* ==================== ROTA DE TRATAMENTOS ==================== */}
+      <Route path="/tratamentos/:slug" element={<TreatmentPage />} />
       
       {/* ==================== ADMIN LOGIN ==================== */}
       <Route path="/admin/login" element={<AdminLogin />} />

@@ -2,10 +2,22 @@ import { useState } from 'react';
 import { UserButton, useUser } from '@clerk/react-router';
 import { Link } from 'react-router';
 import WhatsAppButton from '../components/WhatsAppButton';
+import { treatments } from '../data/services-data';
 
 export default function HomePage() {
   const { isSignedIn } = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [treatmentsDropdownOpen, setTreatmentsDropdownOpen] = useState(false);
+
+  // Função para scroll suave ao topo
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Dividir tratamentos em 2 colunas para o dropdown
+  const halfLength = Math.ceil(treatments.length / 2);
+  const column1 = treatments.slice(0, halfLength);
+  const column2 = treatments.slice(halfLength);
 
   return (
     <div className="min-h-screen bg-white">
@@ -16,86 +28,160 @@ export default function HomePage() {
       <nav className="bg-white shadow-md fixed w-full top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            {/* Logo */}
+            {/* Logo - Com scroll para o topo */}
             <div className="flex-shrink-0">
-              <Link to="/" className="flex items-center gap-3 group">
-                {/* Logo Image */}
+              <button
+                onClick={scrollToTop}
+                className="flex items-center gap-3 group cursor-pointer"
+              >
                 <img 
                   src="/logo-colombo-nav.png" 
                   alt="Centro Dentário Colombo Logo" 
                   className="h-12 w-auto md:h-14 transition-transform group-hover:scale-105"
                 />
-                {/* Text - Hidden on mobile, visible on tablet+ */}
-                <span className="hidden sm:block text-xl md:text-2xl font-bold bg-gradient-to-r from-[#14489c] to-[#006bb3] bg-clip-text text-transparent transition-all ">
-  Centro Dentário Colombo
-</span>
-              </Link>
+                <span className="hidden sm:block text-xl md:text-2xl font-bold bg-gradient-to-r from-[#14489c] to-[#006bb3] bg-clip-text text-transparent transition-all">
+                  Centro Dentário Colombo
+                </span>
+              </button>
             </div>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#inicio" className="text-gray-700 hover:text-blue-600 transition">
-                Início
-              </a>
               <a href="#sobre" className="text-gray-700 hover:text-blue-600 transition">
                 Sobre Nós
               </a>
-              <a href="#servicos" className="text-gray-700 hover:text-blue-600 transition">
-                Serviços
-              </a>
+              
+              {/* Dropdown Tratamentos */}
+              <div
+                className="relative"
+                onMouseEnter={() => setTreatmentsDropdownOpen(true)}
+                onMouseLeave={() => setTreatmentsDropdownOpen(false)}
+              >
+                <button
+                  onClick={() => setTreatmentsDropdownOpen(!treatmentsDropdownOpen)}
+                  className="text-gray-700 hover:text-blue-600 transition flex items-center gap-1 py-2"
+                >
+                  Tratamentos
+                  <svg
+                    className={`w-4 h-4 transition-transform ${treatmentsDropdownOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {/* Dropdown Menu - 2 Colunas */}
+                {treatmentsDropdownOpen && (
+                  <div 
+                    className="absolute top-full left-0 pt-2 w-[600px] z-50"
+                  >
+                    <div className="bg-white rounded-xl shadow-2xl border border-gray-100 py-6 px-4 animate-fadeIn">
+                      <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+                        {/* Coluna 1 */}
+                        <div className="space-y-1">
+                          {column1.map((treatment) => (
+                            <Link
+                              key={treatment.id}
+                              to={`/tratamentos/${treatment.slug}`}
+                              onClick={() => {
+                                setTreatmentsDropdownOpen(false);
+                                window.scrollTo(0, 0);
+                              }}
+                              className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition group"
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="w-2 h-2 bg-blue-600 rounded-full group-hover:scale-125 transition"></span>
+                                <span className="font-medium">{treatment.title}</span>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+
+                        {/* Coluna 2 */}
+                        <div className="space-y-1">
+                          {column2.map((treatment) => (
+                            <Link
+                              key={treatment.id}
+                              to={`/tratamentos/${treatment.slug}`}
+                              onClick={() => {
+                                setTreatmentsDropdownOpen(false);
+                                window.scrollTo(0, 0);
+                              }}
+                              className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition group"
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="w-2 h-2 bg-blue-600 rounded-full group-hover:scale-125 transition"></span>
+                                <span className="font-medium">{treatment.title}</span>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Footer do Dropdown */}
+                      <div className="mt-4 pt-4 border-t border-gray-200">
+                        <a
+                          href="#contacto"
+                          onClick={() => setTreatmentsDropdownOpen(false)}
+                          className="block text-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition font-semibold"
+                        >
+                          Agendar Consulta
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <a href="#testemunhos" className="text-gray-700 hover:text-blue-600 transition">
                 Testemunhos
               </a>
               <a href="#contacto" className="text-gray-700 hover:text-blue-600 transition">
                 Contacto
               </a>
-              <a href="#contacto" className="text-gray-700 hover:text-blue-600 transition">
-  Contacto
-</a>
 
-{/* Ícone Admin Discreto */}
-<Link
-  to="/admin/login"
-  className="text-gray-400 hover:text-blue-600 transition p-2"
-  title="Acesso Administrativo"
->
-  <svg
-    className="w-5 h-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-    />
-  </svg>
-</Link>
+              {/* Ícone Admin Discreto */}
+              <Link
+                to="/admin/login"
+                className="text-gray-400 hover:text-blue-600 transition p-2"
+                title="Acesso Administrativo"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </Link>
 
-{/* Área do Cliente */}
-              
               {/* Área do Cliente */}
-             
-{isSignedIn ? (
-  <div className="flex items-center gap-3">
-    <Link
-      to="/redirect"
-      className="text-gray-700 hover:text-blue-600 transition font-medium"
-    >
-      Minha Área
-    </Link>
-    <UserButton />
-  </div>
-) : (
-  <Link
-    to="/sign-in"
-    className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
-  >
-    Área do Cliente
-  </Link>
-)}
+              {isSignedIn ? (
+                <div className="flex items-center gap-3">
+                  <Link
+                    to="/redirect"
+                    className="text-gray-700 hover:text-blue-600 transition font-medium"
+                  >
+                    Minha Área
+                  </Link>
+                  <UserButton />
+                </div>
+              ) : (
+                <Link
+                  to="/sign-in"
+                  className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
+                >
+                  Área do Cliente
+                </Link>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -135,13 +221,6 @@ export default function HomePage() {
             <div className="md:hidden pb-4">
               <div className="flex flex-col space-y-4">
                 <a
-                  href="#inicio"
-                  className="text-gray-700 hover:text-blue-600 transition"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Início
-                </a>
-                <a
                   href="#sobre"
                   className="text-gray-700 hover:text-blue-600 transition"
                   onClick={() => setMobileMenuOpen(false)}
@@ -149,11 +228,11 @@ export default function HomePage() {
                   Sobre Nós
                 </a>
                 <a
-                  href="#servicos"
+                  href="#tratamentos"
                   className="text-gray-700 hover:text-blue-600 transition"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Serviços
+                  Tratamentos
                 </a>
                 <a
                   href="#testemunhos"
@@ -163,45 +242,45 @@ export default function HomePage() {
                   Testemunhos
                 </a>
                 <a
-                 href="#contacto"
-  className="text-gray-700 hover:text-blue-600 transition"
-  onClick={() => setMobileMenuOpen(false)}
->
-  Contacto
-</a>
+                  href="#contacto"
+                  className="text-gray-700 hover:text-blue-600 transition"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Contacto
+                </a>
 
-{/* Ícone Admin Mobile */}
-<Link
-  to="/admin/login"
-  className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition"
-  onClick={() => setMobileMenuOpen(false)}
->
-  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-  </svg>
-  Acesso Admin
-</Link>
+                {/* Ícone Admin Mobile */}
+                <Link
+                  to="/admin/login"
+                  className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  Acesso Admin
+                </Link>
 
-{isSignedIn ? (
-  <div className="flex items-center gap-3">
-    <Link
-      to="/redirect"
-      className="text-gray-700 hover:text-blue-600 transition font-medium"
-      onClick={() => setMobileMenuOpen(false)}
-    >
-      Minha Área
-    </Link>
-    <UserButton />
-  </div>
-) : (
-  <Link
-    to="/sign-in"
-    className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition text-center"
-    onClick={() => setMobileMenuOpen(false)}
-  >
-    Área do Cliente
-  </Link>
-)}
+                {isSignedIn ? (
+                  <div className="flex items-center gap-3">
+                    <Link
+                      to="/redirect"
+                      className="text-gray-700 hover:text-blue-600 transition font-medium"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Minha Área
+                    </Link>
+                    <UserButton />
+                  </div>
+                ) : (
+                  <Link
+                    to="/sign-in"
+                    className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition text-center"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Área do Cliente
+                  </Link>
+                )}
               </div>
             </div>
           )}
@@ -249,7 +328,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stats Section - Altura Reduzida */}
+      {/* Stats Section */}
       <section className="py-6 bg-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 text-center">
@@ -351,77 +430,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Serviços Section */}
-      <section id="servicos" className="py-20 px-4 bg-gray-50">
+      {/* Tratamentos Section - 16 CARDS */}
+      <section id="tratamentos" className="py-20 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Nossos Serviços</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Nossos Tratamentos</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Oferecemos uma gama completa de tratamentos dentários com a mais alta qualidade e tecnologia de ponta
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Primeira Fileira - 4 serviços */}
-            {[
-              {
-                title: 'Implantes Dentários',
-                subtitle: 'Sorriso completo',
-                description: 'Soluções permanentes com materiais de última geração.',
-                image: '/servico-implantes.png',
-              },
-              {
-                title: 'Branqueamento',
-                subtitle: 'Sorriso radiante',
-                description: 'Técnicas modernas para dentes mais brancos.',
-                image: '/servico-branqueamento.png',
-              },
-              {
-                title: 'Limpeza Dentária',
-                subtitle: 'Sorriso brilhante',
-                description: 'Higiene profissional para saúde oral completa.',
-                image: '/servico-limpeza.png',
-              },
-              {
-                title: 'Alinhamento Invisível',
-                subtitle: 'Correção discreta',
-                description: 'Correção e nivelamento com aparelhos invisíveis.',
-                image: '/servico-alinhamento.png',
-              },
-              {
-                title: 'Check-up Dentário',
-                subtitle: 'Prevenção',
-                description: 'Avaliação completa e diagnóstico preventivo.',
-                image: '/servico-checkup.png',
-              },
-              {
-                title: 'Periodontia',
-                subtitle: 'Saúde gengival',
-                description: 'Tratamento de gengivas e estruturas de suporte.',
-                image: '/servico-periodontia.png',
-              },
-              {
-                title: 'Odontopediatria',
-                subtitle: 'Cuidado infantil',
-                description: 'Atendimento especializado para crianças.',
-                image: '/servico-odontopediatria.png',
-              },
-              {
-                title: 'Próteses Dentárias',
-                subtitle: 'Reabilitação oral',
-                description: 'Soluções personalizadas para restauração.',
-                image: '/servico-proteses.png',
-              },
-            ].map((service, index) => (
-              <div
-                key={index}
+            {treatments.map((treatment) => (
+              <Link
+                key={treatment.id}
+                to={`/tratamentos/${treatment.slug}`}
+                onClick={() => window.scrollTo(0, 0)}
                 className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer"
               >
-                {/* Imagem do Serviço */}
-              <div className="aspect-square overflow-hidden bg-gradient-to-br from-blue-50 to-white relative">
+                {/* Imagem do Tratamento */}
+                <div className="h-48 overflow-hidden bg-gradient-to-br from-blue-50 to-white relative">
                   <img
-                    src={service.image}
-                    alt={service.title}
+                    src={treatment.bannerImage}
+                    alt={treatment.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   {/* Overlay gradient on hover */}
@@ -431,20 +462,17 @@ export default function HomePage() {
                 {/* Conteúdo */}
                 <div className="p-5">
                   <h3 className="text-xl font-bold text-gray-900 mb-1">
-                    {service.title}
+                    {treatment.title}
                   </h3>
                   <p className="text-blue-600 font-semibold text-sm mb-2">
-                    {service.subtitle}
+                    {treatment.subtitle}
                   </p>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {service.description}
+                  <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
+                    {treatment.description}
                   </p>
                   
                   {/* Link Saber Mais */}
-                  <a
-                    href="#contacto"
-                    className="inline-flex items-center mt-4 text-blue-600 text-sm font-semibold hover:text-blue-700 transition group/link"
-                  >
+                  <div className="inline-flex items-center mt-4 text-blue-600 text-sm font-semibold hover:text-blue-700 transition group/link">
                     Saber mais
                     <svg
                       className="w-3 h-3 ml-1 group-hover/link:translate-x-1 transition-transform"
@@ -459,17 +487,17 @@ export default function HomePage() {
                         d="M9 5l7 7-7 7"
                       />
                     </svg>
-                  </a>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
-          {/* Estatísticas dos Serviços */}
+          {/* Estatísticas dos Tratamentos */}
           <div className="mt-16 bg-white rounded-2xl shadow-xl p-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-3xl font-bold text-blue-600 mb-2">8+</div>
+                <div className="text-3xl font-bold text-blue-600 mb-2">16+</div>
                 <div className="text-gray-600">Especialidades</div>
               </div>
               <div>
@@ -910,9 +938,9 @@ export default function HomePage() {
               <h4 className="font-bold mb-4">Links Rápidos</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="#inicio" className="text-gray-400 hover:text-white transition">
+                  <button onClick={scrollToTop} className="text-gray-400 hover:text-white transition">
                     Início
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <a href="#sobre" className="text-gray-400 hover:text-white transition">
@@ -920,8 +948,8 @@ export default function HomePage() {
                   </a>
                 </li>
                 <li>
-                  <a href="#servicos" className="text-gray-400 hover:text-white transition">
-                    Serviços
+                  <a href="#tratamentos" className="text-gray-400 hover:text-white transition">
+                    Tratamentos
                   </a>
                 </li>
                 <li>
@@ -936,12 +964,12 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="font-bold mb-4">Serviços</h4>
+              <h4 className="font-bold mb-4">Tratamentos</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>Implantes Dentários</li>
                 <li>Branqueamento</li>
-                <li>Coroas Dentárias</li>
-                <li>Tratamentos Cosméticos</li>
+                <li>Ortodontia</li>
+                <li>Estética Dentária</li>
               </ul>
             </div>
 
