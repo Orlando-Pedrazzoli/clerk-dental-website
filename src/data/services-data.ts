@@ -81,8 +81,8 @@ export const treatments: Treatment[] = [
       ]
     },
     bannerImage: 'https://images.pexels.com/photos/28407749/pexels-photo-28407749.jpeg',
-    image1: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&h=500&fit=crop',
-    image2: 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=800&h=500&fit=crop',
+    image1: 'https://oralblu.com.br/wp-content/uploads/2018/12/aparelho-estetico.jpg',
+    image2: 'https://www.santander.pt/images/particulares/blogue/artigos/topo/desktop/aparelho-dentario_2048x768_desktop.jpg',
     keywords: ['ortodontia', 'aparelhos dentários', 'alinhadores transparentes', 'correção dentária', 'aparelho invisível']
   },
   {

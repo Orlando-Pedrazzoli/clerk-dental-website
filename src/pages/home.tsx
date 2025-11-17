@@ -135,6 +135,9 @@ export default function HomePage() {
                 )}
               </div>
 
+              <Link to="/corpo-clinico" className="text-gray-700 hover:text-blue-600 transition">
+                Corpo Clínico
+              </Link>
               <a href="#testemunhos" className="text-gray-700 hover:text-blue-600 transition">
                 Testemunhos
               </a>
@@ -234,6 +237,13 @@ export default function HomePage() {
                 >
                   Tratamentos
                 </a>
+                <Link
+                  to="/corpo-clinico"
+                  className="text-gray-700 hover:text-blue-600 transition"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Corpo Clínico
+                </Link>
                 <a
                   href="#testemunhos"
                   className="text-gray-700 hover:text-blue-600 transition"
@@ -449,7 +459,7 @@ export default function HomePage() {
                 className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer"
               >
                 {/* Imagem do Tratamento */}
-                <div className="h-48 overflow-hidden bg-gradient-to-br from-blue-50 to-white relative">
+                <div className="aspect-square overflow-hidden bg-gradient-to-br from-blue-50 to-white relative">
                   <img
                     src={treatment.bannerImage}
                     alt={treatment.title}

@@ -3,6 +3,7 @@ import { useAuth } from './hooks/useAuth';
 import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
 import TreatmentPage from './pages/TreatmentPage';
+import CorpoClinicoPage from './pages/CorpoClinicoPage';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -70,6 +71,9 @@ export default function App() {
       
       {/* ==================== ROTA DE TRATAMENTOS ==================== */}
       <Route path="/tratamentos/:slug" element={<TreatmentPage />} />
+      
+      {/* ==================== ROTA CORPO CLÍNICO ==================== */}
+      <Route path="/corpo-clinico" element={<CorpoClinicoPage />} />
       
       {/* ==================== ADMIN LOGIN ==================== */}
       <Route path="/admin/login" element={<AdminLogin />} />
