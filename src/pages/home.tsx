@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import { UserButton, useUser } from '@clerk/react-router';
 import { Link } from 'react-router';
 import WhatsAppButton from '../components/WhatsAppButton';
+import PatientIDModal from '../components/PatientIDModal';
+import PatientUserMenu from '../components/PatientUserMenu';
+import { usePatientAuth } from '../hooks/usePatientAuth';
 import { treatments } from '../data/services-data';
 
 export default function HomePage() {
-  const { isSignedIn } = useUser();
+  const { isAuthenticated } = usePatientAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [treatmentsDropdownOpen, setTreatmentsDropdownOpen] = useState(false);
+  const [showPatientModal, setShowPatientModal] = useState(false);
 
   // Função para scroll suave ao topo
   const scrollToTop = () => {
@@ -21,11 +24,16 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Modal de Login do Paciente */}
+      {showPatientModal && (
+        <PatientIDModal onClose={() => setShowPatientModal(false)} />
+      )}
+
       {/* Botão WhatsApp Flutuante */}
       <WhatsAppButton />
 
       {/* Navbar */}
-      <nav className="bg-white shadow-md fixed w-full top-0 z-50">
+      <nav className="bg-white shadow-md fixed w-full top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo - Com scroll para o topo */}
@@ -74,9 +82,7 @@ export default function HomePage() {
 
                 {/* Dropdown Menu - 2 Colunas */}
                 {treatmentsDropdownOpen && (
-                  <div 
-                    className="absolute top-full left-0 pt-2 w-[600px] z-50"
-                  >
+                  <div className="absolute top-full left-0 pt-2 w-[600px] z-50">
                     <div className="bg-white rounded-xl shadow-2xl border border-gray-100 py-6 px-4 animate-fadeIn">
                       <div className="grid grid-cols-2 gap-x-8 gap-y-2">
                         {/* Coluna 1 */}
@@ -167,23 +173,15 @@ export default function HomePage() {
               </Link>
 
               {/* Área do Cliente */}
-              {isSignedIn ? (
-                <div className="flex items-center gap-3">
-                  <Link
-                    to="/redirect"
-                    className="text-gray-700 hover:text-blue-600 transition font-medium"
-                  >
-                    Minha Área
-                  </Link>
-                  <UserButton />
-                </div>
+              {isAuthenticated ? (
+                <PatientUserMenu />
               ) : (
-                <Link
-                  to="/sign-in"
-                  className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
+                <button
+                  onClick={() => setShowPatientModal(true)}
+                  className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition font-semibold"
                 >
                   Área do Cliente
-                </Link>
+                </button>
               )}
             </div>
 
@@ -271,25 +269,21 @@ export default function HomePage() {
                   Acesso Admin
                 </Link>
 
-                {isSignedIn ? (
-                  <div className="flex items-center gap-3">
-                    <Link
-                      to="/redirect"
-                      className="text-gray-700 hover:text-blue-600 transition font-medium"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Minha Área
-                    </Link>
-                    <UserButton />
+                {/* Área do Cliente Mobile */}
+                {isAuthenticated ? (
+                  <div className="border-t pt-4">
+                    <PatientUserMenu />
                   </div>
                 ) : (
-                  <Link
-                    to="/sign-in"
-                    className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition text-center"
-                    onClick={() => setMobileMenuOpen(false)}
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setShowPatientModal(true);
+                    }}
+                    className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition text-center font-semibold"
                   >
                     Área do Cliente
-                  </Link>
+                  </button>
                 )}
               </div>
             </div>

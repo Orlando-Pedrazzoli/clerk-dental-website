@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { usePatientData } from '../../hooks/usePatientData';
-import { UserButton } from '@clerk/clerk-react';
+import PatientUserMenu from '../../components/PatientUserMenu';
 import { ArrowLeft, FileText, Calendar, DollarSign, CheckCircle, Clock, AlertCircle, XCircle } from 'lucide-react';
 import { formatDate } from '../../utils/formatDate';
 import { formatCurrency } from '../../utils/constants';
@@ -87,7 +87,7 @@ export default function MyInvoices() {
               <p className="text-sm text-gray-600">Centro Dentário Colombo</p>
             </div>
           </div>
-          <UserButton />
+          <PatientUserMenu />
         </div>
       </header>
 

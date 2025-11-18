@@ -1,7 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IUser extends Document {
-  clerkUserId?: string; // ← Opcional agora
   email: string;
   firstName: string;
   lastName: string;
@@ -25,13 +24,6 @@ export interface IUser extends Document {
 
 const UserSchema = new Schema<IUser>(
   {
-    clerkUserId: {
-      type: String,
-      required: false, // ← MUDOU AQUI (era true)
-      unique: true,
-      sparse: true, // permite null/undefined
-      index: true,
-    },
     email: {
       type: String,
       required: true,
@@ -103,7 +95,6 @@ const UserSchema = new Schema<IUser>(
 // Índices para otimizar buscas
 UserSchema.index({ email: 1 });
 UserSchema.index({ role: 1 });
-UserSchema.index({ clerkUserId: 1 });
 UserSchema.index({ patientId: 1 });
 
 export default mongoose.model<IUser>('User', UserSchema);

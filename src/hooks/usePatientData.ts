@@ -3,20 +3,20 @@ import { patientService } from '../services/patientService';
 import { treatmentService } from '../services/treatmentService';
 import { examService } from '../services/examService';
 import { invoiceService } from '../services/invoiceService';
+import { usePatientAuth } from './usePatientAuth';
 
 export const usePatientData = () => {
-  // Buscar Patient ID validado do localStorage
-  const validatedPatientId = localStorage.getItem('validatedPatientId');
+  const { patientData } = usePatientAuth();
 
-  // Buscar dados do paciente pelo Patient ID
+  // Buscar dados completos do paciente
   const {
     data: patient,
     isLoading: isLoadingPatient,
     error: patientError,
   } = useQuery({
-    queryKey: ['patient', validatedPatientId],
-    queryFn: () => patientService.getByPatientId(validatedPatientId!),
-    enabled: !!validatedPatientId,
+    queryKey: ['patient', patientData?.id],
+    queryFn: () => patientService.getById(patientData!.id),
+    enabled: !!patientData?.id,
   });
 
   // Buscar tratamentos do paciente

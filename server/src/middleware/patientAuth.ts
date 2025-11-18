@@ -1,19 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-// Este arquivo agora será usado apenas para admin
-// A autenticação de pacientes está em patientAuth.ts
-
+// Estender Request para incluir patientData
 declare global {
   namespace Express {
     interface Request {
-      userId?: string;
-      userRole?: string;
+      patientId?: string;
+      patientData?: any;
     }
   }
 }
 
-export const requireAuth = (
+export const verifyPatientToken = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -25,24 +23,14 @@ export const requireAuth = (
       res.status(401).json({ error: 'Token não fornecido' });
       return;
     }
-    
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret') as any;
     
-    req.userId = decoded.id;
-    req.userRole = decoded.role;
+    req.patientId = decoded.patientId;
+    req.patientData = decoded;
     
     next();
   } catch (error) {
     res.status(401).json({ error: 'Token inválido' });
   }
-};
-
-export const requireRole = (roles: string[]) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
-    if (!req.userRole || !roles.includes(req.userRole)) {
-      res.status(403).json({ error: 'Acesso negado' });
-      return;
-    }
-    next();
-  };
 };

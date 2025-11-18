@@ -1,5 +1,4 @@
 import { Link, useLocation } from 'react-router';
-import { UserButton } from '@clerk/clerk-react';
 import { 
   LayoutDashboard, 
   Users, 
@@ -7,7 +6,8 @@ import {
   ClipboardList, 
   LogOut,
   Menu,
-  X
+  X,
+  User
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -37,6 +37,11 @@ const menuItems = [
 export default function Sidebar() {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    window.location.href = '/admin/login';
+  };
 
   return (
     <>
@@ -100,9 +105,11 @@ export default function Sidebar() {
 
         {/* User Section */}
         <div className="p-4 border-t border-gray-200">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <UserButton />
+              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                <User size={20} className="text-white" />
+              </div>
               <div className="text-sm">
                 <p className="font-semibold text-gray-900">Admin</p>
                 <p className="text-gray-500 text-xs">Administrador</p>
@@ -112,11 +119,19 @@ export default function Sidebar() {
 
           <Link
             to="/"
-            className="mt-4 flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
+            className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition mb-2"
           >
             <LogOut size={18} />
             <span className="text-sm">Voltar ao Site</span>
           </Link>
+
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+          >
+            <LogOut size={18} />
+            <span className="text-sm font-medium">Sair do Admin</span>
+          </button>
         </div>
       </aside>
 

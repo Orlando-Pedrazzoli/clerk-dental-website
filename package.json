@@ -10,8 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^5.50.0",
-    "@clerk/react-router": "^2.0.2",
     "@tanstack/react-query": "^5.90.9",
     "axios": "^1.13.2",
     "date-fns": "^4.1.0",

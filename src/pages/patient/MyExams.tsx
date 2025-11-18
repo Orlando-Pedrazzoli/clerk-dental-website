@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { usePatientData } from '../../hooks/usePatientData';
-import { UserButton } from '@clerk/clerk-react';
+import PatientUserMenu from '../../components/PatientUserMenu';
 import { ArrowLeft, Microscope, Calendar, User, Image as ImageIcon, ExternalLink } from 'lucide-react';
 import { formatDate } from '../../utils/formatDate';
 
@@ -31,7 +31,7 @@ export default function MyExams() {
               <p className="text-sm text-gray-600">Centro Dentário Colombo</p>
             </div>
           </div>
-          <UserButton />
+          <PatientUserMenu />
         </div>
       </header>
 

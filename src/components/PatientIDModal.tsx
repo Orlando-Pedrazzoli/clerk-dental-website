@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useUser } from '@clerk/clerk-react';
 import { Shield, X, AlertCircle } from 'lucide-react';
+import { usePatientAuth } from '../hooks/usePatientAuth';
 import api from '../services/api';
 
 interface PatientIDModalProps {
@@ -10,7 +10,8 @@ interface PatientIDModalProps {
 
 export default function PatientIDModal({ onClose }: PatientIDModalProps) {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { login } = usePatientAuth();
+  const [email, setEmail] = useState('');
   const [patientId, setPatientId] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,40 +22,24 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
     setLoading(true);
 
     try {
-      // 1. Validar Patient ID
-      const validateResponse = await api.post('/patients/validate-id', {
+      // Fazer login com email + patientId
+      const response = await api.post('/patients/login', {
+        email: email.toLowerCase().trim(),
         patientId: patientId.trim().toUpperCase(),
       });
 
-      if (!validateResponse.data.valid) {
-        setError('ID de paciente inválido. Verifique com a clínica.');
-        setLoading(false);
-        return;
+      if (response.data.success) {
+        // Salvar token e dados do paciente
+        login(response.data.token, response.data.patient);
+        
+        // Redirecionar para portal
+        navigate('/patient/portal');
       }
-
-      // 2. Vincular Clerk User ID ao paciente (se ainda não estiver vinculado)
-      if (user?.id) {
-        try {
-          await api.post('/patients/link-clerk', {
-            patientId: patientId.trim().toUpperCase(),
-            clerkUserId: user.id,
-            email: user.primaryEmailAddress?.emailAddress,
-          });
-        } catch (linkError: any) {
-          // Se já estiver vinculado, ignora o erro
-          if (!linkError.response?.data?.error?.includes('já está vinculado')) {
-            console.error('Erro ao vincular conta:', linkError);
-          }
-        }
-      }
-
-      // 3. Salvar Patient ID validado no localStorage
-      localStorage.setItem('validatedPatientId', patientId.trim().toUpperCase());
-
-      // 4. Redirecionar para portal do paciente
-      navigate('/patient/portal');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Erro ao validar ID. Tente novamente.');
+      setError(
+        err.response?.data?.error || 
+        'Email ou ID inválidos. Verifique os dados e tente novamente.'
+      );
     } finally {
       setLoading(false);
     }
@@ -65,7 +50,7 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
       <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
         >
           <X size={24} />
         </button>
@@ -77,10 +62,10 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
         </div>
 
         <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">
-          Bem-vindo ao Portal do Paciente
+          Portal do Paciente
         </h2>
         <p className="text-gray-600 text-center mb-6">
-          Digite o ID de paciente fornecido pela clínica
+          Acesse com seu email e ID de paciente
         </p>
 
         {error && (
@@ -90,7 +75,21 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="seu.email@exemplo.com"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               ID de Paciente
@@ -103,24 +102,30 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
               placeholder="Ex: CDC-2025-0001"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-lg font-mono tracking-wider"
             />
+            <p className="text-xs text-gray-500 mt-1">
+              Este ID foi fornecido pela clínica no momento do cadastro
+            </p>
           </div>
 
           <button
             type="submit"
-            disabled={loading || !patientId.trim()}
+            disabled={loading || !email.trim() || !patientId.trim()}
             className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'Validando...' : 'Validar ID'}
+            {loading ? 'Validando...' : 'Acessar Portal'}
           </button>
         </form>
 
         <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
           <p className="text-sm text-blue-800 mb-2">
-            <strong>Não tem um ID?</strong> Entre em contacto com a clínica para obter o seu ID de paciente.
+            <strong>Não tem seus dados de acesso?</strong>
+          </p>
+          <p className="text-sm text-gray-600 mb-2">
+            Entre em contacto com a clínica:
           </p>
           <a
             href="tel:+351216041355"
-            className="text-blue-600 hover:text-blue-800 font-semibold text-sm inline-block"
+            className="text-blue-600 hover:text-blue-800 font-semibold text-sm inline-flex items-center gap-1"
           >
             📞 +351 21 604 13 55
           </a>

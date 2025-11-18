@@ -1,7 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router';
-import { useAuth } from './hooks/useAuth';
 import HomePage from './pages/home';
-import SignInPage from './pages/sign-in';
 import TreatmentPage from './pages/TreatmentPage';
 import CorpoClinicoPage from './pages/CorpoClinicoPage';
 
@@ -13,7 +11,6 @@ import DoctorsPage from './pages/admin/DoctorsPage';
 import TreatmentsPage from './pages/admin/TreatmentsPage';
 import PatientDetail from './pages/admin/PatientDetail';
 import UsersManagement from './pages/admin/UsersManagement';
-import PatientIDVerification from './pages/PatientIDVerification';
 
 // Patient Pages
 import PatientPortal from './pages/patient/PatientPortal';
@@ -21,8 +18,8 @@ import MyExams from './pages/patient/MyExams';
 import MyTreatments from './pages/patient/MyTreatments';
 import MyInvoices from './pages/patient/MyInvoices';
 
-// Redirect Pages
-import RedirectPage from './pages/RedirectPage';
+// Components
+import PatientProtectedRoute from './components/PatientProtectedRoute';
 
 // ============================================
 // COMPONENTE PARA PROTEGER ROTAS ADMIN
@@ -37,37 +34,11 @@ const ProtectedAdminRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-// ============================================
-// COMPONENTE PARA PROTEGER ROTAS PATIENT
-// ============================================
-const PatientRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isLoaded, isSignedIn, isPatient } = useAuth();
-
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl text-gray-600">Carregando...</div>
-      </div>
-    );
-  }
-
-  if (!isSignedIn) {
-    return <Navigate to="/sign-in" replace />;
-  }
-
-  if (!isPatient) {
-    return <Navigate to="/" replace />;
-  }
-
-  return <>{children}</>;
-};
-
 export default function App() {
   return (
     <Routes>
       {/* ==================== ROTAS PÚBLICAS ==================== */}
       <Route path="/" element={<HomePage />} />
-      <Route path="/sign-in" element={<SignInPage />} />
       
       {/* ==================== ROTA DE TRATAMENTOS ==================== */}
       <Route path="/tratamentos/:slug" element={<TreatmentPage />} />
@@ -77,11 +48,6 @@ export default function App() {
       
       {/* ==================== ADMIN LOGIN ==================== */}
       <Route path="/admin/login" element={<AdminLogin />} />
-      
-      {/* ==================== REDIRECT (PARA PATIENTS CLERK) ==================== */}
-      <Route path="/redirect" element={<RedirectPage />} />
-
-      <Route path="/verify-patient-id" element={<PatientIDVerification />} />
 
       {/* ==================== ROTAS ADMIN (PROTEGIDAS) ==================== */}
       <Route
@@ -137,33 +103,33 @@ export default function App() {
       <Route
         path="/patient/portal"
         element={
-          <PatientRoute>
+          <PatientProtectedRoute>
             <PatientPortal />
-          </PatientRoute>
+          </PatientProtectedRoute>
         }
       />
       <Route
         path="/patient/exams"
         element={
-          <PatientRoute>
+          <PatientProtectedRoute>
             <MyExams />
-          </PatientRoute>
+          </PatientProtectedRoute>
         }
       />
       <Route
         path="/patient/treatments"
         element={
-          <PatientRoute>
+          <PatientProtectedRoute>
             <MyTreatments />
-          </PatientRoute>
+          </PatientProtectedRoute>
         }
       />
       <Route
         path="/patient/invoices"
         element={
-          <PatientRoute>
+          <PatientProtectedRoute>
             <MyInvoices />
-          </PatientRoute>
+          </PatientProtectedRoute>
         }
       />
 

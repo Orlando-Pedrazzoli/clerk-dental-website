@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { usePatientData } from '../../hooks/usePatientData';
-import { UserButton } from '@clerk/clerk-react';
+import PatientUserMenu from '../../components/PatientUserMenu';
 import { 
   Calendar, 
   FileText, 
@@ -65,7 +65,7 @@ export default function PatientPortal() {
             <Link to="/" className="text-gray-600 hover:text-gray-900 text-sm">
               Voltar ao Site
             </Link>
-            <UserButton />
+            <PatientUserMenu />
           </div>
         </div>
       </header>
