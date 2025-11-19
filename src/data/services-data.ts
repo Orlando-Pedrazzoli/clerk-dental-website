@@ -34,7 +34,7 @@ export const treatments: Treatment[] = [
       additionalInfo: 'Quando uma lesão se torna muito extensa, pode ser necessária a intervenção de outras especialidades como Endodontia, Prótese Fixa, Prótese Removível ou Implantologia para garantir o melhor resultado.'
     },
     bannerImage: 'https://images.unsplash.com/photo-1743767587921-473b6d079137?q=80&w=1355&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    image1: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&h=500&fit=crop',
+    image1: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     image2: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=500&fit=crop',
     keywords: ['cáries', 'dentisteria', 'restauração dentária', 'check-up dentário', 'saúde oral']
   },
@@ -57,8 +57,8 @@ export const treatments: Treatment[] = [
       additionalInfo: 'No Centro Dentário Colombo, desenvolvemos planos de tratamento personalizados que combinam as mais modernas técnicas para garantir resultados duradouros e naturais.'
     },
     bannerImage: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=1200&h=600&fit=crop',
-    image1: 'https://images.unsplash.com/photo-1609840114035-3c981183b5cf?w=800&h=500&fit=crop',
-    image2: 'https://images.unsplash.com/photo-1588776813397-5c4d5c9e149f?w=800&h=500&fit=crop',
+    image1: 'https://images.unsplash.com/photo-1660732205525-eb180e4d29f8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image2: 'https://images.unsplash.com/photo-1677026010083-78ec7f1b84ed?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     keywords: ['reabilitação oral', 'restauração dentária', 'implantes', 'prótese', 'multidisciplinar']
   },
   {
@@ -155,7 +155,7 @@ export const treatments: Treatment[] = [
     },
     bannerImage: 'https://images.unsplash.com/photo-1681939283065-011297ba26eb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     image1: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=500&fit=crop',
-    image2: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&h=500&fit=crop',
+    image2: 'https://images.unsplash.com/photo-1655807946138-811bb2340d34?q=80&w=1571&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     keywords: ['estética dentária', 'branqueamento', 'facetas', 'sorriso perfeito', 'cosmética dentária']
   },
   {
