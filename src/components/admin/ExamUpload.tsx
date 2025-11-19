@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { X } from 'lucide-react';
+import { X, Trash2 } from 'lucide-react';
 import Autocomplete from './Autocomplete';
 import FileUpload from './FileUpload';
 import type { CreateExamData } from '../../types/exam';
@@ -22,10 +22,12 @@ export default function ExamUpload({ patients, doctors, onClose, onSave }: ExamU
     examDate: '',
     description: '',
     imageUrls: [],
+    cloudinaryPublicIds: [],
     notes: '',
   });
 
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string>('');
 
   // Preparar opções para autocomplete
   const patientOptions = useMemo(() => 
@@ -49,21 +51,73 @@ export default function ExamUpload({ patients, doctors, onClose, onSave }: ExamU
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFilesSelected = (files: File[]) => {
-    setUploadedFiles(files);
-    
-    // Simular upload e obter URLs (em produção, isso enviaria para o servidor)
-    // Por enquanto, vamos criar URLs temporárias
-    const urls = files.map(file => URL.createObjectURL(file));
-    setFormData(prev => ({ ...prev, imageUrls: urls }));
+  // Upload de múltiplas imagens para o servidor
+  const handleFilesSelected = async (files: File[]) => {
+    if (files.length === 0) return;
+
+    setIsUploading(true);
+    setUploadError('');
+
+    try {
+      const formDataUpload = new FormData();
+      files.forEach(file => {
+        formDataUpload.append('images', file);
+      });
+
+      const response = await fetch('http://localhost:5000/api/upload/exam', {
+        method: 'POST',
+        body: formDataUpload,
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao fazer upload das imagens');
+      }
+
+      const data = await response.json();
+      
+      // Adicionar URLs e publicIds aos arrays existentes
+      const newImageUrls = data.images.map((img: any) => img.imageUrl);
+      const newPublicIds = data.images.map((img: any) => img.publicId);
+
+      setFormData(prev => ({ 
+        ...prev, 
+        imageUrls: [...(prev.imageUrls || []), ...newImageUrls],
+        cloudinaryPublicIds: [...(prev.cloudinaryPublicIds || []), ...newPublicIds]
+      }));
+
+    } catch (error) {
+      console.error('Erro no upload:', error);
+      setUploadError('Erro ao fazer upload das imagens. Tente novamente.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  // Remover uma imagem específica
+  const handleRemoveImage = async (index: number) => {
+    const publicIdToDelete = formData.cloudinaryPublicIds?.[index];
+
+    if (publicIdToDelete) {
+      try {
+        await fetch('http://localhost:5000/api/upload/delete', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ publicId: publicIdToDelete }),
+        });
+      } catch (error) {
+        console.error('Erro ao deletar imagem:', error);
+      }
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      imageUrls: (prev.imageUrls || []).filter((_, i) => i !== index),
+      cloudinaryPublicIds: (prev.cloudinaryPublicIds || []).filter((_, i) => i !== index)
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Em produção, você faria o upload real dos arquivos aqui
-    // Por enquanto, vamos usar as URLs temporárias
-    
     onSave(formData);
   };
 
@@ -171,20 +225,32 @@ export default function ExamUpload({ patients, doctors, onClose, onSave }: ExamU
               Você pode arrastar e soltar arquivos ou clicar para selecionar. 
               Aceita imagens (JPG, PNG) e PDFs. Máximo 10MB por arquivo.
             </p>
+
+            {isUploading && (
+              <div className="mt-2 text-sm text-blue-600">
+                Enviando imagens...
+              </div>
+            )}
+
+            {uploadError && (
+              <div className="mt-2 text-sm text-red-600">
+                {uploadError}
+              </div>
+            )}
           </div>
 
-          {/* Preview das imagens (se forem imagens) */}
-          {uploadedFiles.length > 0 && (
+          {/* Preview das imagens já enviadas */}
+          {formData.imageUrls && formData.imageUrls.length > 0 && (
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Arquivos Selecionados
+                Arquivos Enviados ({formData.imageUrls.length})
               </label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {uploadedFiles.map((file, index) => (
-                  <div key={index} className="relative">
-                    {file.type.startsWith('image/') ? (
+                {formData.imageUrls.map((url, index) => (
+                  <div key={index} className="relative group">
+                    {url.match(/\.(jpg|jpeg|png|gif|webp)$/i) ? (
                       <img
-                        src={URL.createObjectURL(file)}
+                        src={url}
                         alt={`Exame ${index + 1}`}
                         className="w-full h-32 object-cover rounded-lg border-2 border-gray-200"
                       />
@@ -193,7 +259,24 @@ export default function ExamUpload({ patients, doctors, onClose, onSave }: ExamU
                         <span className="text-gray-500 text-sm">PDF</span>
                       </div>
                     )}
-                    <p className="text-xs text-gray-600 mt-1 truncate">{file.name}</p>
+                    
+                    {/* Botão de remover */}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveImage(index)}
+                      className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+
+                    <a 
+                      href={url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-xs text-blue-600 hover:underline block mt-1 truncate"
+                    >
+                      Ver arquivo
+                    </a>
                   </div>
                 ))}
               </div>
@@ -226,9 +309,10 @@ export default function ExamUpload({ patients, doctors, onClose, onSave }: ExamU
             </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+              disabled={isUploading}
+              className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
-              Salvar Exame
+              {isUploading ? 'Enviando...' : 'Salvar Exame'}
             </button>
           </div>
         </form>

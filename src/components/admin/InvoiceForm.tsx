@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
-import { X } from 'lucide-react';
+import { X, Upload, Trash2 } from 'lucide-react';
 import MaskedInput from './MaskedInput';
 import Autocomplete from './Autocomplete';
+import FileUpload from './FileUpload';
 import type { CreateInvoiceData } from '../../types/invoice';
 import type { Patient } from '../../types/patient';
 import type { Treatment } from '../../types/treatment';
@@ -29,6 +30,10 @@ export default function InvoiceForm({ patients, treatments, onClose, onSave }: I
     receiptImageUrl: '',
     notes: '',
   });
+
+  
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string>('');
 
   // Preparar opções para autocomplete
   const patientOptions = useMemo(() => 
@@ -72,7 +77,65 @@ export default function InvoiceForm({ patients, treatments, onClose, onSave }: I
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Upload do recibo para o servidor
+  const handleReceiptUpload = async (files: File[]) => {
+    if (files.length === 0) return;
+
+    const file = files[0];
+    setIsUploading(true);
+    setUploadError('');
+
+    try {
+      const formDataUpload = new FormData();
+      formDataUpload.append('receipt', file);
+
+      const response = await fetch('http://localhost:5000/api/upload/receipt', {
+        method: 'POST',
+        body: formDataUpload,
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao fazer upload do recibo');
+      }
+
+      const data = await response.json();
+      
+      setFormData(prev => ({ 
+        ...prev, 
+        receiptImageUrl: data.imageUrl,
+        receiptCloudinaryPublicId: data.publicId 
+      }));
+
+    } catch (error) {
+      console.error('Erro no upload:', error);
+      setUploadError('Erro ao fazer upload do recibo. Tente novamente.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  // Remover recibo
+  const handleRemoveReceipt = async () => {
+    if (formData.receiptCloudinaryPublicId) {
+      try {
+        await fetch('http://localhost:5000/api/upload/delete', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ publicId: formData.receiptCloudinaryPublicId }),
+        });
+      } catch (error) {
+        console.error('Erro ao deletar recibo:', error);
+      }
+    }
+
+    setFormData(prev => ({ 
+      ...prev, 
+      receiptImageUrl: '',
+      receiptCloudinaryPublicId: undefined 
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     onSave(formData);
   };
@@ -176,7 +239,7 @@ export default function InvoiceForm({ patients, treatments, onClose, onSave }: I
             />
           </div>
 
-          {/* Amounts com MaskedInput - CORRIGIDO */}
+          {/* Amounts com MaskedInput */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -272,26 +335,74 @@ export default function InvoiceForm({ patients, treatments, onClose, onSave }: I
             </div>
           </div>
 
-          {/* Receipt Image URL */}
+          {/* Upload de Recibo/Fatura */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              URL do Recibo de Pagamento
+              Upload do Recibo/Fatura da Empresa
             </label>
-            <input
-              type="url"
-              name="receiptImageUrl"
-              value={formData.receiptImageUrl}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-              placeholder="https://exemplo.com/recibo.jpg"
-            />
-            {formData.receiptImageUrl && (
-              <div className="mt-3">
-                <img
-                  src={formData.receiptImageUrl}
-                  alt="Preview do recibo"
-                  className="max-w-xs rounded-lg border-2 border-gray-200"
+            
+            {!formData.receiptImageUrl ? (
+              <>
+                <FileUpload
+                  accept="image/*,application/pdf"
+                  multiple={false}
+                  maxSize={10}
+                  onFilesSelected={handleReceiptUpload}
                 />
+                <p className="text-xs text-gray-500 mt-2">
+                  Faça upload da fatura gerada pelo sistema da empresa (PDF, JPG ou PNG). Máximo 10MB.
+                </p>
+              </>
+            ) : (
+              <div className="border-2 border-gray-200 rounded-lg p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Upload className="text-green-500" size={24} />
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">
+                        Recibo enviado com sucesso
+                      </p>
+                      <a 
+                        href={formData.receiptImageUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 hover:underline"
+                      >
+                        Ver arquivo
+                      </a>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleRemoveReceipt}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                </div>
+
+                {/* Preview se for imagem */}
+                {formData.receiptImageUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i) && (
+                  <div className="mt-3">
+                    <img
+                      src={formData.receiptImageUrl}
+                      alt="Preview do recibo"
+                      className="max-w-xs rounded-lg border-2 border-gray-200"
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
+            {isUploading && (
+              <div className="mt-2 text-sm text-blue-600">
+                Enviando arquivo...
+              </div>
+            )}
+
+            {uploadError && (
+              <div className="mt-2 text-sm text-red-600">
+                {uploadError}
               </div>
             )}
           </div>
@@ -322,9 +433,10 @@ export default function InvoiceForm({ patients, treatments, onClose, onSave }: I
             </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition"
+              disabled={isUploading}
+              className="px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
-              Criar Fatura
+              {isUploading ? 'Enviando...' : 'Criar Fatura'}
             </button>
           </div>
         </form>

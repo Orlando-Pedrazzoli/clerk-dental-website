@@ -90,9 +90,17 @@ export const deleteImage = async (req: Request, res: Response): Promise<void> =>
       return;
     }
 
-    const result = await cloudinary.uploader.destroy(publicId);
+    // Detectar tipo de recurso pelo publicId
+    let resourceType: 'image' | 'raw' = 'image';
+    
+    // Se o publicId contém 'pdf' ou termina com .pdf, é um arquivo raw
+    if (publicId.includes('.pdf') || publicId.toLowerCase().includes('pdf')) {
+      resourceType = 'raw';
+    }
 
-    if (result.result === 'ok') {
+    const result = await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
+
+    if (result.result === 'ok' || result.result === 'not found') {
       res.status(200).json({
         message: 'Imagem deletada com sucesso',
         result,
@@ -118,13 +126,18 @@ export const deleteMultipleImages = async (req: Request, res: Response): Promise
       return;
     }
 
-    const deletePromises = publicIds.map((publicId) =>
-      cloudinary.uploader.destroy(publicId)
-    );
+    const deletePromises = publicIds.map((publicId) => {
+      // Detectar tipo de recurso
+      let resourceType: 'image' | 'raw' = 'image';
+      if (publicId.includes('.pdf') || publicId.toLowerCase().includes('pdf')) {
+        resourceType = 'raw';
+      }
+      return cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
+    });
 
     const results = await Promise.all(deletePromises);
 
-    const successCount = results.filter((r) => r.result === 'ok').length;
+    const successCount = results.filter((r) => r.result === 'ok' || r.result === 'not found').length;
 
     res.status(200).json({
       message: `${successCount} de ${publicIds.length} imagens deletadas com sucesso`,
@@ -136,7 +149,7 @@ export const deleteMultipleImages = async (req: Request, res: Response): Promise
   }
 };
 
-// Upload de imagem de exame
+// Upload de imagem de exame (suporta múltiplas + PDFs)
 export const uploadExamImage = async (req: Request, res: Response): Promise<void> => {
   try {
     if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
@@ -149,7 +162,7 @@ export const uploadExamImage = async (req: Request, res: Response): Promise<void
         const uploadStream = cloudinary.uploader.upload_stream(
           {
             folder: 'centro-dentario-colombo/exams',
-            resource_type: 'auto',
+            resource_type: 'auto', // Aceita imagens e PDFs automaticamente
           },
           (error, result) => {
             if (error) {
@@ -179,7 +192,7 @@ export const uploadExamImage = async (req: Request, res: Response): Promise<void
   }
 };
 
-// Upload de imagem de recibo/fatura
+// Upload de imagem de recibo/fatura (suporta PDFs)
 export const uploadInvoiceReceipt = async (req: Request, res: Response): Promise<void> => {
   try {
     if (!req.file) {
@@ -191,7 +204,7 @@ export const uploadInvoiceReceipt = async (req: Request, res: Response): Promise
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: 'centro-dentario-colombo/receipts',
-          resource_type: 'auto',
+          resource_type: 'auto', // Aceita imagens e PDFs automaticamente
         },
         (error, result) => {
           if (error) reject(error);

@@ -48,6 +48,43 @@ export default function FileUpload({
     processFiles(droppedFiles);
   };
 
+  const isValidFileType = (file: File): boolean => {
+    // Se accept é '*', aceita tudo
+    if (accept === '*') return true;
+
+    // Lista de tipos aceitos
+    const acceptedTypes = accept.split(',').map(type => type.trim());
+
+    // Verifica cada tipo aceito
+    for (const type of acceptedTypes) {
+      // Se é image/*
+      if (type === 'image/*' && file.type.startsWith('image/')) {
+        return true;
+      }
+      
+      // Se é application/pdf
+      if (type === 'application/pdf' && file.type === 'application/pdf') {
+        return true;
+      }
+
+      // Se é um mimetype exato
+      if (file.type === type) {
+        return true;
+      }
+
+      // Se é uma extensão (ex: .pdf)
+      if (type.startsWith('.')) {
+        const extension = type.toLowerCase();
+        const fileName = file.name.toLowerCase();
+        if (fileName.endsWith(extension)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  };
+
   const processFiles = (selectedFiles: File[]) => {
     const validFiles: File[] = [];
     const newErrors: string[] = [];
@@ -59,8 +96,8 @@ export default function FileUpload({
         return;
       }
 
-      // Verificar tipo se especificado
-      if (accept !== '*' && !file.type.match(accept.replace('*', '.*'))) {
+      // Verificar tipo
+      if (!isValidFileType(file)) {
         newErrors.push(`${file.name} não é um tipo de arquivo permitido`);
         return;
       }
@@ -73,7 +110,7 @@ export default function FileUpload({
     if (!multiple && validFiles.length > 0) {
       setFiles([validFiles[0]]);
       onFilesSelected([validFiles[0]]);
-    } else {
+    } else if (validFiles.length > 0) {
       setFiles(prev => [...prev, ...validFiles]);
       onFilesSelected([...files, ...validFiles]);
     }
@@ -128,7 +165,7 @@ export default function FileUpload({
         </p>
         
         <p className="text-sm text-gray-500">
-          {accept === '*' ? 'Todos os tipos de arquivo' : `Apenas ${accept}`}
+          Apenas {accept === 'image/*,application/pdf' ? 'imagens e PDFs' : accept}
           {' • '}
           Máximo {maxSize}MB por arquivo
         </p>

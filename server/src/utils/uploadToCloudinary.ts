@@ -3,13 +3,13 @@ import multer from 'multer';
 // Configuração do Multer para usar memória (buffer)
 const storage = multer.memoryStorage();
 
-// Filtro para aceitar apenas imagens
-const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-  // Aceitar apenas imagens
-  if (file.mimetype.startsWith('image/')) {
+// Filtro para aceitar imagens e PDFs
+const fileFilter = (_req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+  // Aceitar imagens e PDFs
+  if (file.mimetype.startsWith('image/') || file.mimetype === 'application/pdf') {
     cb(null, true);
   } else {
-    cb(new Error('Apenas imagens são permitidas!'));
+    cb(new Error('Apenas imagens (JPG, PNG, GIF, WEBP) e PDFs são permitidos!'));
   }
 };
 
