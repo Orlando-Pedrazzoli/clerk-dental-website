@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { X } from 'lucide-react';
+import MaskedInput from './MaskedInput';
+import Autocomplete from './Autocomplete';
 import type { CreateInvoiceData } from '../../types/invoice';
 import type { Patient } from '../../types/patient';
 import type { Treatment } from '../../types/treatment';
@@ -28,24 +30,46 @@ export default function InvoiceForm({ patients, treatments, onClose, onSave }: I
     notes: '',
   });
 
-  const [filteredTreatments, setFilteredTreatments] = useState<Treatment[]>([]);
+  // Preparar opções para autocomplete
+  const patientOptions = useMemo(() => 
+    patients.map(p => ({
+      id: p._id,
+      label: `${p.firstName} ${p.lastName}`,
+      secondary: p.email
+    })), [patients]
+  );
+
+  // Filtrar tratamentos baseado no paciente selecionado
+  const treatmentOptions = useMemo(() => {
+    if (!formData.patientId) return [];
+    
+    const filtered = treatments.filter(t => {
+      const treatmentPatientId = typeof t.patientId === 'object' ? t.patientId._id : t.patientId;
+      return treatmentPatientId === formData.patientId;
+    });
+
+    return filtered.map(t => ({
+      id: t._id,
+      label: t.treatmentType,
+      secondary: t.description
+    }));
+  }, [treatments, formData.patientId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    
-    if (name === 'patientId') {
-      // Filter treatments by selected patient
-      const filtered = treatments.filter(t => {
-        const treatmentPatientId = typeof t.patientId === 'object' ? t.patientId._id : t.patientId;
-        return treatmentPatientId === value;
-      });
-      setFilteredTreatments(filtered);
-    }
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
+  const handlePatientChange = (patientId: string) => {
     setFormData(prev => ({ 
       ...prev, 
-      [name]: name === 'amount' || name === 'paidAmount' ? parseFloat(value) || 0 : value 
+      patientId,
+      treatmentId: '' // Reset treatment when patient changes
     }));
+  };
+
+  const handleMaskedChange = (name: string, value: string | number) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -69,53 +93,37 @@ export default function InvoiceForm({ patients, treatments, onClose, onSave }: I
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Patient & Treatment */}
+          {/* Patient & Treatment com Autocomplete */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Paciente *
-              </label>
-              <select
-                name="patientId"
-                value={formData.patientId}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-              >
-                <option value="">Selecione um paciente</option>
-                {patients.map((patient) => (
-                  <option key={patient._id} value={patient._id}>
-                    {patient.firstName} {patient.lastName}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Autocomplete
+              options={patientOptions}
+              value={formData.patientId}
+              onChange={handlePatientChange}
+              label="Paciente"
+              placeholder="Digite para buscar paciente..."
+              required
+            />
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Tratamento
               </label>
-              <select
-                name="treatmentId"
-                value={formData.treatmentId}
-                onChange={handleChange}
-                disabled={!formData.patientId}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:bg-gray-100"
-              >
-                <option value="">Selecione um tratamento</option>
-                {filteredTreatments.map((treatment) => (
-                  <option key={treatment._id} value={treatment._id}>
-                    {treatment.treatmentType}
-                  </option>
-                ))}
-              </select>
-              {!formData.patientId && (
-                <p className="text-xs text-gray-500 mt-1">Selecione um paciente primeiro</p>
+              {formData.patientId ? (
+                <Autocomplete
+                  options={treatmentOptions}
+                  value={formData.treatmentId}
+                  onChange={(value) => setFormData(prev => ({ ...prev, treatmentId: value }))}
+                  placeholder="Selecione um tratamento..."
+                />
+              ) : (
+                <div className="px-4 py-2 border border-gray-200 rounded-lg bg-gray-50 text-gray-500">
+                  Selecione um paciente primeiro
+                </div>
               )}
             </div>
           </div>
 
-          {/* Invoice Number & Description */}
+          {/* Invoice Number & Status */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -168,39 +176,28 @@ export default function InvoiceForm({ patients, treatments, onClose, onSave }: I
             />
           </div>
 
-          {/* Amounts */}
+          {/* Amounts com MaskedInput */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Valor Total (€) *
               </label>
-              <input
-                type="number"
-                name="amount"
-                value={formData.amount}
-                onChange={handleChange}
-                required
-                step="0.01"
-                min="0"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                placeholder="0.00"
-              />
-            </div>
+             <MaskedInput
+  mask="currency"
+  name="amount"
+  value={formData.amount || 0}  // ADICIONE || 0
+  onChange={(value) => handleMaskedChange('amount', value)}
+  placeholder="0,00 €"
+  required
+/>
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Valor Pago (€)
-              </label>
-              <input
-                type="number"
-                name="paidAmount"
-                value={formData.paidAmount}
-                onChange={handleChange}
-                step="0.01"
-                min="0"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                placeholder="0.00"
-              />
+<MaskedInput
+  mask="currency"
+  name="paidAmount"
+  value={formData.paidAmount || 0}  // ADICIONE || 0
+  onChange={(value) => handleMaskedChange('paidAmount', value)}
+  placeholder="0,00 €"
+/>
             </div>
           </div>
 

@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { X, Upload, Image as ImageIcon, Trash2 } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { X } from 'lucide-react';
+import Autocomplete from './Autocomplete';
+import FileUpload from './FileUpload';
 import type { CreateExamData } from '../../types/exam';
 import type { Patient } from '../../types/patient';
 import type { Doctor } from '../../types/doctor';
@@ -23,31 +25,45 @@ export default function ExamUpload({ patients, doctors, onClose, onSave }: ExamU
     notes: '',
   });
 
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
-  const [currentUrl, setCurrentUrl] = useState('');
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+
+  // Preparar opções para autocomplete
+  const patientOptions = useMemo(() => 
+    patients.map(p => ({
+      id: p._id,
+      label: `${p.firstName} ${p.lastName}`,
+      secondary: p.email || p.phone
+    })), [patients]
+  );
+
+  const doctorOptions = useMemo(() => 
+    doctors.map(d => ({
+      id: d._id,
+      label: d.name,
+      secondary: d.specialty
+    })), [doctors]
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleAddImage = () => {
-    if (currentUrl.trim()) {
-      const newUrls = [...imageUrls, currentUrl.trim()];
-      setImageUrls(newUrls);
-      setFormData(prev => ({ ...prev, imageUrls: newUrls }));
-      setCurrentUrl('');
-    }
+  const handleFilesSelected = (files: File[]) => {
+    setUploadedFiles(files);
+    
+    // Simular upload e obter URLs (em produção, isso enviaria para o servidor)
+    // Por enquanto, vamos criar URLs temporárias
+    const urls = files.map(file => URL.createObjectURL(file));
+    setFormData(prev => ({ ...prev, imageUrls: urls }));
   };
 
-  const handleRemoveImage = (index: number) => {
-    const newUrls = imageUrls.filter((_, i) => i !== index);
-    setImageUrls(newUrls);
-    setFormData(prev => ({ ...prev, imageUrls: newUrls }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Em produção, você faria o upload real dos arquivos aqui
+    // Por enquanto, vamos usar as URLs temporárias
+    
     onSave(formData);
   };
 
@@ -67,47 +83,25 @@ export default function ExamUpload({ patients, doctors, onClose, onSave }: ExamU
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Patient & Doctor */}
+          {/* Patient & Doctor com Autocomplete */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Paciente *
-              </label>
-              <select
-                name="patientId"
-                value={formData.patientId}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              >
-                <option value="">Selecione um paciente</option>
-                {patients.map((patient) => (
-                  <option key={patient._id} value={patient._id}>
-                    {patient.firstName} {patient.lastName}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Autocomplete
+              options={patientOptions}
+              value={formData.patientId}
+              onChange={(value) => setFormData(prev => ({ ...prev, patientId: value }))}
+              label="Paciente"
+              placeholder="Digite para buscar paciente..."
+              required
+            />
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Médico *
-              </label>
-              <select
-                name="doctorId"
-                value={formData.doctorId}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              >
-                <option value="">Selecione um médico</option>
-                {doctors.map((doctor) => (
-                  <option key={doctor._id} value={doctor._id}>
-                    {doctor.name} - {doctor.specialty}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Autocomplete
+              options={doctorOptions}
+              value={formData.doctorId}
+              onChange={(value) => setFormData(prev => ({ ...prev, doctorId: value }))}
+              label="Médico"
+              placeholder="Digite para buscar médico..."
+              required
+            />
           </div>
 
           {/* Exam Type & Date */}
@@ -162,64 +156,49 @@ export default function ExamUpload({ patients, doctors, onClose, onSave }: ExamU
             />
           </div>
 
-          {/* Image URLs */}
+          {/* File Upload com Drag & Drop */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Imagens do Exame
             </label>
-            <div className="flex gap-2 mb-3">
-              <input
-                type="url"
-                value={currentUrl}
-                onChange={(e) => setCurrentUrl(e.target.value)}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                placeholder="Cole o URL da imagem"
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleAddImage();
-                  }
-                }}
-              />
-              <button
-                type="button"
-                onClick={handleAddImage}
-                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center gap-2"
-              >
-                <Upload size={18} />
-                Adicionar
-              </button>
-            </div>
+            <FileUpload
+              accept="image/*,application/pdf"
+              multiple={true}
+              maxSize={10} // 10MB por arquivo
+              onFilesSelected={handleFilesSelected}
+            />
+            <p className="text-xs text-gray-500 mt-2">
+              Você pode arrastar e soltar arquivos ou clicar para selecionar. 
+              Aceita imagens (JPG, PNG) e PDFs. Máximo 10MB por arquivo.
+            </p>
+          </div>
 
-            {/* Image Preview Grid */}
-            {imageUrls.length > 0 && (
+          {/* Preview das imagens (se forem imagens) */}
+          {uploadedFiles.length > 0 && (
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Arquivos Selecionados
+              </label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {imageUrls.map((url, index) => (
-                  <div key={index} className="relative group">
-                    <img
-                      src={url}
-                      alt={`Exame ${index + 1}`}
-                      className="w-full h-32 object-cover rounded-lg border-2 border-gray-200"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveImage(index)}
-                      className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition hover:bg-red-600"
-                    >
-                      <Trash2 size={16} />
-                    </button>
+                {uploadedFiles.map((file, index) => (
+                  <div key={index} className="relative">
+                    {file.type.startsWith('image/') ? (
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt={`Exame ${index + 1}`}
+                        className="w-full h-32 object-cover rounded-lg border-2 border-gray-200"
+                      />
+                    ) : (
+                      <div className="w-full h-32 bg-gray-100 rounded-lg border-2 border-gray-200 flex items-center justify-center">
+                        <span className="text-gray-500 text-sm">PDF</span>
+                      </div>
+                    )}
+                    <p className="text-xs text-gray-600 mt-1 truncate">{file.name}</p>
                   </div>
                 ))}
               </div>
-            )}
-
-            {imageUrls.length === 0 && (
-              <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg">
-                <ImageIcon className="mx-auto text-gray-400 mb-2" size={40} />
-                <p className="text-gray-500">Nenhuma imagem adicionada ainda</p>
-              </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Notes */}
           <div>

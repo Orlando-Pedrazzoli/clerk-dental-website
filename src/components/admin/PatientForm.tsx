@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import MaskedInput from './MaskedInput';
 import type { Patient, CreatePatientData } from '../../types/patient';
 
 interface PatientFormProps {
@@ -41,6 +42,21 @@ export default function PatientForm({ patient, onClose, onSave }: PatientFormPro
       }));
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleMaskedChange = (name: string, value: string | number) => {
+    if (name.startsWith('emergencyContact.')) {
+      const field = name.split('.')[1];
+      setFormData(prev => ({
+        ...prev,
+        emergencyContact: {
+          ...prev.emergencyContact!,
+          [field]: String(value),
+        },
+      }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: String(value) }));
     }
   };
 
@@ -115,12 +131,11 @@ export default function PatientForm({ patient, onClose, onSave }: PatientFormPro
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Telefone
               </label>
-              <input
-                type="tel"
+              <MaskedInput
+                mask="phone"
                 name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                value={formData.phone || ''}
+                onChange={(value) => handleMaskedChange('phone', value)}
                 placeholder="+351 XXX XXX XXX"
               />
             </div>
@@ -132,7 +147,7 @@ export default function PatientForm({ patient, onClose, onSave }: PatientFormPro
               <input
                 type="date"
                 name="dateOfBirth"
-                value={formData.dateOfBirth}
+                value={formData.dateOfBirth || ''}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -142,13 +157,12 @@ export default function PatientForm({ patient, onClose, onSave }: PatientFormPro
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 NIF
               </label>
-              <input
-                type="text"
+              <MaskedInput
+                mask="nif"
                 name="nif"
-                value={formData.nif}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="123456789"
+                value={formData.nif || ''}
+                onChange={(value) => handleMaskedChange('nif', value)}
+                placeholder="XXX XXX XXX"
               />
             </div>
           </div>
@@ -161,7 +175,7 @@ export default function PatientForm({ patient, onClose, onSave }: PatientFormPro
             <input
               type="text"
               name="address"
-              value={formData.address}
+              value={formData.address || ''}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
@@ -174,7 +188,7 @@ export default function PatientForm({ patient, onClose, onSave }: PatientFormPro
             </label>
             <textarea
               name="medicalHistory"
-              value={formData.medicalHistory}
+              value={formData.medicalHistory || ''}
               onChange={handleChange}
               rows={3}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -189,7 +203,7 @@ export default function PatientForm({ patient, onClose, onSave }: PatientFormPro
             </label>
             <textarea
               name="allergies"
-              value={formData.allergies}
+              value={formData.allergies || ''}
               onChange={handleChange}
               rows={2}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -204,7 +218,7 @@ export default function PatientForm({ patient, onClose, onSave }: PatientFormPro
             </label>
             <textarea
               name="medications"
-              value={formData.medications}
+              value={formData.medications || ''}
               onChange={handleChange}
               rows={2}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -233,12 +247,12 @@ export default function PatientForm({ patient, onClose, onSave }: PatientFormPro
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Telefone
                 </label>
-                <input
-                  type="tel"
+                <MaskedInput
+                  mask="phone"
                   name="emergencyContact.phone"
                   value={formData.emergencyContact?.phone || ''}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  onChange={(value) => handleMaskedChange('emergencyContact.phone', value)}
+                  placeholder="+351 XXX XXX XXX"
                 />
               </div>
 

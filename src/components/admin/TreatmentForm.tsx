@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { X } from 'lucide-react';
+import MaskedInput from './MaskedInput';
+import Autocomplete from './Autocomplete';
 import type { Treatment, CreateTreatmentData } from '../../types/treatment';
 import type { Patient } from '../../types/patient';
 import type { Doctor } from '../../types/doctor';
@@ -37,12 +39,30 @@ export default function TreatmentForm({ treatment, patients, doctors, onClose, o
     notes: treatment?.notes || '',
   });
 
+  // Preparar opções para autocomplete
+  const patientOptions = useMemo(() => 
+    patients.map(p => ({
+      id: p._id,
+      label: `${p.firstName} ${p.lastName}`,
+      secondary: p.email || p.phone
+    })), [patients]
+  );
+
+  const doctorOptions = useMemo(() => 
+    doctors.map(d => ({
+      id: d._id,
+      label: d.name,
+      secondary: d.specialty
+    })), [doctors]
+  );
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ 
-      ...prev, 
-      [name]: name === 'cost' ? parseFloat(value) || 0 : value 
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleMaskedChange = (name: string, value: string | number) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -68,47 +88,25 @@ export default function TreatmentForm({ treatment, patients, doctors, onClose, o
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Patient & Doctor Selection */}
+          {/* Patient & Doctor Selection com Autocomplete */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Paciente *
-              </label>
-              <select
-                name="patientId"
-                value={formData.patientId}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              >
-                <option value="">Selecione um paciente</option>
-                {patients.map((patient) => (
-                  <option key={patient._id} value={patient._id}>
-                    {patient.firstName} {patient.lastName}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Autocomplete
+              options={patientOptions}
+              value={formData.patientId}
+              onChange={(value) => setFormData(prev => ({ ...prev, patientId: value }))}
+              label="Paciente"
+              placeholder="Digite para buscar paciente..."
+              required
+            />
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Médico *
-              </label>
-              <select
-                name="doctorId"
-                value={formData.doctorId}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              >
-                <option value="">Selecione um médico</option>
-                {doctors.map((doctor) => (
-                  <option key={doctor._id} value={doctor._id}>
-                    {doctor.name} - {doctor.specialty}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Autocomplete
+              options={doctorOptions}
+              value={formData.doctorId}
+              onChange={(value) => setFormData(prev => ({ ...prev, doctorId: value }))}
+              label="Médico"
+              placeholder="Digite para buscar médico..."
+              required
+            />
           </div>
 
           {/* Treatment Type */}
@@ -196,21 +194,18 @@ export default function TreatmentForm({ treatment, patients, doctors, onClose, o
             </div>
           </div>
 
-          {/* Cost */}
+          {/* Cost com MaskedInput */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Custo (€)
             </label>
-            <input
-              type="number"
-              name="cost"
-              value={formData.cost}
-              onChange={handleChange}
-              step="0.01"
-              min="0"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              placeholder="0.00"
-            />
+           <MaskedInput
+  mask="currency"
+  name="cost"
+  value={formData.cost || 0}  // ADICIONE || 0
+  onChange={(value) => handleMaskedChange('cost', value)}
+  placeholder="0,00 €"
+/>
           </div>
 
           {/* Notes */}
