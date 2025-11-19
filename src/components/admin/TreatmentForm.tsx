@@ -194,18 +194,18 @@ export default function TreatmentForm({ treatment, patients, doctors, onClose, o
             </div>
           </div>
 
-          {/* Cost com MaskedInput */}
+          {/* Cost com MaskedInput - CORRIGIDO */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Custo (€)
             </label>
-           <MaskedInput
-  mask="currency"
-  name="cost"
-  value={formData.cost || 0}  // ADICIONE || 0
-  onChange={(value) => handleMaskedChange('cost', value)}
-  placeholder="0,00 €"
-/>
+            <MaskedInput
+              mask="currency"
+              name="cost"
+              value={formData.cost || 0}
+              onChange={(value) => handleMaskedChange('cost', value)}
+              placeholder="0,00 €"
+            />
           </div>
 
           {/* Notes */}

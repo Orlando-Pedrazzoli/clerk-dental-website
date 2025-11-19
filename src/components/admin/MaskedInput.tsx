@@ -21,6 +21,10 @@ export default function MaskedInput({
     if (mask === 'currency') {
       // Para currency, se o valor é um número, converte para formato correto
       if (typeof value === 'number') {
+        if (value === 0) {
+          setDisplayValue('');
+          return;
+        }
         // Multiplica por 100 para converter para centavos
         const cents = Math.round(value * 100);
         setDisplayValue(formatValue(cents.toString()));
@@ -57,12 +61,22 @@ export default function MaskedInput({
         
       case 'currency':
         // Formato: X.XXX,XX €
-        if (!val || val === '0' || val === '00') return '';
+        if (!val || val === '0' || val === '00' || cleaned === '' || cleaned === '0') {
+          return '';
+        }
         
         // Remove tudo exceto números
         let numbers = val.replace(/\D/g, '');
         
         if (!numbers || numbers === '0') return '';
+        
+        // Remove zeros à esquerda, exceto se for o único dígito
+        numbers = numbers.replace(/^0+/, '') || '0';
+        
+        // Se ficou vazio após remover zeros, retorna vazio
+        if (numbers === '0' && numbers.length === 1) {
+          return '';
+        }
         
         // Garante pelo menos 2 dígitos para centavos
         if (numbers.length === 1) {
@@ -111,8 +125,14 @@ export default function MaskedInput({
       case 'currency':
         // Remove tudo exceto números
         const numbers = val.replace(/\D/g, '');
+        
+        // Se está vazio, retorna 0
+        if (!numbers || numbers === '0') {
+          return 0;
+        }
+        
         // Converte para decimal (divide por 100 para centavos)
-        return numbers ? parseInt(numbers) / 100 : 0;
+        return parseInt(numbers) / 100;
         
       case 'date':
         // Retornar no formato YYYY-MM-DD para inputs date
@@ -138,14 +158,25 @@ export default function MaskedInput({
       // Remove tudo exceto números
       const numbers = inputValue.replace(/\D/g, '');
       
-      if (!numbers) {
+      // Se está vazio ou zerado, limpa tudo
+      if (!numbers || numbers === '0') {
+        setDisplayValue('');
+        onChange(0);
+        return;
+      }
+      
+      // Remove zeros à esquerda
+      const cleanedNumbers = numbers.replace(/^0+/, '') || '0';
+      
+      // Se ficou apenas com zero, limpa
+      if (cleanedNumbers === '0' && cleanedNumbers.length === 1) {
         setDisplayValue('');
         onChange(0);
         return;
       }
       
       // Limita a 10 dígitos (99.999.999,99)
-      const limitedNumbers = numbers.slice(0, 10);
+      const limitedNumbers = cleanedNumbers.slice(0, 10);
       
       // Converte para valor decimal (divide por 100 para considerar centavos)
       const numValue = parseInt(limitedNumbers) / 100;
@@ -160,6 +191,18 @@ export default function MaskedInput({
     const formatted = formatValue(inputValue);
     setDisplayValue(formatted);
     onChange(unformatValue(formatted));
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Para currency, permite backspace e delete mesmo quando está vazio
+    if (mask === 'currency') {
+      if (e.key === 'Backspace' || e.key === 'Delete') {
+        if (!displayValue || displayValue === '') {
+          setDisplayValue('');
+          onChange(0);
+        }
+      }
+    }
   };
 
   const getPlaceholder = () => {
@@ -194,6 +237,7 @@ export default function MaskedInput({
       type="text"
       value={displayValue}
       onChange={handleChange}
+      onKeyDown={handleKeyDown}
       placeholder={getPlaceholder()}
       inputMode={getInputMode()}
       className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${className}`}

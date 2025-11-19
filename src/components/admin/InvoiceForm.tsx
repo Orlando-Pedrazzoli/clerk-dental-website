@@ -176,28 +176,33 @@ export default function InvoiceForm({ patients, treatments, onClose, onSave }: I
             />
           </div>
 
-          {/* Amounts com MaskedInput */}
+          {/* Amounts com MaskedInput - CORRIGIDO */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Valor Total (€) *
               </label>
-             <MaskedInput
-  mask="currency"
-  name="amount"
-  value={formData.amount || 0}  // ADICIONE || 0
-  onChange={(value) => handleMaskedChange('amount', value)}
-  placeholder="0,00 €"
-  required
-/>
+              <MaskedInput
+                mask="currency"
+                name="amount"
+                value={formData.amount || 0}
+                onChange={(value) => handleMaskedChange('amount', value)}
+                placeholder="0,00 €"
+                required
+              />
+            </div>
 
-<MaskedInput
-  mask="currency"
-  name="paidAmount"
-  value={formData.paidAmount || 0}  // ADICIONE || 0
-  onChange={(value) => handleMaskedChange('paidAmount', value)}
-  placeholder="0,00 €"
-/>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Valor Pago (€)
+              </label>
+              <MaskedInput
+                mask="currency"
+                name="paidAmount"
+                value={formData.paidAmount || 0}
+                onChange={(value) => handleMaskedChange('paidAmount', value)}
+                placeholder="0,00 €"
+              />
             </div>
           </div>
 
