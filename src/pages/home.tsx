@@ -15,7 +15,6 @@ export default function HomePage() {
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<'pt' | 'en'>('pt');
 
-
   // Detectar scroll para mudar navbar
   useEffect(() => {
     const handleScroll = () => {
@@ -39,11 +38,11 @@ export default function HomePage() {
   const column1 = treatments.slice(0, halfLength);
   const column2 = treatments.slice(halfLength);
 
-  // Função para trocar idioma (sem funcionalidade por enquanto)
+  // Função para trocar idioma
   const handleLanguageChange = (lang: 'pt' | 'en') => {
-  setCurrentLanguage(lang);
-  setLanguageDropdownOpen(false);
-};
+    setCurrentLanguage(lang);
+    setLanguageDropdownOpen(false);
+  };
 
   const languages = {
     pt: { name: 'Português', flag: '🇵🇹' },
@@ -60,26 +59,26 @@ export default function HomePage() {
       {/* Botão WhatsApp Flutuante */}
       <WhatsAppButton />
 
-    {/* Navbar - Transparente com scroll effect - FINAL */}
+      {/* Navbar - Otimizada para Mobile */}
       <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${
         scrolled 
           ? 'bg-white/95 backdrop-blur-md shadow-lg' 
           : 'bg-transparent'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo + Texto (sempre visível) */}
-            <div className="flex-shrink-0">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16 sm:h-20">
+            {/* Logo + Texto - Responsivo */}
+            <div className="flex-shrink-0 min-w-0">
               <button
                 onClick={scrollToTop}
-                className="flex items-center gap-3 group cursor-pointer"
+                className="flex items-center gap-2 sm:gap-3 group cursor-pointer"
               >
                 <img 
                   src="/logo-colombo-nav.png" 
                   alt="Centro Dentário Colombo Logo" 
-                  className="h-12 w-auto md:h-14 transition-transform group-hover:scale-105"
+                  className="h-8 w-auto sm:h-12 md:h-14 transition-transform group-hover:scale-105 flex-shrink-0"
                 />
-                <span className={`text-lg md:text-xl lg:text-2xl font-bold transition-all ${
+                <span className={`text-xs sm:text-lg md:text-xl lg:text-2xl font-bold transition-all leading-tight ${
                   scrolled 
                     ? 'bg-gradient-to-r from-[#14489c] to-[#006bb3] bg-clip-text text-transparent' 
                     : 'text-white drop-shadow-lg'
@@ -89,7 +88,7 @@ export default function HomePage() {
               </button>
             </div>
 
-            {/* Desktop Menu - SEM Testemunhos */}
+            {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
               <a 
                 href="#sobre" 
@@ -251,7 +250,7 @@ export default function HomePage() {
                 </button>
               )}
 
-              {/* Language Selector - MOVIDO PARA O FINAL */}
+              {/* Language Selector */}
               <div
                 className="relative"
                 onMouseEnter={() => setLanguageDropdownOpen(true)}
@@ -324,10 +323,23 @@ export default function HomePage() {
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center gap-2">
+              {/* Language selector mobile - compacto */}
+              <button
+                onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
+                className={`transition-all p-1.5 rounded-lg ${
+                  scrolled 
+                    ? 'text-gray-700 hover:bg-gray-100' 
+                    : 'text-white hover:bg-white/10'
+                }`}
+              >
+                <span className="text-xl">{languages[currentLanguage].flag}</span>
+              </button>
+
+              {/* Menu hamburger */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`transition-all ${
+                className={`transition-all p-1 ${
                   scrolled 
                     ? 'text-gray-700 hover:text-blue-600' 
                     : 'text-white hover:text-blue-300'
@@ -359,7 +371,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Mobile Menu - SEM Testemunhos */}
+          {/* Mobile Menu */}
           {mobileMenuOpen && (
             <div className="md:hidden pb-4 bg-white/95 backdrop-blur-md rounded-b-2xl shadow-xl">
               <div className="flex flex-col space-y-3 px-4">
@@ -397,26 +409,34 @@ export default function HomePage() {
                   <div className="text-gray-500 text-sm font-medium mb-2 px-2">Idioma / Language</div>
                   <div className="flex gap-2">
                     <button
-                      onClick={() => handleLanguageChange('pt')}
-                      className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition ${
+                      onClick={() => {
+                        handleLanguageChange('pt');
+                        setMobileMenuOpen(false);
+                      }}
+                      className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition ${
                         currentLanguage === 'pt' 
                           ? 'bg-blue-600 text-white' 
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}
                       title="Português"
                     >
-                      <span className="text-3xl">{languages.pt.flag}</span>
+                      <span className="text-xl">{languages.pt.flag}</span>
+                      <span className="text-sm font-medium"></span>
                     </button>
                     <button
-                      onClick={() => handleLanguageChange('en')}
-                      className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition ${
+                      onClick={() => {
+                        handleLanguageChange('en');
+                        setMobileMenuOpen(false);
+                      }}
+                      className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition ${
                         currentLanguage === 'en' 
                           ? 'bg-blue-600 text-white' 
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}
                       title="English"
                     >
-                      <span className="text-3xl">{languages.en.flag}</span>
+                      <span className="text-xl">{languages.en.flag}</span>
+                      <span className="text-sm font-medium"></span>
                     </button>
                   </div>
                 </div>
@@ -452,11 +472,47 @@ export default function HomePage() {
               </div>
             </div>
           )}
+
+          {/* Language Dropdown Mobile (quando clica na bandeira) */}
+          {languageDropdownOpen && (
+            <div className="md:hidden absolute top-full right-3 mt-1 w-40 bg-white rounded-xl shadow-2xl border border-gray-100 py-2 z-50">
+              <button
+                onClick={() => {
+                  handleLanguageChange('pt');
+                }}
+                className={`w-full flex items-center gap-2 px-3 py-2 hover:bg-blue-50 transition ${
+                  currentLanguage === 'pt' ? 'bg-blue-50' : ''
+                }`}
+              >
+                <span className="text-xl">{languages.pt.flag}</span>
+                <span className={`text-sm font-medium ${
+                  currentLanguage === 'pt' ? 'text-blue-600' : 'text-gray-700'
+                }`}>
+                  {languages.pt.name}
+                </span>
+              </button>
+              <button
+                onClick={() => {
+                  handleLanguageChange('en');
+                }}
+                className={`w-full flex items-center gap-2 px-3 py-2 hover:bg-blue-50 transition ${
+                  currentLanguage === 'en' ? 'bg-blue-50' : ''
+                }`}
+              >
+                <span className="text-xl">{languages.en.flag}</span>
+                <span className={`text-sm font-medium ${
+                  currentLanguage === 'en' ? 'text-blue-600' : 'text-gray-700'
+                }`}>
+                  {languages.en.name}
+                </span>
+              </button>
+            </div>
+          )}
         </div>
       </nav>
 
-      {/* Hero Section - Fullscreen com Vídeo de Fundo */}
-      <section id="inicio" className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
+      {/* Hero Section - Otimizada para Mobile */}
+      <section id="inicio" className="relative h-screen min-h-[600px] sm:min-h-[700px] flex items-center overflow-hidden">
         {/* Vídeo de fundo */}
         <div className="absolute inset-0 z-0">
           <video
@@ -467,87 +523,83 @@ export default function HomePage() {
             className="w-full h-full object-cover"
           >
             <source src="/hero-video.mp4" type="video/mp4" />
-            {/* Fallback para navegadores que não suportam vídeo */}
-            Seu navegador não suporta vídeo HTML5.
           </video>
-          {/* Overlay gradiente para melhorar legibilidade */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/60 to-black/40"></div>
+          {/* Overlay gradiente */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/50"></div>
         </div>
 
-        {/* Conteúdo */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 md:pt-32">
+        {/* Conteúdo - Totalmente Responsivo */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-16 sm:pt-20 md:pt-32">
           <div className="max-w-3xl">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2.5 mb-8">
-              <span className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></span>
-              <span className="text-white text-sm font-semibold tracking-wide">Aberto 7 dias por semana</span>
+            {/* Badge - Mobile Otimizado */}
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-3 py-2 sm:px-5 sm:py-2.5 mb-6 sm:mb-8">
+              <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-green-400 rounded-full animate-pulse"></span>
+              <span className="text-white text-xs sm:text-sm font-semibold tracking-wide">Aberto 7 dias por semana</span>
             </div>
 
-            {/* Título principal */}
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+            {/* Título principal - Mobile Responsivo */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight">
               O Seu Sorriso é a<br />
               Nossa <span className="text-blue-400">Prioridade</span>
             </h1>
 
-            {/* Descrição */}
-            <p className="text-xl sm:text-2xl text-gray-100 mb-12 leading-relaxed max-w-2xl">
+            {/* Descrição - Mobile Otimizada */}
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-100 mb-6 sm:mb-8 md:mb-12 leading-relaxed max-w-2xl">
               Moderna clínica dentária no Centro Comercial Colombo. Tratamentos de excelência 
               com equipamentos de última geração num ambiente caloroso e atencioso.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-16">
+            {/* CTAs - Stack em Mobile, Row em Desktop */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12 md:mb-16">
               <a
                 href="#contacto"
-                className="group bg-blue-600 text-white px-10 py-5 rounded-full hover:bg-blue-700 transition-all text-lg font-semibold text-center shadow-2xl hover:shadow-blue-500/50 hover:scale-105 transform duration-300 inline-flex items-center justify-center gap-2"
+                className="group bg-blue-600 text-white px-5 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full hover:bg-blue-700 transition-all text-sm sm:text-lg font-semibold text-center shadow-2xl hover:shadow-blue-500/50 hover:scale-105 transform duration-300 inline-flex items-center justify-center gap-2"
               >
                 Marcar Consulta
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </a>
               <a
                 href="tel:+351216041355"
-                className="group bg-white/15 backdrop-blur-sm border-2 border-white/30 text-white px-10 py-5 rounded-full hover:bg-white hover:text-gray-900 hover:border-white transition-all text-lg font-semibold text-center shadow-xl inline-flex items-center justify-center gap-2"
+                className="group bg-white/15 backdrop-blur-sm border-2 border-white/30 text-white px-5 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full hover:bg-white hover:text-gray-900 hover:border-white transition-all text-sm sm:text-lg font-semibold text-center shadow-xl inline-flex items-center justify-center gap-2"
               >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
                 Ligar Agora
               </a>
             </div>
 
-            {/* Features */}
-            <div className="flex flex-wrap gap-6 lg:gap-8 text-white">
-              <div className="flex items-center gap-3">
-                <div className="flex-shrink-0 w-10 h-10 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Features - Mobile Grid Layout */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8 text-white">
+              <div className="flex items-center gap-2 sm:gap-3 bg-white/5 backdrop-blur-sm rounded-lg px-3 py-2.5 sm:bg-transparent sm:px-0 sm:py-0">
+                <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-base font-medium">Marcações Flexíveis</span>
+                <span className="text-sm sm:text-base font-medium">Marcações Flexíveis</span>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="flex-shrink-0 w-10 h-10 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center gap-2 sm:gap-3 bg-white/5 backdrop-blur-sm rounded-lg px-3 py-2.5 sm:bg-transparent sm:px-0 sm:py-0">
+                <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-base font-medium">Equipamentos Modernos</span>
+                <span className="text-sm sm:text-base font-medium">Equipamentos Modernos</span>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="flex-shrink-0 w-10 h-10 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center gap-2 sm:gap-3 bg-white/5 backdrop-blur-sm rounded-lg px-3 py-2.5 sm:bg-transparent sm:px-0 sm:py-0">
+                <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-base font-medium">Profissionais Qualificados</span>
+                <span className="text-sm sm:text-base font-medium">Profissionais Qualificados</span>
               </div>
             </div>
           </div>
         </div>
-
-        
       </section>
 
       {/* Stats Section */}

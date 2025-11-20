@@ -45,12 +45,28 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
     }
   };
 
+  // Função para fechar ao clicar no backdrop
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
+    <div 
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[100] p-4"
+      onClick={handleBackdropClick}
+    >
+      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative animate-fadeIn">
+        {/* Botão Fechar - Corrigido */}
         <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+          type="button"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full p-2 transition z-10"
+          aria-label="Fechar modal"
         >
           <X size={24} />
         </button>
@@ -86,7 +102,8 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="seu.email@exemplo.com"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+              autoComplete="email"
             />
           </div>
 
@@ -100,7 +117,8 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
               onChange={(e) => setPatientId(e.target.value.toUpperCase())}
               required
               placeholder="Ex: CDC-2025-0001"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-lg font-mono tracking-wider"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-lg font-mono tracking-wider transition"
+              autoComplete="off"
             />
             <p className="text-xs text-gray-500 mt-1">
               Este ID foi fornecido pela clínica no momento do cadastro
@@ -110,7 +128,7 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
           <button
             type="submit"
             disabled={loading || !email.trim() || !patientId.trim()}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
           >
             {loading ? 'Validando...' : 'Acessar Portal'}
           </button>
@@ -125,7 +143,7 @@ export default function PatientIDModal({ onClose }: PatientIDModalProps) {
           </p>
           <a
             href="tel:+351216041355"
-            className="text-blue-600 hover:text-blue-800 font-semibold text-sm inline-flex items-center gap-1"
+            className="text-blue-600 hover:text-blue-800 font-semibold text-sm inline-flex items-center gap-1 hover:underline"
           >
             📞 +351 21 604 13 55
           </a>
