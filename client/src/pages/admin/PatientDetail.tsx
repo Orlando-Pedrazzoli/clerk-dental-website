@@ -5,6 +5,7 @@ import { patientService } from '../../services/patientService';
 import { ArrowLeft, Copy, User, Mail, Phone, Calendar, FileText, AlertCircle, Users } from 'lucide-react';
 import type { Patient } from '../../types/patient';
 import { formatDate } from '../../utils/formatDate';
+import { NoIndexSEO } from '../../components/NoIndexSEO';
 
 export default function PatientDetail() {
   const { id } = useParams<{ id: string }>();
@@ -38,6 +39,7 @@ export default function PatientDetail() {
   if (isLoading) {
     return (
       <AdminLayout>
+        <NoIndexSEO title="Detalhes do Paciente" />
         <div className="flex items-center justify-center h-64">
           <div className="text-xl text-gray-600">Carregando...</div>
         </div>
@@ -48,6 +50,7 @@ export default function PatientDetail() {
   if (!patient) {
     return (
       <AdminLayout>
+        <NoIndexSEO title="Paciente não encontrado" />
         <div className="max-w-7xl mx-auto">
           <div className="bg-red-50 border border-red-200 rounded-lg p-6">
             <p className="text-red-800">Paciente não encontrado</p>
@@ -62,6 +65,7 @@ export default function PatientDetail() {
 
   return (
     <AdminLayout>
+      <NoIndexSEO title="Detalhes do Paciente" />
       <div className="max-w-7xl mx-auto">
         <Link
           to="/admin/patients"

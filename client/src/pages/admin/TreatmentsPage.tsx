@@ -13,6 +13,7 @@ import { formatDate } from '../../utils/formatDate';
 import type { CreateTreatmentData } from '../../types/treatment';
 import type { CreateExamData } from '../../types/exam';
 import type { CreateInvoiceData } from '../../types/invoice';
+import { NoIndexSEO } from '../../components/NoIndexSEO';
 
 export default function TreatmentsPage() {
   const { treatments, patients, doctors, isLoading, refetch } = useAdminData();
@@ -98,6 +99,7 @@ export default function TreatmentsPage() {
   if (isLoading) {
     return (
       <AdminLayout>
+        <NoIndexSEO title="Tratamentos" />
         <div className="flex items-center justify-center h-64">
           <div className="text-xl text-gray-600">Carregando tratamentos...</div>
         </div>
@@ -107,6 +109,7 @@ export default function TreatmentsPage() {
 
   return (
     <AdminLayout>
+      <NoIndexSEO title="Tratamentos" />
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
           <div>

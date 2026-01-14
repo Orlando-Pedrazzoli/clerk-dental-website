@@ -7,6 +7,7 @@ import { useAdminData } from '../../hooks/useAdminData';
 import { patientService } from '../../services/patientService';
 import { Users, Plus, Copy, Eye } from 'lucide-react';
 import type { CreatePatientData } from '../../types/patient';
+import { NoIndexSEO } from '../../components/NoIndexSEO';
 
 export default function PatientsPage() {
   const { patients, isLoading, refetch } = useAdminData();
@@ -49,6 +50,7 @@ export default function PatientsPage() {
   if (isLoading) {
     return (
       <AdminLayout>
+        <NoIndexSEO title="Pacientes" />
         <div className="flex items-center justify-center h-64">
           <div className="text-xl text-gray-600">Carregando pacientes...</div>
         </div>
@@ -58,6 +60,7 @@ export default function PatientsPage() {
 
   return (
     <AdminLayout>
+      <NoIndexSEO title="Pacientes" />
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>

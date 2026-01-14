@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { userService } from '../../services/userService';
 import { Shield, User as UserIcon, Search } from 'lucide-react';
+import { NoIndexSEO } from '../../components/NoIndexSEO';
 
 interface User {
   _id: string;
@@ -58,6 +59,7 @@ export default function UsersManagement() {
   if (loading) {
     return (
       <AdminLayout>
+        <NoIndexSEO title="Gestão de Utilizadores" />
         <div className="flex items-center justify-center h-64">
           <div className="text-xl text-gray-600">Carregando utilizadores...</div>
         </div>
@@ -67,6 +69,7 @@ export default function UsersManagement() {
 
   return (
     <AdminLayout>
+      <NoIndexSEO title="Gestão de Utilizadores" />
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">

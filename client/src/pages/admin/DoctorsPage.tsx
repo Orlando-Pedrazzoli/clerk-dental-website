@@ -6,6 +6,7 @@ import { useAdminData } from '../../hooks/useAdminData';
 import { doctorService } from '../../services/doctorService';
 import { Stethoscope, Plus, Edit, Phone, Mail } from 'lucide-react';
 import type { CreateDoctorData } from '../../types/doctor';
+import { NoIndexSEO } from '../../components/NoIndexSEO';
 
 export default function DoctorsPage() {
   const { doctors, isLoading, refetch } = useAdminData();
@@ -42,6 +43,7 @@ export default function DoctorsPage() {
   if (isLoading) {
     return (
       <AdminLayout>
+        <NoIndexSEO title="Médicos" />
         <div className="flex items-center justify-center h-64">
           <div className="text-xl text-gray-600">Carregando médicos...</div>
         </div>
@@ -51,6 +53,7 @@ export default function DoctorsPage() {
 
   return (
     <AdminLayout>
+      <NoIndexSEO title="Médicos" />
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>

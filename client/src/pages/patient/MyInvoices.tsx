@@ -4,6 +4,7 @@ import PatientUserMenu from '../../components/PatientUserMenu';
 import { ArrowLeft, FileText, Calendar, DollarSign, CheckCircle, Clock, AlertCircle, XCircle } from 'lucide-react';
 import { formatDate } from '../../utils/formatDate';
 import { formatCurrency } from '../../utils/constants';
+import { NoIndexSEO } from '../../components/NoIndexSEO';
 
 export default function MyInvoices() {
   const { invoices, isLoading } = usePatientData();
@@ -11,6 +12,7 @@ export default function MyInvoices() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <NoIndexSEO title="Minhas Faturas" />
         <div className="text-xl text-gray-600">Carregando suas faturas...</div>
       </div>
     );
@@ -73,6 +75,7 @@ export default function MyInvoices() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <NoIndexSEO title="Minhas Faturas" />
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
 import PatientIDModal from '../components/PatientIDModal';
+import { NoIndexSEO } from '../components/NoIndexSEO';
 
 export default function PatientIDVerification() {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ export default function PatientIDVerification() {
   if (!isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
+        <NoIndexSEO title="Verificação de Paciente" />
         <div className="text-xl text-gray-600">Carregando...</div>
       </div>
     );
@@ -37,6 +39,7 @@ export default function PatientIDVerification() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <NoIndexSEO title="Verificação de Paciente" />
       {showModal && <PatientIDModal onClose={handleCloseModal} />}
     </div>
   );

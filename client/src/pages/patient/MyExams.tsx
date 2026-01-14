@@ -3,6 +3,7 @@ import { usePatientData } from '../../hooks/usePatientData';
 import PatientUserMenu from '../../components/PatientUserMenu';
 import { ArrowLeft, Microscope, Calendar, User, Image as ImageIcon, ExternalLink } from 'lucide-react';
 import { formatDate } from '../../utils/formatDate';
+import { NoIndexSEO } from '../../components/NoIndexSEO';
 
 export default function MyExams() {
   const { exams, isLoading } = usePatientData();
@@ -10,6 +11,7 @@ export default function MyExams() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <NoIndexSEO title="Meus Exames" />
         <div className="text-xl text-gray-600">Carregando seus exames...</div>
       </div>
     );
@@ -17,6 +19,7 @@ export default function MyExams() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <NoIndexSEO title="Meus Exames" />
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">

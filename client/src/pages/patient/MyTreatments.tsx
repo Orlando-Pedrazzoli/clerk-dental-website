@@ -4,6 +4,7 @@ import PatientUserMenu from '../../components/PatientUserMenu';
 import { ArrowLeft, ClipboardList, Calendar, User, DollarSign, FileText } from 'lucide-react';
 import { formatDate } from '../../utils/formatDate';
 import { formatCurrency } from '../../utils/constants';
+import { NoIndexSEO } from '../../components/NoIndexSEO';
 
 export default function MyTreatments() {
   const { treatments, isLoading } = usePatientData();
@@ -11,6 +12,7 @@ export default function MyTreatments() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <NoIndexSEO title="Meus Tratamentos" />
         <div className="text-xl text-gray-600">Carregando seus tratamentos...</div>
       </div>
     );
@@ -48,6 +50,7 @@ export default function MyTreatments() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <NoIndexSEO title="Meus Tratamentos" />
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">

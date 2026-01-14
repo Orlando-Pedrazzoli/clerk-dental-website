@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
+import { NoIndexSEO } from '../components/NoIndexSEO';
 
 export default function RedirectPage() {
   const navigate = useNavigate();
@@ -28,10 +29,11 @@ export default function RedirectPage() {
   if (!isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
+        <NoIndexSEO title="Redirecionamento" />
         <div className="text-xl text-gray-600">Carregando...</div>
       </div>
     );
   }
 
-  return null;
+  return <NoIndexSEO title="Redirecionamento" />;
 }
