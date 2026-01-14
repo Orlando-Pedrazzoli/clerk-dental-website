@@ -4,6 +4,6 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'dist', // Saída da build para o Vercel
-  },
+    chunkSizeWarningLimit: 2000 // aumenta o limite do Vite para evitar warnings
+  }
 });
