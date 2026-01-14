@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { useAdminData } from '../../hooks/useAdminData';
 import { Users, Stethoscope, ClipboardList, FileText } from 'lucide-react';
@@ -9,6 +10,10 @@ export default function AdminDashboard() {
   if (isLoading) {
     return (
       <AdminLayout>
+        <Helmet>
+          <title>Dashboard | Admin - Centro Dentário Colombo</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
         <div className="flex items-center justify-center h-64">
           <div className="text-xl text-gray-600">Carregando dados...</div>
         </div>
@@ -49,6 +54,13 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout>
+      {/* SEO - No Index */}
+      <Helmet>
+        <title>Dashboard | Admin - Centro Dentário Colombo</title>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="googlebot" content="noindex, nofollow" />
+      </Helmet>
+
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Dashboard Administrativo</h1>

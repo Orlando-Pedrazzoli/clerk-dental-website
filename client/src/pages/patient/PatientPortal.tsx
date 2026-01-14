@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 import { usePatientData } from '../../hooks/usePatientData';
 import PatientUserMenu from '../../components/PatientUserMenu';
 import { 
@@ -19,6 +20,10 @@ export default function PatientPortal() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Helmet>
+          <title>Portal do Paciente | Centro Dentário Colombo</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
         <div className="text-xl text-gray-600">Carregando seus dados...</div>
       </div>
     );
@@ -27,6 +32,10 @@ export default function PatientPortal() {
   if (!patient) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Helmet>
+          <title>Portal do Paciente | Centro Dentário Colombo</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
         <div className="text-center">
           <p className="text-xl text-gray-600 mb-4">Paciente não encontrado</p>
           <Link to="/" className="text-blue-600 hover:underline">
@@ -47,6 +56,13 @@ export default function PatientPortal() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* SEO - No Index */}
+      <Helmet>
+        <title>Portal do Paciente | Centro Dentário Colombo</title>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="googlebot" content="noindex, nofollow" />
+      </Helmet>
+
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">

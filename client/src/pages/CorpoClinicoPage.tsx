@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 import { doctors } from '../data/doctors-data';
 import WhatsAppButton from '../components/WhatsAppButton';
 
@@ -26,6 +27,31 @@ export default function CorpoClinicoPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* SEO Meta Tags */}
+      <Helmet>
+        <title>Corpo Clínico | Centro Dentário Colombo</title>
+        <meta name="description" content="Conheça a equipa de médicos dentistas do Centro Dentário Colombo. Profissionais especializados em implantologia, ortodontia, estética dentária e mais. Marque a sua consulta!" />
+        <meta name="keywords" content="médicos dentistas lisboa, equipa dentária, especialistas dentários, dentistas centro colombo, implantologista, ortodontista, periodontista" />
+        <link rel="canonical" href="https://www.centrodentariocolombo.com/corpo-clinico" />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Centro Dentário Colombo" />
+        <meta property="og:title" content="Corpo Clínico | Centro Dentário Colombo" />
+        <meta property="og:description" content="Conheça a equipa de médicos dentistas do Centro Dentário Colombo. Profissionais especializados e experientes." />
+        <meta property="og:image" content="https://www.centrodentariocolombo.com/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content="https://www.centrodentariocolombo.com/corpo-clinico" />
+        <meta property="og:locale" content="pt_PT" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Corpo Clínico | Centro Dentário Colombo" />
+        <meta name="twitter:description" content="Conheça a equipa de médicos dentistas do Centro Dentário Colombo." />
+        <meta name="twitter:image" content="https://www.centrodentariocolombo.com/og-image.jpg" />
+      </Helmet>
+
       <WhatsAppButton />
 
       {/* Navbar Simplificada */}
@@ -78,8 +104,6 @@ export default function CorpoClinicoPage() {
             Uma equipa de profissionais altamente qualificados e experientes, dedicados a 
             proporcionar os melhores cuidados dentários com tecnologia de ponta e atendimento humanizado.
           </p>
-          
-       
         </div>
       </section>
 

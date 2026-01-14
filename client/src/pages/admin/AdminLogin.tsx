@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 import { Lock, User, Eye, EyeOff } from 'lucide-react';
 import api from '../../services/api';
 
@@ -39,6 +40,13 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center p-4">
+      {/* SEO - No Index */}
+      <Helmet>
+        <title>Login Admin | Centro Dentário Colombo</title>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="googlebot" content="noindex, nofollow" />
+      </Helmet>
+
       <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
         {/* Logo */}
         <div className="text-center mb-8">
