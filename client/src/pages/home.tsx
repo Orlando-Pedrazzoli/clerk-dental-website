@@ -6,6 +6,7 @@ import PatientIDModal from '../components/PatientIDModal';
 import PatientUserMenu from '../components/PatientUserMenu';
 import { usePatientAuth } from '../hooks/usePatientAuth';
 import { treatments } from '../data/services-data';
+import CookieSettingsButton from '../components/cookies/CookieSettingsButton';
 
 export default function HomePage() {
   const { isAuthenticated } = usePatientAuth();
@@ -1343,11 +1344,22 @@ export default function HomePage() {
           </div>
 
           <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Centro Dentário Colombo - D. Amaral Assistência e Prevenção Dentária LDA. Todos os direitos reservados.</p>
-            <p className="mt-2 text-sm">
-              Estabelecimento licenciado pela ERS - Entidade Reguladora da Saúde
-            </p>
-          </div>
+  <p>&copy; 2025 Centro Dentário Colombo - D. Amaral Assistência e Prevenção Dentária LDA. Todos os direitos reservados.</p>
+  <p className="mt-2 text-sm">
+    Estabelecimento licenciado pela ERS - Entidade Reguladora da Saúde
+  </p>
+  <div className="mt-4 flex justify-center gap-4 text-sm">
+    <a href="/politica-privacidade" className="hover:text-white transition">
+      Politica de Privacidade
+    </a>
+    <span className="text-gray-600">|</span>
+    <a href="/politica-cookies" className="hover:text-white transition">
+      Politica de Cookies
+    </a>
+    <span className="text-gray-600">|</span>
+    <CookieSettingsButton className="text-gray-400 hover:text-white" />
+  </div>
+</div>
         </div>
       </footer>
     </div>

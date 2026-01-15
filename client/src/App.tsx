@@ -20,6 +20,7 @@ import MyInvoices from './pages/patient/MyInvoices';
 
 // Components
 import PatientProtectedRoute from './components/PatientProtectedRoute';
+import CookieConsent from './components/cookies/CookieConsent';
 
 // ============================================
 // COMPONENTE PARA PROTEGER ROTAS ADMIN
@@ -36,105 +37,110 @@ const ProtectedAdminRoute = ({ children }: { children: React.ReactNode }) => {
 
 export default function App() {
   return (
-    <Routes>
-      {/* ==================== ROTAS PÚBLICAS ==================== */}
-      <Route path="/" element={<HomePage />} />
-      
-      {/* ==================== ROTA DE TRATAMENTOS ==================== */}
-      <Route path="/tratamentos/:slug" element={<TreatmentPage />} />
-      
-      {/* ==================== ROTA CORPO CLÍNICO ==================== */}
-      <Route path="/corpo-clinico" element={<CorpoClinicoPage />} />
-      
-      {/* ==================== ADMIN LOGIN ==================== */}
-      <Route path="/admin/login" element={<AdminLogin />} />
+    <>
+      <Routes>
+        {/* ==================== ROTAS PUBLICAS ==================== */}
+        <Route path="/" element={<HomePage />} />
+        
+        {/* ==================== ROTA DE TRATAMENTOS ==================== */}
+        <Route path="/tratamentos/:slug" element={<TreatmentPage />} />
+        
+        {/* ==================== ROTA CORPO CLINICO ==================== */}
+        <Route path="/corpo-clinico" element={<CorpoClinicoPage />} />
+        
+        {/* ==================== ADMIN LOGIN ==================== */}
+        <Route path="/admin/login" element={<AdminLogin />} />
 
-      {/* ==================== ROTAS ADMIN (PROTEGIDAS) ==================== */}
-      <Route
-        path="/admin/dashboard"
-        element={
-          <ProtectedAdminRoute>
-            <AdminDashboard />
-          </ProtectedAdminRoute>
-        }
-      />
-      <Route
-        path="/admin/patients"
-        element={
-          <ProtectedAdminRoute>
-            <PatientsPage />
-          </ProtectedAdminRoute>
-        }
-      />
-      <Route
-        path="/admin/patients/:id"
-        element={
-          <ProtectedAdminRoute>
-            <PatientDetail />
-          </ProtectedAdminRoute>
-        }
-      />
-      <Route
-        path="/admin/doctors"
-        element={
-          <ProtectedAdminRoute>
-            <DoctorsPage />
-          </ProtectedAdminRoute>
-        }
-      />
-      <Route
-        path="/admin/treatments"
-        element={
-          <ProtectedAdminRoute>
-            <TreatmentsPage />
-          </ProtectedAdminRoute>
-        }
-      />
-      <Route
-        path="/admin/users"
-        element={
-          <ProtectedAdminRoute>
-            <UsersManagement />
-          </ProtectedAdminRoute>
-        }
-      />
+        {/* ==================== ROTAS ADMIN (PROTEGIDAS) ==================== */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboard />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/patients"
+          element={
+            <ProtectedAdminRoute>
+              <PatientsPage />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/patients/:id"
+          element={
+            <ProtectedAdminRoute>
+              <PatientDetail />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/doctors"
+          element={
+            <ProtectedAdminRoute>
+              <DoctorsPage />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/treatments"
+          element={
+            <ProtectedAdminRoute>
+              <TreatmentsPage />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/users"
+          element={
+            <ProtectedAdminRoute>
+              <UsersManagement />
+            </ProtectedAdminRoute>
+          }
+        />
 
-      {/* ==================== ROTAS PATIENT (PROTEGIDAS) ==================== */}
-      <Route
-        path="/patient/portal"
-        element={
-          <PatientProtectedRoute>
-            <PatientPortal />
-          </PatientProtectedRoute>
-        }
-      />
-      <Route
-        path="/patient/exams"
-        element={
-          <PatientProtectedRoute>
-            <MyExams />
-          </PatientProtectedRoute>
-        }
-      />
-      <Route
-        path="/patient/treatments"
-        element={
-          <PatientProtectedRoute>
-            <MyTreatments />
-          </PatientProtectedRoute>
-        }
-      />
-      <Route
-        path="/patient/invoices"
-        element={
-          <PatientProtectedRoute>
-            <MyInvoices />
-          </PatientProtectedRoute>
-        }
-      />
+        {/* ==================== ROTAS PATIENT (PROTEGIDAS) ==================== */}
+        <Route
+          path="/patient/portal"
+          element={
+            <PatientProtectedRoute>
+              <PatientPortal />
+            </PatientProtectedRoute>
+          }
+        />
+        <Route
+          path="/patient/exams"
+          element={
+            <PatientProtectedRoute>
+              <MyExams />
+            </PatientProtectedRoute>
+          }
+        />
+        <Route
+          path="/patient/treatments"
+          element={
+            <PatientProtectedRoute>
+              <MyTreatments />
+            </PatientProtectedRoute>
+          }
+        />
+        <Route
+          path="/patient/invoices"
+          element={
+            <PatientProtectedRoute>
+              <MyInvoices />
+            </PatientProtectedRoute>
+          }
+        />
 
-      {/* ==================== 404 ==================== */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        {/* ==================== 404 ==================== */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+
+      {/* ==================== COOKIE CONSENT ==================== */}
+      <CookieConsent />
+    </>
   );
 }
