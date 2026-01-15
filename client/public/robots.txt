@@ -1,22 +1,9 @@
-# Robots.txt for Centro Dentário Colombo
-# https://www.centrodentariocolombo.com
-
 User-agent: *
 Allow: /
 
-# Bloquear áreas privadas
-Disallow: /admin
+Disallow: /admin/
 Disallow: /admin/*
+Disallow: /patient/
 Disallow: /patient/*
-Disallow: /sign-in
-Disallow: /api/
 
-# Bloquear arquivos desnecessários
-Disallow: /*.json$
-Disallow: /*?*
-
-# Sitemap
 Sitemap: https://www.centrodentariocolombo.com/sitemap.xml
-
-# Crawl-delay (opcional, respeito ao servidor)
-Crawl-delay: 1

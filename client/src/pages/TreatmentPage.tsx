@@ -1,6 +1,7 @@
 import { useParams, Link, Navigate } from 'react-router';
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { SEO } from '../components/SEO';
+import { TreatmentJsonLd, BreadcrumbJsonLd } from '../components/JsonLd';
 import { treatments } from '../data/services-data';
 import WhatsAppButton from '../components/WhatsAppButton';
 
@@ -20,38 +21,41 @@ export default function TreatmentPage() {
     return <Navigate to="/" replace />;
   }
 
-  // URL canônica para este tratamento
-  const canonicalUrl = `https://www.centrodentariocolombo.com/tratamentos/${treatment.slug}`;
+  // Path para SEO
+  const path = `/tratamentos/${treatment.slug}`;
   
   // Descrição SEO baseada no tratamento
   const seoDescription = `${treatment.title} no Centro Dentário Colombo em Lisboa. ${treatment.description.substring(0, 120)}... Marque a sua consulta!`;
 
+  // Keywords
+  const seoKeywords = `${treatment.title.toLowerCase()}, ${treatment.subtitle.toLowerCase()}, tratamento dentário lisboa, centro dentário colombo, dentista lisboa`;
+
   return (
     <div className="min-h-screen bg-white">
       {/* SEO Meta Tags Dinâmicas */}
-      <Helmet>
-        <title>{treatment.title} | Centro Dentário Colombo</title>
-        <meta name="description" content={seoDescription} />
-        <meta name="keywords" content={`${treatment.title.toLowerCase()}, ${treatment.subtitle.toLowerCase()}, tratamento dentário lisboa, centro dentário colombo, dentista lisboa`} />
-        <link rel="canonical" href={canonicalUrl} />
-        
-        {/* Open Graph */}
-        <meta property="og:type" content="article" />
-        <meta property="og:site_name" content="Centro Dentário Colombo" />
-        <meta property="og:title" content={`${treatment.title} | Centro Dentário Colombo`} />
-        <meta property="og:description" content={seoDescription} />
-        <meta property="og:image" content={treatment.bannerImage.startsWith('http') ? treatment.bannerImage : `https://www.centrodentariocolombo.com${treatment.bannerImage}`} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:locale" content="pt_PT" />
-        
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${treatment.title} | Centro Dentário Colombo`} />
-        <meta name="twitter:description" content={seoDescription} />
-        <meta name="twitter:image" content={treatment.bannerImage.startsWith('http') ? treatment.bannerImage : `https://www.centrodentariocolombo.com${treatment.bannerImage}`} />
-      </Helmet>
+      <SEO
+        title={treatment.title}
+        description={seoDescription}
+        keywords={seoKeywords}
+        image={treatment.bannerImage.startsWith('http') ? treatment.bannerImage : `https://www.centrodentariocolombo.com${treatment.bannerImage}`}
+        path={path}
+        type="article"
+      />
+      
+      {/* JSON-LD Structured Data */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Início', path: '/' },
+          { name: 'Tratamentos', path: '/#tratamentos' },
+          { name: treatment.title, path: path }
+        ]}
+      />
+      <TreatmentJsonLd
+        name={treatment.title}
+        description={seoDescription}
+        path={path}
+        image={treatment.bannerImage.startsWith('http') ? treatment.bannerImage : `https://www.centrodentariocolombo.com${treatment.bannerImage}`}
+      />
 
       <WhatsAppButton />
 

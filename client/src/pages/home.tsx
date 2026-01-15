@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
-import { Helmet } from 'react-helmet-async';
+import { SEO } from '../components/SEO';
+import { OrganizationJsonLd, WebSiteJsonLd } from '../components/JsonLd';
 import WhatsAppButton from '../components/WhatsAppButton';
 import PatientIDModal from '../components/PatientIDModal';
 import PatientUserMenu from '../components/PatientUserMenu';
@@ -54,35 +55,9 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* SEO Meta Tags */}
-      <Helmet>
-        <title>Centro Dentário Colombo | Clínica Dentária em Lisboa</title>
-        <meta name="description" content="Centro Dentário Colombo - Clínica dentária de excelência em Lisboa. Tratamentos de implantologia, ortodontia, estética dentária e muito mais. Aberto 7 dias por semana. Marque a sua consulta!" />
-        <meta name="keywords" content="dentista lisboa, clínica dentária, implantes dentários, ortodontia, estética dentária, centro dentário colombo, dentista portugal, branqueamento dentário, centro comercial colombo" />
-        <link rel="canonical" href="https://www.centrodentariocolombo.com" />
-        
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Centro Dentário Colombo" />
-        <meta property="og:title" content="Centro Dentário Colombo | Clínica Dentária em Lisboa" />
-        <meta property="og:description" content="Clínica dentária de excelência em Lisboa. Tratamentos de implantologia, ortodontia, estética dentária. Aberto 7 dias por semana." />
-        <meta property="og:image" content="https://www.centrodentariocolombo.com/og-image.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://www.centrodentariocolombo.com" />
-        <meta property="og:locale" content="pt_PT" />
-        
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Centro Dentário Colombo | Clínica Dentária em Lisboa" />
-        <meta name="twitter:description" content="Clínica dentária de excelência em Lisboa. Aberto 7 dias por semana." />
-        <meta name="twitter:image" content="https://www.centrodentariocolombo.com/og-image.jpg" />
-        
-        {/* Geo Tags */}
-        <meta name="geo.region" content="PT-11" />
-        <meta name="geo.placename" content="Lisboa" />
-        <meta name="geo.position" content="38.7623;-9.1849" />
-        <meta name="ICBM" content="38.7623, -9.1849" />
-      </Helmet>
+      <SEO path="/" />
+      <OrganizationJsonLd />
+      <WebSiteJsonLd />
 
       {/* Modal de Login do Paciente */}
       {showPatientModal && (
