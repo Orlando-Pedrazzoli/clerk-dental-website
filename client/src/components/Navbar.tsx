@@ -74,27 +74,47 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logo + Texto - Responsivo */}
-            <div className="flex-shrink-0 min-w-0 max-w-[60%] sm:max-w-none">
-              <Link
-                to="/"
-                onClick={scrollToTop}
-                className="flex items-center gap-2.5 sm:gap-3 md:gap-4 group cursor-pointer"
-              >
-                <img 
-                  src="/logo-colombo-nav.png" 
-                  alt="Centro Dentário Colombo Logo" 
-                  className="h-9 w-auto sm:h-11 md:h-12 lg:h-14 transition-transform group-hover:scale-105 flex-shrink-0"
-                />
-                <span className={`text-[10px] xs:text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold transition-all leading-tight ${
-                  scrolled 
-                    ? 'bg-gradient-to-r from-[#14489c] to-[#006bb3] bg-clip-text text-transparent' 
-                    : 'text-white drop-shadow-lg'
-                }`}>
-                  <span className="hidden sm:inline">Centro Dentário Colombo</span>
-                  <span className="sm:hidden">CD Colombo</span>
-                </span>
-              </Link>
-            </div>
+           {/* Logo + Texto - Melhorado para Mobile */}
+<div className="flex-shrink-0 min-w-0 max-w-[75%] sm:max-w-none">
+  <Link
+    to="/"
+    onClick={scrollToTop}
+    className="flex items-center gap-3 sm:gap-3.5 md:gap-4 group cursor-pointer"
+  >
+    <img 
+      src="/logo-colombo-nav.png" 
+      alt="Centro Dentário Colombo Logo" 
+      className="
+        h-12 
+        sm:h-11 
+        md:h-12 
+        lg:h-14 
+        xl:h-16 
+        w-auto 
+        transition-transform 
+        group-hover:scale-105 
+        flex-shrink-0
+      "
+    />
+    <span
+      className={`font-semibold leading-tight tracking-tight transition-all
+        text-sm
+        sm:text-base
+        md:text-lg
+        lg:text-xl
+        xl:text-2xl
+        ${
+          scrolled
+            ? 'bg-gradient-to-r from-[#14489c] to-[#006bb3] bg-clip-text text-transparent'
+            : 'text-white drop-shadow-lg'
+        }
+      `}
+    >
+      Centro Dentário Colombo
+    </span>
+  </Link>
+</div>
+
 
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
