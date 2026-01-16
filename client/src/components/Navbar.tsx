@@ -71,42 +71,32 @@ export default function Navbar() {
           ? 'bg-white/95 backdrop-blur-md shadow-lg' 
           : 'bg-transparent'
       }`}>
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logo + Texto - Responsivo */}
-            <div className="flex-shrink-0 min-w-0">
+            <div className="flex-shrink-0 min-w-0 max-w-[60%] sm:max-w-none">
               <button
                 onClick={scrollToTop}
-                className="flex items-center gap-2 sm:gap-3 group cursor-pointer"
+                className="flex items-center gap-2.5 sm:gap-3 md:gap-4 group cursor-pointer"
               >
                 <img 
                   src="/logo-colombo-nav.png" 
                   alt="Centro Dentário Colombo Logo" 
-                  className="h-8 w-auto sm:h-12 md:h-14 transition-transform group-hover:scale-105 flex-shrink-0"
+                  className="h-9 w-auto sm:h-11 md:h-12 lg:h-14 transition-transform group-hover:scale-105 flex-shrink-0"
                 />
-                <span className={`text-xs sm:text-lg md:text-xl lg:text-2xl font-bold transition-all leading-tight ${
+                <span className={`text-[10px] xs:text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold transition-all leading-tight ${
                   scrolled 
                     ? 'bg-gradient-to-r from-[#14489c] to-[#006bb3] bg-clip-text text-transparent' 
                     : 'text-white drop-shadow-lg'
                 }`}>
-                  Centro Dentário Colombo
+                  <span className="hidden sm:inline">Centro Dentário Colombo</span>
+                  <span className="sm:hidden">CD Colombo</span>
                 </span>
               </button>
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a 
-                href="#sobre" 
-                className={`transition-all font-medium ${
-                  scrolled 
-                    ? 'text-gray-700 hover:text-blue-600' 
-                    : 'text-white hover:text-blue-300'
-                }`}
-              >
-                Sobre Nós
-              </a>
-              
+            <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
               {/* Dropdown Tratamentos */}
               <div
                 className="relative"
@@ -115,7 +105,7 @@ export default function Navbar() {
               >
                 <button
                   onClick={() => setTreatmentsDropdownOpen(!treatmentsDropdownOpen)}
-                  className={`transition-all font-medium flex items-center gap-1 py-2 ${
+                  className={`transition-all font-medium flex items-center gap-1 py-2 text-sm xl:text-base ${
                     scrolled 
                       ? 'text-gray-700 hover:text-blue-600' 
                       : 'text-white hover:text-blue-300'
@@ -195,7 +185,7 @@ export default function Navbar() {
 
               <Link 
                 to="/corpo-clinico" 
-                className={`transition-all font-medium ${
+                className={`transition-all font-medium text-sm xl:text-base whitespace-nowrap ${
                   scrolled 
                     ? 'text-gray-700 hover:text-blue-600' 
                     : 'text-white hover:text-blue-300'
@@ -206,7 +196,7 @@ export default function Navbar() {
 
               <a 
                 href="#contacto" 
-                className={`transition-all font-medium ${
+                className={`transition-all font-medium text-sm xl:text-base ${
                   scrolled 
                     ? 'text-gray-700 hover:text-blue-600' 
                     : 'text-white hover:text-blue-300'
@@ -217,7 +207,7 @@ export default function Navbar() {
 
               <Link 
                 to="/faq" 
-                className={`transition-all font-medium ${
+                className={`transition-all font-medium text-sm xl:text-base ${
                   scrolled 
                     ? 'text-gray-700 hover:text-blue-600' 
                     : 'text-white hover:text-blue-300'
@@ -257,7 +247,7 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={() => setShowPatientModal(true)}
-                  className={`px-6 py-2.5 rounded-full transition-all font-semibold shadow-lg hover:scale-105 transform duration-300 ${
+                  className={`px-4 xl:px-6 py-2 xl:py-2.5 rounded-full transition-all font-semibold shadow-lg hover:scale-105 transform duration-300 text-sm xl:text-base whitespace-nowrap ${
                     scrolled
                       ? 'bg-blue-600 text-white hover:bg-blue-700'
                       : 'bg-white text-blue-600 hover:bg-blue-50'
@@ -282,7 +272,7 @@ export default function Navbar() {
                   }`}
                   title={`Idioma: ${languages[currentLanguage].name}`}
                 >
-                  <span className="text-2xl">{languages[currentLanguage].flag}</span>
+                  <span className="text-xl xl:text-2xl">{languages[currentLanguage].flag}</span>
                   <svg
                     className={`w-4 h-4 transition-transform ${languageDropdownOpen ? 'rotate-180' : ''}`}
                     fill="none"
@@ -340,7 +330,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden flex items-center gap-2">
+            <div className="lg:hidden flex items-center gap-2">
               {/* Language selector mobile - compacto */}
               <button
                 onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
@@ -350,13 +340,13 @@ export default function Navbar() {
                     : 'text-white hover:bg-white/10'
                 }`}
               >
-                <span className="text-xl">{languages[currentLanguage].flag}</span>
+                <span className="text-lg">{languages[currentLanguage].flag}</span>
               </button>
 
               {/* Menu hamburger */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`transition-all p-1 ${
+                className={`transition-all p-1.5 ${
                   scrolled 
                     ? 'text-gray-700 hover:text-blue-600' 
                     : 'text-white hover:text-blue-300'
@@ -390,15 +380,8 @@ export default function Navbar() {
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden pb-4 bg-white/95 backdrop-blur-md rounded-b-2xl shadow-xl">
+            <div className="lg:hidden pb-4 bg-white/95 backdrop-blur-md rounded-b-2xl shadow-xl">
               <div className="flex flex-col space-y-3 px-4">
-                <a
-                  href="#sobre"
-                  className="text-gray-700 hover:text-blue-600 transition py-2 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Sobre Nós
-                </a>
                 <a
                   href="#tratamentos"
                   className="text-gray-700 hover:text-blue-600 transition py-2 font-medium"
@@ -448,7 +431,7 @@ export default function Navbar() {
                       title="Português"
                     >
                       <span className="text-xl">{languages.pt.flag}</span>
-                      <span className="text-sm font-medium"></span>
+                      <span className="text-sm font-medium">PT</span>
                     </button>
                     <button
                       onClick={() => {
@@ -463,7 +446,7 @@ export default function Navbar() {
                       title="English"
                     >
                       <span className="text-xl">{languages.en.flag}</span>
-                      <span className="text-sm font-medium"></span>
+                      <span className="text-sm font-medium">EN</span>
                     </button>
                   </div>
                 </div>
@@ -502,7 +485,7 @@ export default function Navbar() {
 
           {/* Language Dropdown Mobile (quando clica na bandeira) */}
           {languageDropdownOpen && (
-            <div className="md:hidden absolute top-full right-3 mt-1 w-40 bg-white rounded-xl shadow-2xl border border-gray-100 py-2 z-50">
+            <div className="lg:hidden absolute top-full right-3 mt-1 w-40 bg-white rounded-xl shadow-2xl border border-gray-100 py-2 z-50">
               <button
                 onClick={() => {
                   handleLanguageChange('pt');
