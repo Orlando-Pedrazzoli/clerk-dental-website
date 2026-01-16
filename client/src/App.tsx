@@ -2,6 +2,9 @@ import { Routes, Route, Navigate } from 'react-router';
 import HomePage from './pages/home';
 import TreatmentPage from './pages/TreatmentPage';
 import CorpoClinicoPage from './pages/CorpoClinicoPage';
+import FAQPage from './pages/FAQPage';
+import PoliticaPrivacidadePage from './pages/PoliticaPrivacidadePage';
+import PoliticaCookiesPage from './pages/PoliticaCookiesPage';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -47,6 +50,13 @@ export default function App() {
         
         {/* ==================== ROTA CORPO CLINICO ==================== */}
         <Route path="/corpo-clinico" element={<CorpoClinicoPage />} />
+
+        {/* ==================== ROTA FAQ ==================== */}
+        <Route path="/faq" element={<FAQPage />} />
+
+        {/* ==================== ROTAS POLÍTICAS ==================== */}
+        <Route path="/politica-privacidade" element={<PoliticaPrivacidadePage />} />
+        <Route path="/politica-cookies" element={<PoliticaCookiesPage />} />
         
         {/* ==================== ADMIN LOGIN ==================== */}
         <Route path="/admin/login" element={<AdminLogin />} />
