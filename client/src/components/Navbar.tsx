@@ -75,7 +75,8 @@ export default function Navbar() {
           <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logo + Texto - Responsivo */}
             <div className="flex-shrink-0 min-w-0 max-w-[60%] sm:max-w-none">
-              <button
+              <Link
+                to="/"
                 onClick={scrollToTop}
                 className="flex items-center gap-2.5 sm:gap-3 md:gap-4 group cursor-pointer"
               >
@@ -92,7 +93,7 @@ export default function Navbar() {
                   <span className="hidden sm:inline">Centro Dentário Colombo</span>
                   <span className="sm:hidden">CD Colombo</span>
                 </span>
-              </button>
+              </Link>
             </div>
 
             {/* Desktop Menu */}
@@ -185,6 +186,7 @@ export default function Navbar() {
 
               <Link 
                 to="/corpo-clinico" 
+                onClick={() => window.scrollTo(0, 0)}
                 className={`transition-all font-medium text-sm xl:text-base whitespace-nowrap ${
                   scrolled 
                     ? 'text-gray-700 hover:text-blue-600' 
@@ -207,6 +209,7 @@ export default function Navbar() {
 
               <Link 
                 to="/faq" 
+                onClick={() => window.scrollTo(0, 0)}
                 className={`transition-all font-medium text-sm xl:text-base ${
                   scrolled 
                     ? 'text-gray-700 hover:text-blue-600' 
@@ -219,6 +222,7 @@ export default function Navbar() {
               {/* Ícone Admin Discreto */}
               <Link
                 to="/admin/login"
+                onClick={() => window.scrollTo(0, 0)}
                 className={`transition-all p-2 ${
                   scrolled 
                     ? 'text-gray-400 hover:text-blue-600' 
@@ -391,8 +395,11 @@ export default function Navbar() {
                 </a>
                 <Link
                   to="/corpo-clinico"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
                   className="text-gray-700 hover:text-blue-600 transition py-2 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
                 >
                   Corpo Clínico
                 </Link>
@@ -405,8 +412,11 @@ export default function Navbar() {
                 </a>
                 <Link
                   to="/faq"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
                   className="text-gray-700 hover:text-blue-600 transition py-2 font-medium flex items-center gap-2"
-                  onClick={() => setMobileMenuOpen(false)}
                 >
                   Perguntas Frequentes
                   <span className="text-[10px] text-white bg-blue-600 rounded px-1.5 py-0.5 font-medium">
@@ -454,8 +464,11 @@ export default function Navbar() {
                 {/* Ícone Admin Mobile */}
                 <Link
                   to="/admin/login"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
                   className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition py-2 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
                 >
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />

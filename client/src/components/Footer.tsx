@@ -12,11 +12,15 @@ export default function Footer() {
           
           {/* Logo & Info Column */}
           <div className="lg:col-span-2">
-            <Link to="/" className="inline-block">
+            <Link to="/" onClick={() => window.scrollTo(0, 0)} className="inline-block">
               <img 
                 src="/logo-colombo-nav.png" 
                 alt="Centro Dentário Colombo" 
-                className="h-12 w-auto brightness-0 invert"
+                className="h-14 w-auto"
+                style={{ 
+                  filter: 'grayscale(100%) brightness(200%) contrast(100%)',
+                  mixBlendMode: 'screen'
+                }}
               />
             </Link>
             <p className="mt-4 text-gray-400 leading-relaxed max-w-sm">
@@ -67,7 +71,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Navegação</h4>
             <ul className="space-y-3">
               <li>
-                <Link to="/" className="hover:text-blue-400 transition-colors">
+                <Link to="/" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
                   Início
                 </Link>
               </li>
@@ -82,12 +86,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <Link to="/corpo-clinico" className="hover:text-blue-400 transition-colors">
+                <Link to="/corpo-clinico" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
                   Corpo Clínico
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="hover:text-blue-400 transition-colors flex items-center gap-2">
+                <Link to="/faq" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors flex items-center gap-2">
                   Perguntas Frequentes
                   <span className="text-[10px] text-white bg-blue-600 rounded px-1.5 py-0.5 font-medium">
                     Novo
@@ -107,27 +111,27 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Tratamentos</h4>
             <ul className="space-y-3">
               <li>
-                <Link to="/tratamentos/implantes-dentarios" className="hover:text-blue-400 transition-colors">
+                <Link to="/tratamentos/implantes-dentarios" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
                   Implantes Dentários
                 </Link>
               </li>
               <li>
-                <Link to="/tratamentos/branqueamento-dentario" className="hover:text-blue-400 transition-colors">
+                <Link to="/tratamentos/branqueamento-dentario" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
                   Branqueamento
                 </Link>
               </li>
               <li>
-                <Link to="/tratamentos/ortodontia" className="hover:text-blue-400 transition-colors">
+                <Link to="/tratamentos/ortodontia" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
                   Ortodontia
                 </Link>
               </li>
               <li>
-                <Link to="/tratamentos/estetica-dentaria" className="hover:text-blue-400 transition-colors">
+                <Link to="/tratamentos/estetica-dentaria" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
                   Estética Dentária
                 </Link>
               </li>
               <li>
-                <Link to="/tratamentos/proteses-dentarias" className="hover:text-blue-400 transition-colors">
+                <Link to="/tratamentos/proteses-dentarias" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
                   Próteses Dentárias
                 </Link>
               </li>
@@ -200,11 +204,19 @@ export default function Footer() {
 
             {/* Legal Links */}
             <div className="flex flex-wrap justify-center items-center gap-4 text-gray-500">
-              <Link to="/politica-privacidade" className="hover:text-blue-400 transition-colors">
+              <Link 
+                to="/politica-privacidade" 
+                onClick={() => window.scrollTo(0, 0)}
+                className="hover:text-blue-400 transition-colors"
+              >
                 Política de Privacidade
               </Link>
               <span className="text-gray-700">|</span>
-              <Link to="/politica-cookies" className="hover:text-blue-400 transition-colors">
+              <Link 
+                to="/politica-cookies" 
+                onClick={() => window.scrollTo(0, 0)}
+                className="hover:text-blue-400 transition-colors"
+              >
                 Política de Cookies
               </Link>
               <span className="text-gray-700">|</span>
