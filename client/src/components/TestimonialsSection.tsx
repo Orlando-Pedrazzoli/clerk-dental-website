@@ -82,17 +82,43 @@ export default function TestimonialsSection() {
   return (
     <>
       <style>{`
+        /* Animação Marquee apenas para Desktop */
         @keyframes marqueeScroll {
           0% { transform: translateX(0%); }
           100% { transform: translateX(-50%); }
         }
 
-        .marquee-inner {
-          animation: marqueeScroll 35s linear infinite;
+        /* Desktop: Animação automática */
+        @media (min-width: 768px) {
+          .marquee-inner {
+            animation: marqueeScroll 35s linear infinite;
+          }
+
+          .marquee-reverse {
+            animation-direction: reverse;
+          }
         }
 
-        .marquee-reverse {
-          animation-direction: reverse;
+        /* Mobile: Scroll manual com snap */
+        @media (max-width: 767px) {
+          .marquee-row {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+          }
+
+          .marquee-row::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+          }
+
+          .marquee-inner {
+            animation: none !important;
+          }
+
+          .testimonial-card {
+            scroll-snap-align: start;
+          }
         }
       `}</style>
 
@@ -138,44 +164,57 @@ export default function TestimonialsSection() {
                 Baseado em <span className="font-semibold text-gray-900">{googleTestimonials.length}+ avaliações</span>
               </span>
             </div>
+
+            {/* Indicador Mobile - Deslize */}
+            <div className="md:hidden mt-6 text-sm text-gray-500 flex items-center justify-center gap-2">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+              </svg>
+              Deslize para ver mais
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </div>
           </div>
 
           {/* Primeira linha de marquee */}
           <div className="marquee-row w-full mx-auto max-w-7xl overflow-hidden relative mb-6">
-            <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-gray-50 to-transparent"></div>
-            <div className="marquee-inner flex transform-gpu min-w-[200%] py-4">
+            <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-gray-50 to-transparent hidden md:block"></div>
+            <div className="marquee-inner flex transform-gpu min-w-[200%] py-4 md:min-w-[200%] gap-0 md:gap-0">
               {[...googleTestimonials.slice(0, 5), ...googleTestimonials.slice(0, 5)].map((review, index) => (
-                <TestimonialCard 
-                  key={`row1-${index}`}
-                  name={review.name}
-                  initials={review.initials}
-                  rating={review.rating}
-                  timeAgo={review.timeAgo}
-                  text={review.text}
-                  googleUrl={review.googleUrl}
-                />
+                <div key={`row1-${index}`} className="testimonial-card">
+                  <TestimonialCard 
+                    name={review.name}
+                    initials={review.initials}
+                    rating={review.rating}
+                    timeAgo={review.timeAgo}
+                    text={review.text}
+                    googleUrl={review.googleUrl}
+                  />
+                </div>
               ))}
             </div>
-            <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent"></div>
+            <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent hidden md:block"></div>
           </div>
 
           {/* Segunda linha de marquee (reversa) */}
           <div className="marquee-row w-full mx-auto max-w-7xl overflow-hidden relative">
-            <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent"></div>
-            <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] py-4">
+            <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent hidden md:block"></div>
+            <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] py-4 md:min-w-[200%] gap-0 md:gap-0">
               {[...googleTestimonials.slice(5), ...googleTestimonials.slice(5)].map((review, index) => (
-                <TestimonialCard 
-                  key={`row2-${index}`}
-                  name={review.name}
-                  initials={review.initials}
-                  rating={review.rating}
-                  timeAgo={review.timeAgo}
-                  text={review.text}
-                  googleUrl={review.googleUrl}
-                />
+                <div key={`row2-${index}`} className="testimonial-card">
+                  <TestimonialCard 
+                    name={review.name}
+                    initials={review.initials}
+                    rating={review.rating}
+                    timeAgo={review.timeAgo}
+                    text={review.text}
+                    googleUrl={review.googleUrl}
+                  />
+                </div>
               ))}
             </div>
-            <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent"></div>
+            <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent hidden md:block"></div>
           </div>
 
           {/* CTA para ver todas as avaliações */}
