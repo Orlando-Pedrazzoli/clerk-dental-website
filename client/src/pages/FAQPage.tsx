@@ -417,17 +417,20 @@ export default function FAQPage() {
       </Helmet>
 
       <main className="min-h-screen bg-gradient-to-b from-blue-50/30 to-white">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16 md:py-20">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              Perguntas Frequentes
-            </h1>
-            <p className="text-blue-100 text-lg md:text-xl max-w-2xl mx-auto">
-              Tire todas as suas dúvidas sobre os nossos tratamentos dentários
-            </p>
-          </div>
-        </section>
+  {/* Wrapper com fundo azul e padding-top */}
+  <div className="bg-gradient-to-r from-blue-600 to-blue-700 pt-20">
+    {/* Hero Section */}
+    <section className="text-white py-16 md:py-20">
+      <div className="max-w-4xl mx-auto px-4 text-center">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+          Perguntas Frequentes
+        </h1>
+        <p className="text-blue-100 text-lg md:text-xl max-w-2xl mx-auto">
+          Tire todas as suas dúvidas sobre os nossos tratamentos dentários
+        </p>
+      </div>
+    </section>
+  </div>
 
         {/* Main Content */}
         <section className="max-w-4xl mx-auto px-4 py-12">

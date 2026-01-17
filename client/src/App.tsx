@@ -22,6 +22,7 @@ import MyTreatments from './pages/patient/MyTreatments';
 import MyInvoices from './pages/patient/MyInvoices';
 
 // Components
+import Layout from './components/Layout';
 import PatientProtectedRoute from './components/PatientProtectedRoute';
 import CookieConsent from './components/cookies/CookieConsent';
 
@@ -42,26 +43,20 @@ export default function App() {
   return (
     <>
       <Routes>
-        {/* ==================== ROTAS PUBLICAS ==================== */}
-        <Route path="/" element={<HomePage />} />
+        {/* ==================== ROTAS PUBLICAS COM LAYOUT ==================== */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/tratamentos/:slug" element={<TreatmentPage />} />
+          <Route path="/corpo-clinico" element={<CorpoClinicoPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/politica-privacidade" element={<PoliticaPrivacidadePage />} />
+          <Route path="/politica-cookies" element={<PoliticaCookiesPage />} />
+        </Route>
         
-        {/* ==================== ROTA DE TRATAMENTOS ==================== */}
-        <Route path="/tratamentos/:slug" element={<TreatmentPage />} />
-        
-        {/* ==================== ROTA CORPO CLINICO ==================== */}
-        <Route path="/corpo-clinico" element={<CorpoClinicoPage />} />
-
-        {/* ==================== ROTA FAQ ==================== */}
-        <Route path="/faq" element={<FAQPage />} />
-
-        {/* ==================== ROTAS POLÍTICAS ==================== */}
-        <Route path="/politica-privacidade" element={<PoliticaPrivacidadePage />} />
-        <Route path="/politica-cookies" element={<PoliticaCookiesPage />} />
-        
-        {/* ==================== ADMIN LOGIN ==================== */}
+        {/* ==================== ADMIN LOGIN (SEM LAYOUT) ==================== */}
         <Route path="/admin/login" element={<AdminLogin />} />
 
-        {/* ==================== ROTAS ADMIN (PROTEGIDAS) ==================== */}
+        {/* ==================== ROTAS ADMIN (PROTEGIDAS - SEM LAYOUT) ==================== */}
         <Route
           path="/admin/dashboard"
           element={
@@ -111,7 +106,7 @@ export default function App() {
           }
         />
 
-        {/* ==================== ROTAS PATIENT (PROTEGIDAS) ==================== */}
+        {/* ==================== ROTAS PATIENT (PROTEGIDAS - SEM LAYOUT) ==================== */}
         <Route
           path="/patient/portal"
           element={
