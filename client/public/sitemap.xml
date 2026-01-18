@@ -2,109 +2,127 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.centrodentariocolombo.com</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/corpo-clinico</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.centrodentariocolombo.com/faq</loc>
+    <lastmod>2026-01-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.centrodentariocolombo.com/politica-privacidade</loc>
+    <lastmod>2026-01-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.centrodentariocolombo.com/politica-cookies</loc>
+    <lastmod>2026-01-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/caries</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/reabilitacao-oral</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/aparelhos-dentarios</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/criancas</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/proteses-dentarias</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/estetica-dentaria</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/cirurgia-oral</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/dentisteria</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/endodontia</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/implantologia</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/medicina-oral</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/oclusao</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/odontopediatria</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/ortodontia</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/periodontologia</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.centrodentariocolombo.com/tratamentos/prostodontia</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

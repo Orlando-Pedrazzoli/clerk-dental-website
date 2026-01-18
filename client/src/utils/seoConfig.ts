@@ -38,6 +38,7 @@ export function normalizeUrl(path: string): string {
   return `${base}/${cleanPath}`;
 }
 
+// Slugs dos tratamentos (usado no sitemap e nas rotas)
 export const TREATMENT_SLUGS = [
   'caries',
   'reabilitacao-oral',
@@ -57,9 +58,14 @@ export const TREATMENT_SLUGS = [
   'prostodontia'
 ];
 
+// Páginas estáticas públicas (para sitemap)
 export const STATIC_PAGES = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
-  { path: '/corpo-clinico', changefreq: 'monthly', priority: '0.8' }
+  { path: '/corpo-clinico', changefreq: 'monthly', priority: '0.8' },
+  { path: '/faq', changefreq: 'monthly', priority: '0.6' },
+  { path: '/politica-privacidade', changefreq: 'yearly', priority: '0.3' },
+  { path: '/politica-cookies', changefreq: 'yearly', priority: '0.3' }
 ];
 
+// Paths privados (noindex)
 export const PRIVATE_PATHS = ['/admin', '/patient'];

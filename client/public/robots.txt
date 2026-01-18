@@ -1,9 +1,36 @@
+# =====================================================
+# Centro Dentário Colombo - robots.txt
+# https://www.centrodentariocolombo.com
+# =====================================================
+
 User-agent: *
 Allow: /
 
+# Áreas privadas (noindex)
+Disallow: /admin
 Disallow: /admin/
-Disallow: /admin/*
+Disallow: /patient
 Disallow: /patient/
-Disallow: /patient/*
 
+# Sitemap
 Sitemap: https://www.centrodentariocolombo.com/sitemap.xml
+
+# =====================================================
+# Googlebot
+# =====================================================
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /patient
+
+# =====================================================
+# Google Images
+# =====================================================
+User-agent: Googlebot-Image
+Allow: /
+
+# =====================================================
+# AdsBot
+# =====================================================
+User-agent: AdsBot-Google
+Allow: /
