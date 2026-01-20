@@ -5,7 +5,7 @@ export interface Doctor {
   specialties: string[];
   photo: string;
   bio: string;
-  education: string[];
+  education?: string[];
   achievements?: string[];
   languages?: string[];
 }
@@ -13,231 +13,168 @@ export interface Doctor {
 export const doctors: Doctor[] = [
   {
     id: '1',
-    name: 'Andreia Façanha',
-    title: 'Dra.',
-    specialties: ['Odontopediatria', 'Dentisteria'],
-    photo: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=800&h=800&fit=crop',
-    bio: 'Especialista em Odontopediatria com vasta experiência no atendimento infantil, criando um ambiente acolhedor e de confiança para os mais pequenos.',
-    education: [
-      'Mestrado em Medicina Dentária - ISCSEM Universidade Católica Portuguesa de Viseu',
-      'Pós-Graduação em Endodontia Mecanizada - Endoacademy',
-      'Formação Avançada em Odontopediatria - Instituto Superior de Ciências da Saúde'
-    ],
-    achievements: [
-      'Autora de artigos publicados em revistas nacionais de Dentisteria',
-      'Apresentação de posters em congressos de Odontopediatria',
-      'Participação regular em seminários e congressos nacionais e internacionais'
-    ],
-    languages: ['Português', 'Inglês', 'Espanhol']
+    name: 'Marcelo F. Natali',
+    title: 'Dr.',
+    specialties: ['Generalista', 'Reabilitação Oral'],
+    photo: '/doctors/marcelo-natali.jpg',
+    bio: 'Médico dentista formado há 33 anos, atuando como generalista com ênfase em reabilitação oral fixa e parcial. Atendimento humanizado, baseado na escuta, no respeito ao paciente e na busca por tratamentos seguros, funcionais e confortáveis, sempre focados no bem-estar e na qualidade de vida.',
+    languages: ['Português']
   },
   {
     id: '2',
-    name: 'Ricardo Tavares',
-    title: 'Dr.',
-    specialties: ['Implantologia', 'Cirurgia Oral'],
-    photo: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&h=800&fit=crop',
-    bio: 'Cirurgião oral especializado em implantologia avançada, com formação internacional e técnicas de última geração para reabilitação oral.',
-    education: [
-      'Mestrado Integrado em Medicina Dentária - Faculdade de Medicina Dentária da Universidade de Lisboa',
-      'Pós-Graduação em Implantologia - NYU College of Dentistry, Nova Iorque',
-      'Curso Avançado em Regeneração Óssea - Universidade de Berna, Suíça'
-    ],
-    achievements: [
-      'Certificação Internacional em Implantologia pelo ITI (International Team for Implantology)',
-      'Mais de 2000 implantes colocados com sucesso',
-      'Palestrante em congressos nacionais de Implantologia'
-    ],
-    languages: ['Português', 'Inglês', 'Francês']
+    name: 'Geane Mendes',
+    title: 'Dra.',
+    specialties: ['Endodontia', 'Prótese Dentária', 'Reabilitação Oral'],
+    photo: '/doctors/geane-mendes.jpg',
+    bio: 'Médica Dentista com mais de 25 anos de atuação, especialista em Endodontia, com experiência em Prótese Dentária, Reabilitação Oral e Cirurgia Oral Menor. Dedica-se a prestar cuidados de saúde com rigor clínico, ética e atenção individualizada.',
+    languages: ['Português']
   },
   {
     id: '3',
-    name: 'Sofia Mendes',
+    name: 'Christina Melo Hastenreiter',
     title: 'Dra.',
-    specialties: ['Ortodontia', 'Estética Dentária'],
-    photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&h=800&fit=crop',
-    bio: 'Ortodontista dedicada à criação de sorrisos harmoniosos através de técnicas modernas, incluindo aparelhos invisíveis e ortodontia estética.',
-    education: [
-      'Licenciatura em Medicina Dentária - Instituto Superior de Ciências da Saúde Egas Moniz',
-      'Mestrado em Ortodontia - Universidade Complutense de Madrid',
-      'Certificação Invisalign Diamond Provider'
-    ],
-    achievements: [
-      'Especialista certificada em Invisalign e sistemas de alinhadores',
-      'Formação em Ortodontia Lingual - Incognito System',
-      'Membro da Sociedade Portuguesa de Ortodontia'
-    ],
-    languages: ['Português', 'Inglês', 'Espanhol']
+    specialties: ['Ortopedia Funcional dos Maxilares', 'Ortodontia Corretiva'],
+    photo: '/doctors/christina-hastenreiter.jpg',
+    bio: 'Atua na área de Ortopedia Funcional dos Maxilares e Ortodontia Corretiva. Trabalho focado no diagnóstico e tratamento das alterações dentofaciais, promovendo função, estética e equilíbrio do sistema estomatognático.',
+    languages: ['Português']
   },
   {
     id: '4',
-    name: 'Miguel Santos',
-    title: 'Dr.',
-    specialties: ['Periodontologia', 'Medicina Oral'],
-    photo: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&h=800&fit=crop',
-    bio: 'Periodontista com foco na prevenção e tratamento de doenças gengivais, promovendo a saúde dos tecidos de suporte dentário.',
-    education: [
-      'Mestrado em Medicina Dentária - Faculdade de Medicina Dentária da Universidade do Porto',
-      'Pós-Graduação em Periodontologia - Universidade de Valência, Espanha',
-      'Curso de Cirurgia Plástica Periodontal - Universidad Europea de Madrid'
-    ],
-    achievements: [
-      'Membro da Sociedade Portuguesa de Periodontologia',
-      'Investigador em regeneração de tecidos periodontais',
-      'Publicação de artigos científicos em revistas indexadas'
-    ],
-    languages: ['Português', 'Inglês']
+    name: 'Ana Paula Ribeiro Borges',
+    title: 'Dra.',
+    specialties: ['Ortodontia'],
+    photo: '/doctors/ana-paula-borges.jpg',
+    bio: 'Ortodontista com mais de 20 anos de experiência, dedicada a entregar com excelência sorrisos funcionais e harmoniosos, sempre com empatia e compromisso ao longo de toda a sua carreira.',
+    languages: ['Português']
   },
   {
     id: '5',
-    name: 'Mariana Costa',
+    name: 'Camila F. Lameira',
     title: 'Dra.',
-    specialties: ['Endodontia', 'Dentisteria'],
-    photo: 'https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?w=800&h=800&fit=crop',
-    bio: 'Endodontista especializada em tratamentos de canal com microscopia, utilizando tecnologia de ponta para preservar dentes naturais.',
-    education: [
-      'Mestrado Integrado em Medicina Dentária - Universidade de Coimbra',
-      'Pós-Graduação em Endodontia Mecanizada - Portuguese Institute of Endodontics',
-      'Formação em Endodontia sob Microscopia - Boston University'
-    ],
-    achievements: [
-      'Certificada em Endodontia com Microscópio Operatório',
-      'Especialista em casos complexos de retratamento endodôntico',
-      'Formadora em cursos de Endodontia Moderna'
-    ],
-    languages: ['Português', 'Inglês']
+    specialties: ['Ortodontia', 'Ortopedia', 'Odontopediatria'],
+    photo: '/doctors/camila-lameira.jpg',
+    bio: 'Médica dentista com 20 anos de experiência. Especialista em Ortodontia, com atuação em Ortopedia e paixão pela Odontopediatria. Acredita que compreender cada paciente é essencial para transformar sorrisos com confiança.',
+    languages: ['Português']
   },
   {
     id: '6',
-    name: 'João Pereira',
+    name: 'Marcelo Marques',
     title: 'Dr.',
-    specialties: ['Prostodontia', 'Reabilitação Oral'],
-    photo: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=800&h=800&fit=crop',
-    bio: 'Prostodontista com expertise em reabilitações orais complexas, devolvendo função, estética e qualidade de vida aos pacientes.',
+    specialties: ['Dentisteria Estética', 'Implantes Dentários'],
+    photo: '/doctors/marcelo-marques.jpg',
+    bio: 'Especialista em Dentisteria Estética, com foco em facetas e coroas. Possui pós-graduações em Implantes Dentários, Oclusão, Reabilitação Oral, Periodontologia e Ortodontia, oferecendo um atendimento completo e multidisciplinar.',
     education: [
-      'Mestrado em Medicina Dentária - Instituto Superior de Ciências da Saúde do Sul',
-      'Pós-Graduação em Prostodontia Fixa - Universidade de São Paulo, Brasil',
-      'Especialização em Prótese sobre Implantes - Universidade de Gotemburgo, Suécia'
+      'Pós-graduação em Implantes Dentários',
+      'Pós-graduação em Oclusão',
+      'Pós-graduação em Reabilitação Oral',
+      'Pós-graduação em Periodontologia',
+      'Pós-graduação em Ortodontia'
     ],
-    achievements: [
-      'Especialista em casos de reabilitação oral total',
-      'Certificação em sistemas CAD/CAM para prótese dentária',
-      'Colaboração com laboratórios internacionais de prótese'
-    ],
-    languages: ['Português', 'Inglês', 'Espanhol']
+    achievements: ['OMD 11398'],
+    languages: ['Português']
   },
   {
     id: '7',
-    name: 'Catarina Rodrigues',
-    title: 'Dra.',
-    specialties: ['Dentisteria', 'Estética Dentária'],
-    photo: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=800&h=800&fit=crop&flip=h',
-    bio: 'Dentista estética apaixonada por transformar sorrisos através de técnicas minimamente invasivas e materiais de última geração.',
-    education: [
-      'Licenciatura em Medicina Dentária - Universidade Fernando Pessoa',
-      'Pós-Graduação em Estética Dentária - Instituto Superior de Ciências da Saúde',
-      'Certificação em Facetas de Cerâmica - DSD (Digital Smile Design) Academy'
-    ],
-    achievements: [
-      'Especialista em DSD - Digital Smile Design',
-      'Formação avançada em facetas de porcelana ultra-finas',
-      'Participação em showcases internacionais de estética dentária'
-    ],
-    languages: ['Português', 'Inglês', 'Italiano']
+    name: 'Orlando Cepa',
+    title: 'Dr.',
+    specialties: ['Reabilitação Oral', 'Dentisteria', 'Prótese Dentária'],
+    photo: '/doctors/orlando-cepa.jpg',
+    bio: 'Com uma carreira distinta que inclui formação em Medicina Dentária na FMDUP, experiência clínica e um foco em reabilitação oral, dentisteria e prótese dentária, trabalhando com uma equipa especializada na clínica.',
+    education: ['Medicina Dentária - FMDUP (Faculdade de Medicina Dentária da Universidade do Porto)'],
+    languages: ['Português']
   },
   {
     id: '8',
-    name: 'Pedro Almeida',
-    title: 'Dr.',
-    specialties: ['Cirurgia Oral', 'Cirurgia Maxilofacial'],
-    photo: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&h=800&fit=crop',
-    bio: 'Cirurgião maxilofacial com vasta experiência em cirurgias complexas, traumatologia facial e correções ortognáticas.',
-    education: [
-      'Mestrado Integrado em Medicina Dentária - Faculdade de Medicina Dentária da Universidade de Lisboa',
-      'Especialização em Cirurgia Oral - Hospital de Santa Maria, Lisboa',
-      'Fellowship em Cirurgia Maxilofacial - King\'s College Hospital, Londres'
-    ],
-    achievements: [
-      'Cirurgião certificado em Cirurgia Ortognática',
-      'Especialista em extrações de sisos complexos',
-      'Formação avançada em Cirurgia Pré-Implante'
-    ],
-    languages: ['Português', 'Inglês']
+    name: 'Veridiana Fumio',
+    title: 'Dra.',
+    specialties: ['Implantologia', 'Cirurgia Oral', 'Dentisteria', 'Prostodontia'],
+    photo: '/doctors/veridiana-fumio.jpeg',
+    bio: 'Médica Dentista com atuação em Implantologia, Cirurgia Oral, Dentisteria e Prótese Dentária. Realiza desde tratamentos restauradores e reabilitações estéticas até cirurgias e colocação de implantes, sempre focando no conforto, funcionalidade e bem-estar do paciente.',
+    languages: ['Português']
   },
   {
     id: '9',
-    name: 'Ana Martins',
+    name: 'Andresa Fonseca M. da Silva',
     title: 'Dra.',
-    specialties: ['Odontopediatria', 'Ortodontia Preventiva'],
-    photo: 'https://images.unsplash.com/photo-1638202993928-7267aad84c31?w=800&h=800&fit=crop',
-    bio: 'Odontopediatra dedicada ao cuidado oral infantil, com abordagem lúdica e preventiva para criar experiências positivas.',
+    specialties: ['Generalista', 'Endodontia'],
+    photo: '/doctors/andrea-fonseca.jpg',
+    bio: 'Atendimento humanizado para adultos e crianças. Possui pós-graduação em diversas áreas como Endodontia, Implantologia, Cirurgia Oral Menor e Prótese, garantindo um cuidado abrangente e de qualidade.',
     education: [
-      'Mestrado em Medicina Dentária - Universidade Católica Portuguesa',
-      'Pós-Graduação em Odontopediatria - Sociedade Portuguesa de Odontopediatria',
-      'Formação em Ortodontia Interceptiva - Universidade de Barcelona'
+      'Pós-graduação em Endodontia',
+      'Pós-graduação em Implantologia',
+      'Pós-graduação em Cirurgia Oral Menor',
+      'Pós-graduação em Prótese'
     ],
-    achievements: [
-      'Certificada em Sedação Consciente para Crianças',
-      'Formadora em workshops de Odontopediatria',
-      'Voluntária em programas de saúde oral infantil'
-    ],
-    languages: ['Português', 'Inglês', 'Francês']
+    languages: ['Português']
   },
   {
     id: '10',
-    name: 'Tiago Ferreira',
-    title: 'Dr.',
-    specialties: ['Implantologia', 'Periodontologia'],
-    photo: 'https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=800&h=800&fit=crop',
-    bio: 'Especialista em implantologia e regeneração óssea, oferecendo soluções avançadas para casos complexos de perda dentária.',
-    education: [
-      'Mestrado Integrado em Medicina Dentária - Instituto Superior de Ciências da Saúde Egas Moniz',
-      'Pós-Graduação em Implantologia Avançada - Malo Clinic, Lisboa',
-      'Mestrado em Periodontologia - Universidade de Salamanca, Espanha'
-    ],
-    achievements: [
-      'Certificação em All-on-4® e técnicas de carga imediata',
-      'Especialista em regeneração óssea guiada (GBR)',
-      'Membro da European Association for Osseointegration'
-    ],
-    languages: ['Português', 'Inglês', 'Espanhol']
+    name: 'Flavia Paula Silva Cardoso',
+    title: 'Dra.',
+    specialties: ['Generalista', 'Odontopediatria', 'Cirurgia Oral'],
+    photo: '/doctors/flavia-paula.jpg',
+    bio: 'Médica Dentista Generalista com pós-graduação em cirurgia de dentes inclusos. Atua realizando atendimentos a pacientes de todas as idades, com foco especial em Odontopediatria.',
+    education: ['Pós-graduação em Cirurgia de Dentes Inclusos'],
+    languages: ['Português']
   },
   {
     id: '11',
-    name: 'Beatriz Sousa',
+    name: 'Andréa Romero Esteves Lima',
     title: 'Dra.',
-    specialties: ['Ortodontia', 'Ortopedia Funcional'],
-    photo: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&h=800&fit=crop&flip=h',
-    bio: 'Ortodontista especializada em tratamentos interceptivos e ortopedia funcional dos maxilares em crianças e adolescentes.',
+    specialties: ['Reabilitação Oral', 'Dentisteria Estética', 'Periodontologia'],
+    photo: '/doctors/andrea-romero.jpeg',
+    bio: 'Especialista em Prótese e Dentisteria, executa tratamentos restauradores em geral como coroas e facetas em resina e porcelana, periodontologia e pequenas cirurgias. Formação em implantes e prótese sobre implantes.',
     education: [
-      'Licenciatura em Medicina Dentária - Universidade do Porto',
-      'Mestrado em Ortodontia - Universidade de Santiago de Compostela',
-      'Pós-Graduação em Ortopedia Funcional - Instituto Português de Ortodontia'
+      'Especialização em Prótese',
+      'Especialização em Dentisteria',
+      'Formação em Implantes e Prótese sobre Implantes',
+      'Formação em Periodontologia'
     ],
-    achievements: [
-      'Especialista em aparelhos ortopédicos funcionais',
-      'Certificação em sistemas Damon e autoligáveis',
-      'Membro da World Federation of Orthodontists'
-    ],
-    languages: ['Português', 'Inglês']
+    languages: ['Português']
   },
   {
     id: '12',
-    name: 'Gonçalo Silva',
-    title: 'Dr.',
-    specialties: ['Prostodontia', 'Oclusão'],
-    photo: 'https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=800&h=800&fit=crop',
-    bio: 'Prostodontista com foco em oclusão e DTM, especializado em reabilitações funcionais e tratamento de disfunções temporomandibulares.',
+    name: 'Carolina Chaves',
+    title: 'Dra.',
+    specialties: ['Prostodontia', 'Implantes Dentários'],
+    photo: '/doctors/carolina-chaves.JPG',
+    bio: 'Especialista em Prostodontia com Doutoramento (PhD) e mais de 10 anos de experiência clínica e investigação. Formação avançada em Cirurgia de Implantes e Prótese sobre Implantes. Investigadora em biomateriais para reabilitação oral, com publicações em revistas científicas internacionais.',
     education: [
-      'Mestrado em Medicina Dentária - Faculdade de Medicina Dentária da Universidade de Lisboa',
-      'Pós-Graduação em Oclusão e DTM - New York University',
-      'Curso de Especialização em Prostodontia - Universidade de Michigan'
+      'Doutoramento (PhD) em Prostodontia',
+      'Formação em Cirurgia de Implantes',
+      'Formação em Prótese sobre Implantes',
+      'Investigação - São Paulo State University',
+      'Investigação - University of Montreal'
     ],
-    achievements: [
-      'Especialista certificado em Disfunções Temporomandibulares',
-      'Formação avançada em Análise Oclusal Computorizada',
-      'Colaborador em estudos sobre bruxismo e parafunções'
-    ],
-    languages: ['Português', 'Inglês']
+    achievements: ['Publicações em revistas científicas internacionais'],
+    languages: ['Português', 'Inglês', 'Francês']
+  },
+  {
+    id: '13',
+    name: 'Rubenita de Sousa',
+    title: 'Dra.',
+    specialties: ['Generalista', 'Endodontia', 'Prostodontia', 'Odontopediatria'],
+    photo: '/doctors/rubenita-souza.jpeg',
+    bio: 'Médica dentista generalista, com experiência clínica nas áreas de Endodontia, Prostodontia e Odontopediatria, prestando cuidados de saúde oral abrangentes a pacientes de diferentes faixas etárias.',
+    languages: ['Português']
+  },
+  {
+    id: '14',
+    name: 'Fernanda P. Patrício',
+    title: 'Dra.',
+    specialties: ['Generalista', 'Cirurgia Oral'],
+    photo: '/doctors/fernanda-patricio.jpg',
+    bio: 'Médica dentista formada há 18 anos, atuando como generalista com foco em cirurgia oral. Acredita num atendimento verdadeiramente humanizado, baseado na escuta atenta, na confiança e no cuidado individualizado de cada paciente.',
+    languages: ['Português']
+  },
+  {
+    id: '15',
+    name: 'Sandra Rodriguez',
+    title: 'Dra.',
+    specialties: ['Clínica Geral'],
+    photo: '/doctors/sandra-rodrigues.jpg',
+    bio: 'Médica dentista formada há 20 anos. Apaixonada pelo trabalho clínico e pela aplicação da evidência científica para oferecer aos pacientes tratamentos de última geração com calidez humana.',
+    languages: ['Português']
   }
 ];
 
