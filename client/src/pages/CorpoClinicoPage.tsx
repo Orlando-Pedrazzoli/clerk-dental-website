@@ -56,7 +56,6 @@ export default function CorpoClinicoPage() {
 
   const shareOnLinkedIn = (doctor: Doctor) => {
     const url = encodeURIComponent(getDoctorShareUrl(doctor));
-    const text = encodeURIComponent(getShareText(doctor));
     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
     setShareMenuOpen(null);
   };
