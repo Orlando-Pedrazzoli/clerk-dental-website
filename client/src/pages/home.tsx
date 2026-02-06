@@ -2,11 +2,14 @@ import { Link } from 'react-router';
 import { SEO } from '../components/SEO';
 import { OrganizationJsonLd, WebSiteJsonLd } from '../components/JsonLd';
 import WhatsAppButton from '../components/WhatsAppButton';
+import { useLanguage } from '../contexts/LanguageContext';
 import Navbar from '../components/Navbar';
 import TestimonialsSection from '../components/TestimonialsSection';
 import { treatments } from '../data/services-data';
 
 export default function HomePage() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-white">
       {/* SEO Meta Tags */}
@@ -43,18 +46,18 @@ export default function HomePage() {
             {/* Badge - Mobile Otimizado */}
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-3 py-2 sm:px-5 sm:py-2.5 mb-6 sm:mb-8">
               <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-green-400 rounded-full animate-pulse"></span>
-              <span className="text-white text-xs sm:text-sm font-semibold tracking-wide">Aberto todos os dias</span>
+              <span className="text-white text-xs sm:text-sm font-semibold tracking-wide">{t('hero.badge')}</span>
             </div>
 
             {/* Título principal - Mobile Responsivo */}
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight">
-              O Seu Sorriso é a<br />
-              Nossa <span className="text-blue-400">Prioridade</span>
+              {t('hero.title1')}<br />
+              {t('hero.title2')} <span className="text-blue-400">{t('hero.titleHighlight')}</span>
             </h1>
 
             {/* Descrição - Mobile Otimizada */}
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-100 mb-6 sm:mb-8 md:mb-12 leading-relaxed max-w-2xl">
-             Clínica dentária moderna no Colombo. Excelência e atendimento humanizado.
+             {t('hero.description')}
             </p>
 
             {/* CTAs - Stack em Mobile, Row em Desktop */}
@@ -63,7 +66,7 @@ export default function HomePage() {
                 href="#contacto"
                 className="group bg-blue-600 text-white px-5 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full hover:bg-blue-700 transition-all text-sm sm:text-lg font-semibold text-center shadow-2xl hover:shadow-blue-500/50 hover:scale-105 transform duration-300 inline-flex items-center justify-center gap-2"
               >
-                Marcar Consulta
+                {t('hero.cta1')}
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -75,7 +78,7 @@ export default function HomePage() {
                 <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                Ligar Agora
+                {t('hero.cta2')}
               </a>
             </div>
 
@@ -91,7 +94,7 @@ export default function HomePage() {
                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-sm sm:text-base font-medium group-hover:text-blue-200 transition-colors flex-1">Corpo Clínico</span>
+                <span className="text-sm sm:text-base font-medium group-hover:text-blue-200 transition-colors flex-1">{t('hero.featureClinicalTeam')}</span>
                 <svg className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                 </svg>
@@ -102,7 +105,7 @@ export default function HomePage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-sm sm:text-base font-medium">Marcações Flexíveis</span>
+                <span className="text-sm sm:text-base font-medium">{t('hero.featureFlexible')}</span>
               </div>
               <div className="flex items-center gap-2 sm:gap-3 bg-white/5 backdrop-blur-sm rounded-lg px-3 py-2.5 sm:bg-transparent sm:px-0 sm:py-0">
                 <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center">
@@ -110,7 +113,7 @@ export default function HomePage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-sm sm:text-base font-medium">Equipamentos Modernos</span>
+                <span className="text-sm sm:text-base font-medium">{t('hero.featureModern')}</span>
               </div>
             
             </div>
@@ -126,7 +129,7 @@ export default function HomePage() {
           {/* Título da seção */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Sobre Nós
+              {t('about.sectionTitle')}
             </h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
           </div>
@@ -145,7 +148,7 @@ export default function HomePage() {
               {/* Badge decorativo */}
               <div className="absolute -bottom-6 -right-6 bg-blue-600 text-white px-8 py-4 rounded-xl shadow-xl">
                 <p className="text-3xl font-bold">12+</p>
-                <p className="text-sm">Anos de Experiência</p>
+                <p className="text-sm">{t('about.yearsExp')}</p>
               </div>
             </div>
 
@@ -154,12 +157,10 @@ export default function HomePage() {
               {/* Introdução */}
               <div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Excelência em Cuidados Dentários no Colombo
+                  {t('about.title')}
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  O <span className="font-semibold text-blue-600">Centro Dentário Colombo</span> é uma moderna clínica dentária 
-                  localizada no coração do Centro Comercial Colombo. Oferecemos uma ampla gama de tratamentos 
-                  dentários cosméticos e gerais com equipamentos de última geração.
+                  O <span className="font-semibold text-blue-600">Centro Dentário Colombo</span> {t('about.description')}
                 </p>
               </div>
 
@@ -173,8 +174,8 @@ export default function HomePage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 mb-1">Tecnologia Avançada</h4>
-                    <p className="text-sm text-gray-600">Equipamentos modernos e técnicas inovadoras</p>
+                    <h4 className="font-bold text-gray-900 mb-1">{t('about.feature1Title')}</h4>
+                    <p className="text-sm text-gray-600">{t('about.feature1Desc')}</p>
                   </div>
                 </div>
 
@@ -186,8 +187,8 @@ export default function HomePage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 mb-1">Equipa Especializada</h4>
-                    <p className="text-sm text-gray-600">Profissionais experientes e certificados</p>
+                    <h4 className="font-bold text-gray-900 mb-1">{t('about.feature2Title')}</h4>
+                    <p className="text-sm text-gray-600">{t('about.feature2Desc')}</p>
                   </div>
                 </div>
 
@@ -199,8 +200,8 @@ export default function HomePage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 mb-1">Horário Flexível</h4>
-                    <p className="text-sm text-gray-600">Aberto todos os dias das 09:00-23:00 </p>
+                    <h4 className="font-bold text-gray-900 mb-1">{t('about.feature3Title')}</h4>
+                    <p className="text-sm text-gray-600">{t('about.feature3Desc')}</p>
                   </div>
                 </div>
 
@@ -212,8 +213,8 @@ export default function HomePage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 mb-1">Ambiente Confortável</h4>
-                    <p className="text-sm text-gray-600">Espaço moderno e acolhedor</p>
+                    <h4 className="font-bold text-gray-900 mb-1">{t('about.feature4Title')}</h4>
+                    <p className="text-sm text-gray-600">{t('about.feature4Desc')}</p>
                   </div>
                 </div>
               </div>
@@ -225,10 +226,9 @@ export default function HomePage() {
                     <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   <div>
-                    <h4 className="font-bold text-lg mb-2">Licenciados pela ERS</h4>
+                    <h4 className="font-bold text-lg mb-2">{t('about.ersTitle')}</h4>
                     <p className="text-blue-100">
-                      Estabelecimento licenciado pela Entidade Reguladora da Saúde com a licença nº 3297/2011. 
-                      Garantimos os mais altos padrões de qualidade e segurança.
+                      {t('about.ersDesc')}
                     </p>
                   </div>
                 </div>
@@ -242,9 +242,9 @@ export default function HomePage() {
       <section id="tratamentos" className="py-20 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Nossos Tratamentos</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t('treatments.sectionTitle')}</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Oferecemos uma gama completa de tratamentos dentários com a mais alta qualidade e tecnologia de ponta
+              {t('treatments.sectionDesc')}
             </p>
           </div>
 
@@ -281,7 +281,7 @@ export default function HomePage() {
                   
                   {/* Link Saber Mais */}
                   <div className="inline-flex items-center mt-4 text-blue-600 text-sm font-semibold hover:text-blue-700 transition group/link">
-                    Saber mais
+                    {t('treatments.learnMore')}
                     <svg
                       className="w-3 h-3 ml-1 group-hover/link:translate-x-1 transition-transform"
                       fill="none"
@@ -306,19 +306,19 @@ export default function HomePage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
                 <div className="text-3xl font-bold text-blue-600 mb-2">16+</div>
-                <div className="text-gray-600">Especialidades</div>
+                <div className="text-gray-600">{t('treatments.specialties')}</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-blue-600 mb-2">100%</div>
-                <div className="text-gray-600">Satisfação</div>
+                <div className="text-gray-600">{t('treatments.satisfaction')}</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-blue-600 mb-2">7</div>
-                <div className="text-gray-600">Dias/Semana</div>
+                <div className="text-gray-600">{t('treatments.daysWeek')}</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-blue-600 mb-2">ERS</div>
-                <div className="text-gray-600">Certificado</div>
+                <div className="text-gray-600">{t('treatments.certified')}</div>
               </div>
             </div>
           </div>
@@ -326,7 +326,7 @@ export default function HomePage() {
           {/* CTA Section */}
           <div className="text-center mt-12">
             <p className="text-lg text-gray-600 mb-6">
-              Precisa de um tratamento específico? Temos a solução ideal para si!
+              {t('treatments.ctaText')}
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <a
@@ -346,7 +346,7 @@ export default function HomePage() {
                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                   />
                 </svg>
-                Marcar Consulta
+                {t('treatments.ctaButton')}
               </a>
               <a
                 href="tel:+351216041355"
@@ -365,7 +365,7 @@ export default function HomePage() {
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                   />
                 </svg>
-                Ligar Agora
+                {t('treatments.ctaCall')}
               </a>
             </div>
           </div>
@@ -376,9 +376,9 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-blue-600 text-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Por Que Escolher o Centro Dentário Colombo?</h2>
+            <h2 className="text-4xl font-bold mb-4">{t('differentials.sectionTitle')}</h2>
             <p className="text-xl max-w-3xl mx-auto">
-              Comprometidos com a excelência no atendimento e tratamento dentário
+              {t('differentials.sectionDesc')}
             </p>
           </div>
 
@@ -397,8 +397,8 @@ export default function HomePage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Aberto 7 Dias</h3>
-              <p>Segunda a Domingo das 09h às 23h. Marcações flexíveis adaptadas a si.</p>
+              <h3 className="text-xl font-bold mb-2">{t('differentials.open7Title')}</h3>
+              <p>{t('differentials.open7Desc')}</p>
             </div>
 
             <div className="text-center">
@@ -411,8 +411,8 @@ export default function HomePage() {
                   <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Equipamentos Modernos</h3>
-              <p>Materiais e equipamentos de última geração para tratamentos de excelência.</p>
+              <h3 className="text-xl font-bold mb-2">{t('differentials.modernTitle')}</h3>
+              <p>{t('differentials.modernDesc')}</p>
             </div>
 
             <div className="text-center">
@@ -425,8 +425,8 @@ export default function HomePage() {
                   <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Ambiente Acolhedor</h3>
-              <p>Atmosfera calorosa e atenciosa para seu conforto e tranquilidade.</p>
+              <h3 className="text-xl font-bold mb-2">{t('differentials.welcomeTitle')}</h3>
+              <p>{t('differentials.welcomeDesc')}</p>
             </div>
 
             <div className="text-center">
@@ -443,8 +443,8 @@ export default function HomePage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Licenciado pela ERS</h3>
-              <p>Estabelecimento registado e licenciado pela Entidade Reguladora da Saúde.</p>
+              <h3 className="text-xl font-bold mb-2">{t('differentials.ersTitle')}</h3>
+              <p>{t('differentials.ersDesc')}</p>
             </div>
           </div>
         </div>
@@ -458,9 +458,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">Entre em Contacto</h2>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('contact.sectionTitle')}</h2>
               <p className="text-xl text-gray-600 mb-8">
-                Estamos prontos para cuidar do seu sorriso. Agende já a sua consulta!
+                {t('contact.sectionDesc')}
               </p>
 
               <div className="space-y-6">
@@ -485,10 +485,10 @@ export default function HomePage() {
                     />
                   </svg>
                   <div>
-                    <div className="font-bold text-gray-900">Morada</div>
-                    <div className="text-gray-600">Avenida Lusíada</div>
-                    <div className="text-gray-600">Centro Comercial Colombo - Piso -1, Loja 507</div>
-                    <div className="text-gray-600">1500-392 Lisboa, Portugal</div>
+                    <div className="font-bold text-gray-900">{t('contact.address')}</div>
+                    <div className="text-gray-600">{t('contact.addressLine1')}</div>
+                    <div className="text-gray-600">{t('contact.addressLine2')}</div>
+                    <div className="text-gray-600">{t('contact.addressLine3')}</div>
                   </div>
                 </div>
 
@@ -507,7 +507,7 @@ export default function HomePage() {
                     />
                   </svg>
                   <div>
-                    <div className="font-bold text-gray-900">Telefone</div>
+                    <div className="font-bold text-gray-900">{t('contact.phone')}</div>
                     <a href="tel:+351216041355" className="text-blue-600 hover:underline">
                       +351 21 604 13 55
                     </a>
@@ -529,7 +529,7 @@ export default function HomePage() {
                     />
                   </svg>
                   <div>
-                    <div className="font-bold text-gray-900">Email</div>
+                    <div className="font-bold text-gray-900">{t('contact.email')}</div>
                     <a href="mailto:clinicadentaria.colombo@gmail.com" className="text-blue-600 hover:underline">
                       clinicadentaria.colombo@gmail.com
                     </a>
@@ -551,14 +551,14 @@ export default function HomePage() {
                     />
                   </svg>
                   <div>
-                    <div className="font-bold text-gray-900">Horário</div>
-                    <div className="text-gray-600">Segunda a Domingo: 09:00 - 23:00</div>
-                    <div className="text-green-600 font-semibold mt-1">✓ Aberto 7 dias por semana</div>
+                    <div className="font-bold text-gray-900">{t('contact.schedule')}</div>
+                    <div className="text-gray-600">{t('contact.scheduleTime')}</div>
+                    <div className="text-green-600 font-semibold mt-1">{t('contact.scheduleOpen')}</div>
                   </div>
                 </div>
 
                 <div className="bg-blue-50 p-4 rounded-lg mt-6">
-                  <div className="font-bold text-gray-900 mb-2">Informação Legal</div>
+                  <div className="font-bold text-gray-900 mb-2">{t('contact.legalInfo')}</div>
                   <div className="text-sm text-gray-600 space-y-1">
                     <div>D. Amaral Assistência e Prevenção Dentária LDA</div>
                     <div>NIPC: 505887533</div>
@@ -573,39 +573,39 @@ export default function HomePage() {
               <form className="space-y-6">
                 <div>
                   <label className="block text-gray-700 font-semibold mb-2">
-                    Nome Completo
+                    {t('contact.formName')}
                   </label>
                   <input
                     type="text"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="O seu nome"
+                    placeholder={t('contact.formNamePlaceholder')}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">Email</label>
+                  <label className="block text-gray-700 font-semibold mb-2">{t('contact.formEmail')}</label>
                   <input
                     type="email"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="seu@email.com"
+                    placeholder={t('contact.formEmailPlaceholder')}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">Telefone</label>
+                  <label className="block text-gray-700 font-semibold mb-2">{t('contact.formPhone')}</label>
                   <input
                     type="tel"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="+351 XXX XXX XXX"
+                    placeholder={t('contact.formPhonePlaceholder')}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">Mensagem</label>
+                  <label className="block text-gray-700 font-semibold mb-2">{t('contact.formMessage')}</label>
                   <textarea
                     rows={4}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="Como podemos ajudar?"
+                    placeholder={t('contact.formMessagePlaceholder')}
                   ></textarea>
                 </div>
 
@@ -613,7 +613,7 @@ export default function HomePage() {
                   type="submit"
                   className="w-full bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition font-semibold text-lg"
                 >
-                  Enviar Mensagem
+                  {t('contact.formSubmit')}
                 </button>
               </form>
             </div>
