@@ -1,7 +1,6 @@
 import { Link } from 'react-router';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import CookieSettingsButton from '../components/cookies/CookieSettingsButton';
 
 export default function PoliticaCookiesPage() {
@@ -451,8 +450,7 @@ export default function PoliticaCookiesPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <Footer />
+     
     </div>
   );
 }

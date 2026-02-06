@@ -1,8 +1,6 @@
 import { Link } from 'react-router';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-
 export default function PoliticaPrivacidadePage() {
   return (
     <div className="min-h-screen bg-white">
@@ -359,8 +357,7 @@ export default function PoliticaPrivacidadePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <Footer />
+     
     </div>
   );
 }

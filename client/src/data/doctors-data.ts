@@ -151,15 +151,6 @@ export const doctors: Doctor[] = [
   },
   {
     id: '13',
-    name: 'Rubenita de Sousa',
-    title: 'Dra.',
-    specialties: ['Generalista', 'Endodontia', 'Prostodontia', 'Odontopediatria'],
-    photo: '/doctors/rubenita-souza.jpeg',
-    bio: 'Médica dentista generalista, com experiência clínica nas áreas de Endodontia, Prostodontia e Odontopediatria, prestando cuidados de saúde oral abrangentes a pacientes de diferentes faixas etárias.',
-    languages: ['Português']
-  },
-  {
-    id: '14',
     name: 'Fernanda P. Patrício',
     title: 'Dra.',
     specialties: ['Generalista', 'Cirurgia Oral'],
@@ -168,12 +159,49 @@ export const doctors: Doctor[] = [
     languages: ['Português']
   },
   {
-    id: '15',
+    id: '14',
     name: 'Sandra Rodriguez',
     title: 'Dra.',
     specialties: ['Clínica Geral'],
     photo: '/doctors/sandra-rodrigues.jpg',
     bio: 'Médica dentista formada há 20 anos. Apaixonada pelo trabalho clínico e pela aplicação da evidência científica para oferecer aos pacientes tratamentos de última geração com calidez humana.',
+    languages: ['Português']
+  },
+  {
+    id: '15',
+    name: 'Eder Quedas Ferreira',
+    title: 'Dr.',
+    specialties: ['Generalista', 'Dentisteria Estética', 'Prótese Fixa', 'Prótese Removível', 'Cirurgia'],
+    photo: '/doctors/eder-quedas.jpg',
+    bio: 'Médico Dentista Generalista formado em Odontologia em São Paulo, Brasil. Atua em Portugal desde 1989, clinicando em Lisboa e Setúbal. Experiência em Dentisteria Estética, Próteses Fixa e Removível, e Cirurgia.',
+    languages: ['Português']
+  },
+  {
+    id: '16',
+    name: 'Jessica Arcadier',
+    title: 'Dra.',
+    specialties: ['Periodontia', 'Prótese Fixa', 'Dentisteria Estética'],
+    photo: '/doctors/jessica-arcadier.jpg',
+    bio: 'Especialista em Periodontia, tratando doenças e realizando cirurgias nos tecidos de suporte dos dentes. Possui especialização em Odontologia Estética, com foco em restaurações e reabilitações fixas que unem função e harmonia do sorriso.',
+    languages: ['Português']
+  },
+  {
+    id: '17',
+    name: 'Júlio Souza',
+    title: 'Dr.',
+    specialties: ['Cirurgia Oral'],
+    photo: '/doctors/julio-souza.jpg',
+    bio: 'Cirurgião-dentista com mais de 40 anos de experiência clínica, reconhecido pelo atendimento humanizado, bem-humorado e pela realização de extrações com conforto, tranquilidade e segurança.',
+    languages: ['Português']
+  },
+  {
+    id: '18',
+    name: 'Patricia Octávio',
+    title: 'Dra.',
+    specialties: ['Implantes Dentários', 'Cirurgia', 'Prótese Fixa', 'Prótese Removível', 'Reabilitação Oral'],
+    photo: '/doctors/patricia-octavio.jpg',
+    bio: 'Com 28 anos de experiência, especialista em Cirurgia Oral Avançada, Implantes Avançados, Próteses sobre Implantes e Reabilitação Oral, devolvendo função mastigatória e estética ao paciente.',
+    achievements: ['OMD 14405'],
     languages: ['Português']
   }
 ];

@@ -3,7 +3,6 @@ import { SEO } from '../components/SEO';
 import { OrganizationJsonLd, WebSiteJsonLd } from '../components/JsonLd';
 import WhatsAppButton from '../components/WhatsAppButton';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import TestimonialsSection from '../components/TestimonialsSection';
 import { treatments } from '../data/services-data';
 
@@ -44,7 +43,7 @@ export default function HomePage() {
             {/* Badge - Mobile Otimizado */}
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-3 py-2 sm:px-5 sm:py-2.5 mb-6 sm:mb-8">
               <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-green-400 rounded-full animate-pulse"></span>
-              <span className="text-white text-xs sm:text-sm font-semibold tracking-wide">Aberto 7 dias por semana</span>
+              <span className="text-white text-xs sm:text-sm font-semibold tracking-wide">Aberto todos os dias</span>
             </div>
 
             {/* Título principal - Mobile Responsivo */}
@@ -55,8 +54,7 @@ export default function HomePage() {
 
             {/* Descrição - Mobile Otimizada */}
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-100 mb-6 sm:mb-8 md:mb-12 leading-relaxed max-w-2xl">
-              Moderna clínica dentária no Centro Comercial Colombo. Tratamentos de excelência 
-              com equipamentos de última geração num ambiente caloroso e atencioso.
+             Clínica dentária moderna no Colombo. Excelência e atendimento humanizado.
             </p>
 
             {/* CTAs - Stack em Mobile, Row em Desktop */}
@@ -99,46 +97,13 @@ export default function HomePage() {
                 </div>
                 <span className="text-sm sm:text-base font-medium">Equipamentos Modernos</span>
               </div>
-              <div className="flex items-center gap-2 sm:gap-3 bg-white/5 backdrop-blur-sm rounded-lg px-3 py-2.5 sm:bg-transparent sm:px-0 sm:py-0">
-                <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-blue-500/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <span className="text-sm sm:text-base font-medium">Profissionais Qualificados</span>
-              </div>
+             
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-6 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold mb-1">7</div>
-              <div className="text-base">Dias por Semana</div>
-              <div className="text-xs opacity-80">10h - 22h</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-1">100%</div>
-              <div className="text-base">Licenciado ERS</div>
-              <div className="text-xs opacity-80">Qualidade Garantida</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-1">✓</div>
-              <div className="text-base">Equipamento Moderno</div>
-              <div className="text-xs opacity-80">Última Geração</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-1">★★★★★</div>
-              <div className="text-base">Atendimento</div>
-              <div className="text-xs opacity-80">Personalizado</div>
-            </div>
-          </div>
-        </div>
-      </section>
+    
 
       {/* Sobre Section */}
       <section id="sobre" className="py-20 px-4 bg-gradient-to-br from-blue-50 to-white">
@@ -220,7 +185,7 @@ export default function HomePage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-gray-900 mb-1">Horário Flexível</h4>
-                    <p className="text-sm text-gray-600">Aberto 7 dias por semana</p>
+                    <p className="text-sm text-gray-600">Aberto todos os dias das 09:00-23:00 </p>
                   </div>
                 </div>
 
@@ -418,7 +383,7 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold mb-2">Aberto 7 Dias</h3>
-              <p>Segunda a Domingo das 10h às 22h. Marcações flexíveis adaptadas a si.</p>
+              <p>Segunda a Domingo das 09h às 23h. Marcações flexíveis adaptadas a si.</p>
             </div>
 
             <div className="text-center">
@@ -507,7 +472,7 @@ export default function HomePage() {
                   <div>
                     <div className="font-bold text-gray-900">Morada</div>
                     <div className="text-gray-600">Avenida Lusíada</div>
-                    <div className="text-gray-600">Centro Comercial Colombo - Piso 1, Loja 507</div>
+                    <div className="text-gray-600">Centro Comercial Colombo - Piso -1, Loja 507</div>
                     <div className="text-gray-600">1500-392 Lisboa, Portugal</div>
                   </div>
                 </div>
@@ -572,7 +537,7 @@ export default function HomePage() {
                   </svg>
                   <div>
                     <div className="font-bold text-gray-900">Horário</div>
-                    <div className="text-gray-600">Segunda a Domingo: 10:00 - 22:00</div>
+                    <div className="text-gray-600">Segunda a Domingo: 09:00 - 23:00</div>
                     <div className="text-green-600 font-semibold mt-1">✓ Aberto 7 dias por semana</div>
                   </div>
                 </div>
@@ -640,9 +605,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer />
-    </div>
+</div>
   );
 }

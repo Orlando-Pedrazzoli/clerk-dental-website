@@ -154,7 +154,7 @@ export default function Footer() {
                 </svg>
                 <span>
                   C.C. Colombo<br />
-                  Piso 1, Loja 507<br />
+                  Piso -1, Loja 507<br />
                   1500-392 Lisboa
                 </span>
               </li>
@@ -179,8 +179,8 @@ export default function Footer() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>
-                  <span className="text-white font-medium">7 dias/semana</span><br />
-                  10:00 - 22:00
+                  <span className="text-white font-medium">Aberto Todos os Dias</span><br />
+                  09:00 - 23:00
                 </span>
               </li>
             </ul>
