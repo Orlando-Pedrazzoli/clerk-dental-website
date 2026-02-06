@@ -97,7 +97,21 @@ export default function HomePage() {
                 </div>
                 <span className="text-sm sm:text-base font-medium">Equipamentos Modernos</span>
               </div>
-             
+              <Link 
+                to="/corpo-clinico"
+                onClick={() => window.scrollTo(0, 0)}
+                className="flex items-center gap-2 sm:gap-3 bg-white/10 backdrop-blur-sm  rounded-lg px-3 py-2.5 sm:bg-white/10 sm:border-white/30 sm:px-0 sm:py-0 hover:bg-white/20 hover:border-white/50 transition-all duration-300 cursor-pointer group"
+              >
+                <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-blue-500/30 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-blue-500/40 transition-colors border border-blue-400/30">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-sm sm:text-base font-medium group-hover:text-blue-200 transition-colors flex-1">Corpo Clínico</span>
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
           </div>
         </div>
