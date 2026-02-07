@@ -1,8 +1,10 @@
 import { Link } from 'react-router';
 import CookieSettingsButton from './cookies/CookieSettingsButton';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="bg-gray-900 text-gray-400 text-sm">
@@ -24,8 +26,7 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-4 text-gray-400 leading-relaxed max-w-sm">
-              Moderna clínica dentária no Centro Comercial Colombo. 
-              Tratamentos de excelência com equipamentos de última geração.
+              {t('footer.description')}
             </p>
             
             {/* Social Media */}
@@ -68,39 +69,39 @@ export default function Footer() {
 
           {/* Links Rápidos */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Navegação</h4>
+            <h4 className="text-white font-semibold mb-4">{t('footer.navigation')}</h4>
             <ul className="space-y-3">
               <li>
                 <Link to="/" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
-                  Início
+                  {t('footer.home')}
                 </Link>
               </li>
               <li>
                 <a href="/#sobre" className="hover:text-blue-400 transition-colors">
-                  Sobre Nós
+                  {t('footer.aboutUs')}
                 </a>
               </li>
               <li>
                 <a href="/#tratamentos" className="hover:text-blue-400 transition-colors">
-                  Tratamentos
+                  {t('footer.treatments')}
                 </a>
               </li>
               <li>
                 <Link to="/corpo-clinico" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
-                  Corpo Clínico
+                  {t('footer.clinicalTeam')}
                 </Link>
               </li>
               <li>
                 <Link to="/faq" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors flex items-center gap-2">
-                  Perguntas Frequentes
+                  {t('footer.faq')}
                   <span className="text-[10px] text-white bg-blue-600 rounded px-1.5 py-0.5 font-medium">
-                    Novo
+                    {t('footer.new')}
                   </span>
                 </Link>
               </li>
               <li>
                 <a href="/#contacto" className="hover:text-blue-400 transition-colors">
-                  Contacto
+                  {t('footer.contact')}
                 </a>
               </li>
             </ul>
@@ -108,36 +109,36 @@ export default function Footer() {
 
           {/* Tratamentos */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Tratamentos</h4>
+            <h4 className="text-white font-semibold mb-4">{t('footer.treatmentsTitle')}</h4>
             <ul className="space-y-3">
               <li>
                 <Link to="/tratamentos/implantes-dentarios" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
-                  Implantes Dentários
+                  {t('footer.implants')}
                 </Link>
               </li>
               <li>
                 <Link to="/tratamentos/branqueamento-dentario" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
-                  Branqueamento
+                  {t('footer.whitening')}
                 </Link>
               </li>
               <li>
                 <Link to="/tratamentos/ortodontia" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
-                  Ortodontia
+                  {t('footer.orthodontics')}
                 </Link>
               </li>
               <li>
                 <Link to="/tratamentos/estetica-dentaria" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
-                  Estética Dentária
+                  {t('footer.aesthetics')}
                 </Link>
               </li>
               <li>
                 <Link to="/tratamentos/proteses-dentarias" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-400 transition-colors">
-                  Próteses Dentárias
+                  {t('footer.prosthetics')}
                 </Link>
               </li>
               <li>
                 <a href="/#tratamentos" className="text-blue-400 hover:text-blue-300 transition-colors font-medium">
-                  Ver todos →
+                  {t('footer.viewAll')}
                 </a>
               </li>
             </ul>
@@ -145,7 +146,7 @@ export default function Footer() {
 
           {/* Contacto */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Contacto</h4>
+            <h4 className="text-white font-semibold mb-4">{t('footer.contactTitle')}</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -179,7 +180,7 @@ export default function Footer() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>
-                  <span className="text-white font-medium">Aberto Todos os Dias</span><br />
+                  <span className="text-white font-medium">{t('footer.openEveryDay')}</span><br />
                   09:00 - 23:00
                 </span>
               </li>
@@ -209,7 +210,7 @@ export default function Footer() {
                 onClick={() => window.scrollTo(0, 0)}
                 className="hover:text-blue-400 transition-colors"
               >
-                Política de Privacidade
+                {t('footer.privacyPolicy')}
               </Link>
               <span className="text-gray-700">|</span>
               <Link 
@@ -217,7 +218,7 @@ export default function Footer() {
                 onClick={() => window.scrollTo(0, 0)}
                 className="hover:text-blue-400 transition-colors"
               >
-                Política de Cookies
+                {t('footer.cookiePolicy')}
               </Link>
               <span className="text-gray-700">|</span>
               <CookieSettingsButton className="text-gray-500 hover:text-blue-400 transition-colors" />
@@ -231,7 +232,7 @@ export default function Footer() {
                 <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span className="text-xs text-gray-400">
-                Estabelecimento licenciado pela <span className="text-white font-medium">ERS - Entidade Reguladora da Saúde</span>
+                {t('footer.ersLicensed')} <span className="text-white font-medium">{t('footer.ersEntity')}</span>
               </span>
             </div>
           </div>

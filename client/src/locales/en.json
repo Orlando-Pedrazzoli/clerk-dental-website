@@ -86,5 +86,48 @@
     "formMessage": "Message",
     "formMessagePlaceholder": "How can we help?",
     "formSubmit": "Send Message"
+  },
+  "footer": {
+    "description": "Modern dental clinic at Colombo Shopping Centre. Excellent treatments with state-of-the-art equipment.",
+    "navigation": "Navigation",
+    "home": "Home",
+    "aboutUs": "About Us",
+    "treatments": "Treatments",
+    "clinicalTeam": "Clinical Team",
+    "faq": "Frequently Asked Questions",
+    "new": "New",
+    "contact": "Contact",
+    "treatmentsTitle": "Treatments",
+    "implants": "Dental Implants",
+    "whitening": "Whitening",
+    "orthodontics": "Orthodontics",
+    "aesthetics": "Cosmetic Dentistry",
+    "prosthetics": "Dental Prosthetics",
+    "viewAll": "View all →",
+    "contactTitle": "Contact",
+    "openEveryDay": "Open Every Day",
+    "privacyPolicy": "Privacy Policy",
+    "cookiePolicy": "Cookie Policy",
+    "ersLicensed": "Establishment licensed by",
+    "ersEntity": "ERS - Health Regulatory Authority"
+  },
+  "testimonials": {
+    "googleReviews": "Google Reviews",
+    "sectionTitle": "What Our Patients Say",
+    "sectionDesc": "Real reviews from satisfied patients",
+    "basedOn": "Based on",
+    "reviews": "reviews",
+    "swipeMore": "Swipe to see more",
+    "viewOn": "View on",
+    "viewAllGoogle": "View All Reviews on Google"
+  },
+  "faq": {
+    "pageTitle": "Frequently Asked Questions | Centro Dentário Colombo",
+    "pageDescription": "Find answers to the most frequently asked questions about dental treatments: implants, orthodontics, whitening, prosthetics and more.",
+    "heroTitle": "Frequently Asked Questions",
+    "heroDesc": "Clear all your doubts about our dental treatments",
+    "ctaTitle": "Didn't find the answer you were looking for?",
+    "ctaDesc": "Our team is available to answer all your questions. Get in touch with us!",
+    "ctaCall": "Call Now"
   }
 }

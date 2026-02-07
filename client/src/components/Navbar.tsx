@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import PatientIDModal from './PatientIDModal';
 import PatientUserMenu from './PatientUserMenu';
 import { usePatientAuth } from '../hooks/usePatientAuth';
+import { useLanguage } from '../contexts/LanguageContext';
 import { treatments } from '../data/services-data';
 
 interface Language {
@@ -27,7 +28,7 @@ export default function Navbar() {
   const [showPatientModal, setShowPatientModal] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<'pt' | 'en'>('pt');
+  const { language: currentLanguage, setLanguage: setCurrentLanguage, t } = useLanguage();
 
   // Detectar scroll para mudar navbar
   useEffect(() => {

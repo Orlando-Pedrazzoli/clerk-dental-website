@@ -86,5 +86,48 @@
     "formMessage": "Mensagem",
     "formMessagePlaceholder": "Como podemos ajudar?",
     "formSubmit": "Enviar Mensagem"
+  },
+  "footer": {
+    "description": "Moderna clínica dentária no Centro Comercial Colombo. Tratamentos de excelência com equipamentos de última geração.",
+    "navigation": "Navegação",
+    "home": "Início",
+    "aboutUs": "Sobre Nós",
+    "treatments": "Tratamentos",
+    "clinicalTeam": "Corpo Clínico",
+    "faq": "Perguntas Frequentes",
+    "new": "Novo",
+    "contact": "Contacto",
+    "treatmentsTitle": "Tratamentos",
+    "implants": "Implantes Dentários",
+    "whitening": "Branqueamento",
+    "orthodontics": "Ortodontia",
+    "aesthetics": "Estética Dentária",
+    "prosthetics": "Próteses Dentárias",
+    "viewAll": "Ver todos →",
+    "contactTitle": "Contacto",
+    "openEveryDay": "Aberto Todos os Dias",
+    "privacyPolicy": "Política de Privacidade",
+    "cookiePolicy": "Política de Cookies",
+    "ersLicensed": "Estabelecimento licenciado pela",
+    "ersEntity": "ERS - Entidade Reguladora da Saúde"
+  },
+  "testimonials": {
+    "googleReviews": "Avaliações Google",
+    "sectionTitle": "O Que Dizem os Nossos Pacientes",
+    "sectionDesc": "Avaliações reais de pacientes satisfeitos",
+    "basedOn": "Baseado em",
+    "reviews": "avaliações",
+    "swipeMore": "Deslize para ver mais",
+    "viewOn": "Ver no",
+    "viewAllGoogle": "Ver Todas as Avaliações no Google"
+  },
+  "faq": {
+    "pageTitle": "Perguntas Frequentes | Centro Dentário Colombo",
+    "pageDescription": "Encontre respostas às perguntas mais frequentes sobre tratamentos dentários: implantes, ortodontia, branqueamento, próteses e muito mais.",
+    "heroTitle": "Perguntas Frequentes",
+    "heroDesc": "Tire todas as suas dúvidas sobre os nossos tratamentos dentários",
+    "ctaTitle": "Não encontrou a resposta que procurava?",
+    "ctaDesc": "A nossa equipa está disponível para esclarecer todas as suas dúvidas. Entre em contacto connosco!",
+    "ctaCall": "Ligar Agora"
   }
 }
