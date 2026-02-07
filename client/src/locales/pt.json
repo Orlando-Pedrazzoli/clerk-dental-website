@@ -1,16 +1,16 @@
 {
-  "navbar": {
+ "navbar": {
     "treatments": "Tratamentos",
-    "clinicalTeam": "Corpo Clínico",
+    "scheduleAppointment": "Agendar Consulta",
+    "clinicalTeamLink": "Corpo Clínico",
     "contact": "Contacto",
     "faq": "FAQ",
     "faqMobile": "Perguntas Frequentes",
     "new": "Novo",
-    "scheduleAppointment": "Agendar Consulta",
+    "adminAccess": "Acesso Administrativo",
+    "adminMobile": "Acesso Admin",
     "clientArea": "Área do Cliente",
-    "adminAccess": "Acesso Admin",
-    "adminTitle": "Acesso Administrativo",
-    "language": "Idioma / Language"
+    "languageLabel": "Idioma / Language"
   },
   "hero": {
     "badge": "Aberto todos os dias",
@@ -129,5 +129,43 @@
     "ctaTitle": "Não encontrou a resposta que procurava?",
     "ctaDesc": "A nossa equipa está disponível para esclarecer todas as suas dúvidas. Entre em contacto connosco!",
     "ctaCall": "Ligar Agora"
-  }
+  },
+ "clinicalTeam": {
+    "back": "Voltar",
+    "heroTitle": "Nosso Corpo Clínico",
+    "heroDesc": "Uma equipa de profissionais altamente qualificados e experientes, dedicados a proporcionar os melhores cuidados dentários com tecnologia de ponta e atendimento humanizado.",
+    "sectionTitle": "Conheça Nossa Equipa",
+    "sectionDesc": "Profissionais dedicados ao seu sorriso e bem-estar",
+    "viewMore": "Ver mais",
+    "viewLess": "Ver menos",
+    "bookAppointment": "Marcar Consulta",
+    "share": "Partilhar",
+    "copyLink": "Copiar Link",
+    "linkCopied": "Link copiado!",
+    "shareText": "Conheça",
+    "shareTextSuffix": "no Centro Dentário Colombo!",
+    "whatsappMsg": "Olá! Gostaria de marcar uma consulta com",
+    "ctaTitle": "Agende Sua Consulta com Nossos Especialistas",
+    "ctaDesc": "Nossa equipa está pronta para cuidar do seu sorriso com excelência e dedicação",
+    "ctaCall": "Ligar Agora",
+    "ctaEmail": "Enviar Email",
+    "footerRights": "Todos os direitos reservados.",
+    "footerErs": "Estabelecimento licenciado pela ERS - Licença: 3297/2011"
+  },
+  "treatmentPage": {
+  "backToTreatments": "Voltar aos Tratamentos",
+  "whatIs": "O que é?",
+  "advantages": "Quais as vantagens?",
+  "importantInfo": "Informação Importante",
+  "ctaTitle": "Interessado neste tratamento?",
+  "ctaDesc": "Agende a sua consulta e comece a transformação do seu sorriso hoje mesmo!",
+  "bookAppointment": "Marcar Consulta",
+  "callNow": "Ligar Agora",
+  "otherTreatments": "Outros Tratamentos",
+  "footerRights": "Todos os direitos reservados.",
+  "footerErs": "Estabelecimento licenciado pela ERS - Licença: 3297/2011",
+  "seoSuffix": "Marque a sua consulta!",
+  "breadcrumbHome": "Início",
+  "breadcrumbTreatments": "Tratamentos"
+}
 }

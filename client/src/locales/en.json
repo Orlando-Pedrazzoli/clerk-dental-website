@@ -1,16 +1,16 @@
 {
   "navbar": {
     "treatments": "Treatments",
-    "clinicalTeam": "Clinical Team",
+    "scheduleAppointment": "Schedule Appointment",
+    "clinicalTeamLink": "Clinical Team",
     "contact": "Contact",
     "faq": "FAQ",
     "faqMobile": "Frequently Asked Questions",
     "new": "New",
-    "scheduleAppointment": "Book Appointment",
-    "clientArea": "Client Area",
     "adminAccess": "Admin Access",
-    "adminTitle": "Administrative Access",
-    "language": "Language / Idioma"
+    "adminMobile": "Admin Access",
+    "clientArea": "Client Area",
+    "languageLabel": "Idioma / Language"
   },
   "hero": {
     "badge": "Open every day",
@@ -129,5 +129,43 @@
     "ctaTitle": "Didn't find the answer you were looking for?",
     "ctaDesc": "Our team is available to answer all your questions. Get in touch with us!",
     "ctaCall": "Call Now"
-  }
+  },
+ "clinicalTeam": {
+    "back": "Back",
+    "heroTitle": "Our Clinical Team",
+    "heroDesc": "A team of highly qualified and experienced professionals, dedicated to providing the best dental care with cutting-edge technology and humanized service.",
+    "sectionTitle": "Meet Our Team",
+    "sectionDesc": "Professionals dedicated to your smile and well-being",
+    "viewMore": "View more",
+    "viewLess": "View less",
+    "bookAppointment": "Book Appointment",
+    "share": "Share",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link copied!",
+    "shareText": "Meet",
+    "shareTextSuffix": "at Centro Dentário Colombo!",
+    "whatsappMsg": "Hello! I would like to book an appointment with",
+    "ctaTitle": "Schedule Your Appointment with Our Specialists",
+    "ctaDesc": "Our team is ready to care for your smile with excellence and dedication",
+    "ctaCall": "Call Now",
+    "ctaEmail": "Send Email",
+    "footerRights": "All rights reserved.",
+    "footerErs": "Establishment licensed by ERS - License: 3297/2011"
+  },
+  "treatmentPage": {
+  "backToTreatments": "Back to Treatments",
+  "whatIs": "What is it?",
+  "advantages": "What are the advantages?",
+  "importantInfo": "Important Information",
+  "ctaTitle": "Interested in this treatment?",
+  "ctaDesc": "Schedule your appointment and start transforming your smile today!",
+  "bookAppointment": "Book Appointment",
+  "callNow": "Call Now",
+  "otherTreatments": "Other Treatments",
+  "footerRights": "All rights reserved.",
+  "footerErs": "Licensed establishment by ERS - License: 3297/2011",
+  "seoSuffix": "Book your appointment!",
+  "breadcrumbHome": "Home",
+  "breadcrumbTreatments": "Treatments"
+}
 }

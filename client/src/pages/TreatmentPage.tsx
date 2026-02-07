@@ -2,11 +2,16 @@ import { useParams, Link, Navigate } from 'react-router';
 import { useEffect } from 'react';
 import { SEO } from '../components/SEO';
 import { TreatmentJsonLd, BreadcrumbJsonLd } from '../components/JsonLd';
-import { treatments } from '../data/services-data';
+import { getTreatments } from '../data/services-data';
+import { useLanguage } from '../contexts/LanguageContext';
 import WhatsAppButton from '../components/WhatsAppButton';
 
 export default function TreatmentPage() {
   const { slug } = useParams<{ slug: string }>();
+  const { language, t } = useLanguage();
+
+  // Obter tratamentos no idioma atual
+  const treatments = getTreatments(language);
   
   // Scroll para o topo quando a página carregar ou o slug mudar
   useEffect(() => {
@@ -25,10 +30,10 @@ export default function TreatmentPage() {
   const path = `/tratamentos/${treatment.slug}`;
   
   // Descrição SEO baseada no tratamento
-  const seoDescription = `${treatment.title} no Centro Dentário Colombo em Lisboa. ${treatment.description.substring(0, 120)}... Marque a sua consulta!`;
+  const seoDescription = `${treatment.title} - Centro Dentário Colombo, Lisboa. ${treatment.description.substring(0, 120)}... ${t('treatmentPage.seoSuffix')}`;
 
   // Keywords
-  const seoKeywords = `${treatment.title.toLowerCase()}, ${treatment.subtitle.toLowerCase()}, tratamento dentário lisboa, centro dentário colombo, dentista lisboa`;
+  const seoKeywords = `${treatment.title.toLowerCase()}, ${treatment.subtitle.toLowerCase()}, ${language === 'en' ? 'dental treatment lisbon, centro dentário colombo, dentist lisbon' : 'tratamento dentário lisboa, centro dentário colombo, dentista lisboa'}`;
 
   return (
     <div className="min-h-screen bg-white">
@@ -45,8 +50,8 @@ export default function TreatmentPage() {
       {/* JSON-LD Structured Data */}
       <BreadcrumbJsonLd
         items={[
-          { name: 'Início', path: '/' },
-          { name: 'Tratamentos', path: '/#tratamentos' },
+          { name: t('treatmentPage.breadcrumbHome'), path: '/' },
+          { name: t('treatmentPage.breadcrumbTreatments'), path: '/#tratamentos' },
           { name: treatment.title, path: path }
         ]}
       />
@@ -78,7 +83,6 @@ export default function TreatmentPage() {
               to="/#tratamentos"
               className="text-gray-700 hover:text-blue-600 transition font-medium flex items-center gap-2"
               onClick={() => {
-                // Pequeno delay para permitir navegação antes do scroll
                 setTimeout(() => {
                   const tratamentosSection = document.getElementById('tratamentos');
                   if (tratamentosSection) {
@@ -90,7 +94,7 @@ export default function TreatmentPage() {
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
-              Voltar aos Tratamentos
+              {t('treatmentPage.backToTreatments')}
             </Link>
           </div>
         </div>
@@ -136,7 +140,7 @@ export default function TreatmentPage() {
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
               <span className="w-2 h-8 bg-blue-600 rounded"></span>
-              O que é?
+              {t('treatmentPage.whatIs')}
             </h2>
             <div className="prose prose-lg max-w-none">
               <p className="text-gray-700 leading-relaxed text-lg">
@@ -150,7 +154,7 @@ export default function TreatmentPage() {
             <div className="rounded-2xl overflow-hidden shadow-xl">
               <img
                 src={treatment.image1}
-                alt={`${treatment.title} - Imagem 1`}
+                alt={`${treatment.title} - 1`}
                 className="w-full h-[400px] object-cover"
               />
             </div>
@@ -160,7 +164,7 @@ export default function TreatmentPage() {
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
               <span className="w-2 h-8 bg-blue-600 rounded"></span>
-              Quais as vantagens?
+              {t('treatmentPage.advantages')}
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
               {treatment.fullContent.advantages.map((advantage, index) => (
@@ -192,7 +196,7 @@ export default function TreatmentPage() {
             <div className="rounded-2xl overflow-hidden shadow-xl">
               <img
                 src={treatment.image2}
-                alt={`${treatment.title} - Imagem 2`}
+                alt={`${treatment.title} - 2`}
                 className="w-full h-[400px] object-cover"
               />
             </div>
@@ -217,7 +221,7 @@ export default function TreatmentPage() {
                     />
                   </svg>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">Informação Importante</h3>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{t('treatmentPage.importantInfo')}</h3>
                     <p className="text-gray-700 leading-relaxed text-lg">
                       {treatment.fullContent.additionalInfo}
                     </p>
@@ -230,10 +234,10 @@ export default function TreatmentPage() {
           {/* Call to Action */}
           <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-8 md:p-12 text-center shadow-2xl">
             <h3 className="text-3xl font-bold text-white mb-4">
-              Interessado neste tratamento?
+              {t('treatmentPage.ctaTitle')}
             </h3>
             <p className="text-xl text-white/90 mb-8">
-              Agende a sua consulta e comece a transformação do seu sorriso hoje mesmo!
+              {t('treatmentPage.ctaDesc')}
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <a
@@ -253,7 +257,7 @@ export default function TreatmentPage() {
                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                   />
                 </svg>
-                Marcar Consulta
+                {t('treatmentPage.bookAppointment')}
               </a>
               <a
                 href="tel:+351216041355"
@@ -272,7 +276,7 @@ export default function TreatmentPage() {
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                   />
                 </svg>
-                Ligar Agora
+                {t('treatmentPage.callNow')}
               </a>
             </div>
           </div>
@@ -283,7 +287,7 @@ export default function TreatmentPage() {
       <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Outros Tratamentos
+            {t('treatmentPage.otherTreatments')}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {treatments
@@ -321,10 +325,10 @@ export default function TreatmentPage() {
       <footer className="bg-gray-900 text-white py-8 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-gray-400">
-            &copy; 2025 Centro Dentário Colombo. Todos os direitos reservados.
+            &copy; 2025 Centro Dentário Colombo. {t('treatmentPage.footerRights')}
           </p>
           <p className="text-sm text-gray-500 mt-2">
-            Estabelecimento licenciado pela ERS - Licença: 3297/2011
+            {t('treatmentPage.footerErs')}
           </p>
         </div>
       </footer>

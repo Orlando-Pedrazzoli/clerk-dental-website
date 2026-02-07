@@ -133,7 +133,7 @@ export default function Navbar() {
                       : 'text-white hover:text-blue-300'
                   }`}
                 >
-                  Tratamentos
+                  {t('navbar.treatments')}
                   <svg
                     className={`w-4 h-4 transition-transform ${treatmentsDropdownOpen ? 'rotate-180' : ''}`}
                     fill="none"
@@ -197,7 +197,7 @@ export default function Navbar() {
                           onClick={() => setTreatmentsDropdownOpen(false)}
                           className="block text-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition font-semibold"
                         >
-                          Agendar Consulta
+                          {t('navbar.scheduleAppointment')}
                         </a>
                       </div>
                     </div>
@@ -214,7 +214,7 @@ export default function Navbar() {
                     : 'text-white hover:text-blue-300'
                 }`}
               >
-                Corpo Clínico
+                {t('navbar.clinicalTeamLink')}
               </Link>
 
               <a 
@@ -225,7 +225,7 @@ export default function Navbar() {
                     : 'text-white hover:text-blue-300'
                 }`}
               >
-                Contacto
+                {t('navbar.contact')}
               </a>
 
               <Link 
@@ -237,7 +237,7 @@ export default function Navbar() {
                     : 'text-white hover:text-blue-300'
                 }`}
               >
-                FAQ
+                {t('navbar.faq')}
               </Link>
 
               {/* Ícone Admin Discreto */}
@@ -249,7 +249,7 @@ export default function Navbar() {
                     ? 'text-gray-400 hover:text-blue-600' 
                     : 'text-white/70 hover:text-white'
                 }`}
-                title="Acesso Administrativo"
+                title={t('navbar.adminAccess')}
               >
                 <svg
                   className="w-5 h-5"
@@ -278,7 +278,7 @@ export default function Navbar() {
                       : 'bg-white text-blue-600 hover:bg-blue-50'
                   }`}
                 >
-                  Área do Cliente
+                  {t('navbar.clientArea')}
                 </button>
               )}
 
@@ -412,7 +412,7 @@ export default function Navbar() {
                   className="text-gray-700 hover:text-blue-600 transition py-2 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Tratamentos
+                  {t('navbar.treatments')}
                 </a>
                 <Link
                   to="/corpo-clinico"
@@ -422,14 +422,14 @@ export default function Navbar() {
                   }}
                   className="text-gray-700 hover:text-blue-600 transition py-2 font-medium"
                 >
-                  Corpo Clínico
+                  {t('navbar.clinicalTeamLink')}
                 </Link>
                 <a
                   href="#contacto"
                   className="text-gray-700 hover:text-blue-600 transition py-2 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Contacto
+                  {t('navbar.contact')}
                 </a>
                 <Link
                   to="/faq"
@@ -439,15 +439,15 @@ export default function Navbar() {
                   }}
                   className="text-gray-700 hover:text-blue-600 transition py-2 font-medium flex items-center gap-2"
                 >
-                  Perguntas Frequentes
+                  {t('navbar.faqMobile')}
                   <span className="text-[10px] text-white bg-blue-600 rounded px-1.5 py-0.5 font-medium">
-                    Novo
+                    {t('navbar.new')}
                   </span>
                 </Link>
 
                 {/* Language Selector Mobile */}
                 <div className="border-t pt-3">
-                  <div className="text-gray-500 text-sm font-medium mb-2 px-2">Idioma / Language</div>
+                  <div className="text-gray-500 text-sm font-medium mb-2 px-2">{t('navbar.languageLabel')}</div>
                   <div className="flex gap-2">
                     <button
                       onClick={() => {
@@ -494,7 +494,7 @@ export default function Navbar() {
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
-                  Acesso Admin
+                  {t('navbar.adminMobile')}
                 </Link>
 
                 {/* Área do Cliente Mobile */}
@@ -510,7 +510,7 @@ export default function Navbar() {
                     }}
                     className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition text-center font-semibold w-full mt-2"
                   >
-                    Área do Cliente
+                    {t('navbar.clientArea')}
                   </button>
                 )}
               </div>

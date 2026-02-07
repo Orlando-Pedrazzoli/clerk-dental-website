@@ -5,10 +5,14 @@ import WhatsAppButton from '../components/WhatsAppButton';
 import { useLanguage } from '../contexts/LanguageContext';
 import Navbar from '../components/Navbar';
 import TestimonialsSection from '../components/TestimonialsSection';
-import { treatments } from '../data/services-data';
+import { getTreatments } from '../data/services-data';
 
 export default function HomePage() {
-  const { t } = useLanguage();
+  // AQUI: Extraímos 'language' e apelidamos de 'currentLanguage'
+  const { t, language: currentLanguage } = useLanguage(); 
+  
+  // Agora 'currentLanguage' existe e pode ser usada aqui:
+  const treatments = getTreatments(currentLanguage);
 
   return (
     <div className="min-h-screen bg-white">
